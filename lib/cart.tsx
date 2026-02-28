@@ -6,23 +6,27 @@ export type Product = {
   id: string;
   brand: string;
   name: string;
+  category: string; // ✅ utilisé dans app/page.tsx
   price: number;
   oldPrice?: number;
-  tag?: string;
-  ship: string;
+  badge?: string; // ✅ utilisé dans app/page.tsx
+  desc?: string; // ✅ utilisé dans app/page.tsx
+  ship?: string; // ✅ certains produits ont ship, on le rend optionnel
   image: string;
-  details: string[];
 };
 
 type CartItem = { product: Product; qty: number };
 
-function euro(n: number) {
-  return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
+export function euro(n: number) {
+  return new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  }).format(n);
 }
 
 type CartCtx = {
   cart: CartItem[];
-  add: (p: Product) => void;
+  add: (p: Product, qty?: number) => void; // ✅ add(p, 1) OK
   inc: (id: string) => void;
   dec: (id: string) => void;
   remove: (id: string) => void;
@@ -38,36 +42,60 @@ const Ctx = createContext<CartCtx | null>(null);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const add = (p: Product) => {
+  const add = (p: Product, qty: number = 1) => {
+    const q = Math.max(1, Math.floor(qty || 1));
     setCart((prev) => {
       const idx = prev.findIndex((x) => x.product.id === p.id);
       if (idx >= 0) {
         const copy = [...prev];
-        copy[idx] = { ...copy[idx], qty: copy[idx].qty + 1 };
+        copy[idx] = { ...copy[idx], qty: copy[idx].qty + q };
         return copy;
       }
-      return [...prev, { product: p, qty: 1 }];
+      return [...prev, { product: p, qty: q }];
     });
   };
 
-  const inc = (id: string) => setCart((p) => p.map((it) => (it.product.id === id ? { ...it, qty: it.qty + 1 } : it)));
-  const dec = (id: string) =>
+  const inc = (id: string) =>
     setCart((p) =>
-      p
-        .map((it) => (it.product.id === id ? { ...it, qty: Math.max(1, it.qty - 1) } : it))
+      p.map((it) =>
+        it.product.id === id ? { ...it, qty: it.qty + 1 } : it
+      )
     );
 
-  const remove = (id: string) => setCart((p) => p.filter((it) => it.product.id !== id));
+  const dec = (id: string) =>
+    setCart((p) =>
+      p.map((it) =>
+        it.product.id === id ? { ...it, qty: Math.max(1, it.qty - 1) } : it
+      )
+    );
+
+  const remove = (id: string) =>
+    setCart((p) => p.filter((it) => it.product.id !== id));
+
   const clear = () => setCart([]);
 
-  const subtotal = useMemo(() => cart.reduce((s, it) => s + it.qty * it.product.price, 0), [cart]);
+  const subtotal = useMemo(
+    () => cart.reduce((s, it) => s + it.qty * it.product.price, 0),
+    [cart]
+  );
 
-  // règle simple livraison: offerte dès 99€, sinon 4.99€
+  // règle simple livraison: offerte dès 99€, sinon 4.99€ (si panier non vide)
   const shipping = subtotal >= 99 ? 0 : cart.length ? 4.99 : 0;
   const total = subtotal + shipping;
   const count = cart.reduce((s, it) => s + it.qty, 0);
 
-  const value: CartCtx = { cart, add, inc, dec, remove, clear, subtotal, shipping, total, count };
+  const value: CartCtx = {
+    cart,
+    add,
+    inc,
+    dec,
+    remove,
+    clear,
+    subtotal,
+    shipping,
+    total,
+    count,
+  };
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
@@ -77,5 +105,3 @@ export function useCart() {
   if (!ctx) throw new Error("useCart must be used within CartProvider");
   return ctx;
 }
-
-export { euro };
