@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import NexusShell from "../components/NexusShell";
-import { useCart, euro } from "../lib/cart";
+import NexusShell from "@/components/NexusShell";
+import { useCart, euro } from "@/lib/cart";
 
 export default function CartPage() {
   const { cart, inc, dec, remove, subtotal, shipping, total, clear } = useCart();
