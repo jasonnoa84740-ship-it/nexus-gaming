@@ -6,6 +6,7 @@ import { useCart, euro } from "../lib/cart";
 
 export default function CartPage() {
   const { cart, inc, dec, remove, subtotal, shipping, total, clear } = useCart();
+
   async function goCheckout() {
     const res = await fetch("/api/checkout", {
       method: "POST",
@@ -20,17 +21,27 @@ export default function CartPage() {
       }),
     });
 
-    const data = await res.json();
+    const text = await res.text();
+    let data: any = {};
+    try { data = JSON.parse(text); } catch { data = { raw: text }; }
 
     if (!res.ok) {
-      alert(data.error || "Erreur Stripe");
+      alert(data?.error || `Erreur checkout (${res.status})`);
+      console.log("Checkout error:", res.status, data);
+      return;
+    }
+
+    if (!data?.url) {
+      alert("Stripe URL manquante (voir console)");
+      console.log("No URL:", data);
       return;
     }
 
     window.location.href = data.url;
   }
+
   return (
-    <NexusShell title="Panier" subtitle="Gère tes articles puis passe au paiement.">
+    <NexusShell title="Panier" subtitle="Gère tes articles puis passe au paiement sécurisé Stripe.">
       <section className="mx-auto max-w-6xl px-4 pb-16">
         {cart.length === 0 ? (
           <div className="nx-card p-8">
@@ -63,13 +74,9 @@ export default function CartPage() {
 
                   <div className="mt-3 flex items-center justify-between">
                     <div className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
-                      <button className="px-2" onClick={() => dec(it.product.id)}>
-                        −
-                      </button>
-                      <span className="w-8 text-center font-bold">{it.qty}</span>
-                      <button className="px-2" onClick={() => inc(it.product.id)}>
-                        +
-                      </button>
+                      <button className="px-2" onClick={() => dec(it.product.id)}>−</button>
+                      <span className="w-8 text-center font-black">{it.qty}</span>
+                      <button className="px-2" onClick={() => inc(it.product.id)}>+</button>
                     </div>
 
                     <div className="font-black">{euro(it.qty * it.product.price)}</div>
@@ -94,13 +101,15 @@ export default function CartPage() {
                 <span>{euro(total)}</span>
               </div>
 
-              <button
-                  className="nx-btn nx-btn-primary w-full mt-4"
-                  onClick={goCheckout}
-                                        >
-                                             Payer en sécurisé
-                                     </button>
-              <button className="nx-btn nx-btn-ghost w-full mt-2" onClick={clear}>
+              <button className="nx-btn nx-btn-primary w-full mt-4" onClick={goCheckout}>
+                Payer en sécurisé
+              </button>
+
+              <div className="mt-3 text-xs text-white/55">
+                Paiement sécurisé via Stripe • Retours 30 jours • Support 7j/7
+              </div>
+
+              <button className="nx-btn nx-btn-ghost w-full mt-3" onClick={clear}>
                 Vider le panier
               </button>
             </div>

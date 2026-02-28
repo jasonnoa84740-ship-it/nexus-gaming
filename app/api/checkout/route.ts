@@ -12,7 +12,7 @@ type Body = {
 export async function POST(req: Request) {
   try {
     if (!process.env.STRIPE_SECRET_KEY) {
-      return NextResponse.json({ error: "STRIPE_SECRET_KEY manquant" }, { status: 500 });
+      return NextResponse.json({ error: "STRIPE_SECRET_KEY manquant (Vercel/.env)" }, { status: 500 });
     }
 
     const body = (await req.json()) as Body;
@@ -22,11 +22,11 @@ export async function POST(req: Request) {
     }
 
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = body.items.map((it) => ({
-      quantity: it.qty,
+      quantity: Number(it.qty || 1),
       price_data: {
         currency: "eur",
-        unit_amount: Math.round(it.price * 100),
-        product_data: { name: it.name },
+        unit_amount: Math.round(Number(it.price) * 100),
+        product_data: { name: String(it.name || "Produit") },
       },
     }));
 

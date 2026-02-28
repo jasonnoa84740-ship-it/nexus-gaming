@@ -1,96 +1,81 @@
 @import "tailwindcss";
 
 :root { color-scheme: dark; }
-html, body { height: 100%; }
 
-/* ====== Nexus vibe background ====== */
-.nx-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  overflow: hidden;
+body {
+  margin: 0;
+  background: #060a12;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* animated bg layer */
+.nx-bg{
+  position:absolute; inset:-40px;
   background:
-    radial-gradient(circle at 30% 20%, rgba(124,58,237,.35), transparent 45%),
-    radial-gradient(circle at 75% 35%, rgba(6,182,212,.20), transparent 45%),
-    radial-gradient(circle at 50% 85%, rgba(99,102,241,.16), transparent 50%),
-    #070A12;
-}
-
-.nx-grid {
-  position: absolute;
-  inset: 0;
-  opacity: .12;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,.12) 1px, transparent 1px);
-  background-size: 44px 44px;
-  animation: nxGridMove 18s linear infinite;
-}
-
-@keyframes nxGridMove {
-  from { transform: translate3d(0,0,0); }
-  to   { transform: translate3d(-44px,-44px,0); }
-}
-
-.nx-blob {
-  position: absolute;
-  width: 560px;
-  height: 560px;
-  border-radius: 9999px;
-  filter: blur(70px);
-  opacity: .35;
+    radial-gradient(800px 400px at 20% 20%, rgba(124,58,237,.40), transparent 60%),
+    radial-gradient(900px 500px at 80% 70%, rgba(6,182,212,.26), transparent 62%),
+    linear-gradient(120deg, rgba(124,58,237,.12), rgba(6,182,212,.10));
+  filter: blur(0px);
   animation: nxFloat 10s ease-in-out infinite;
-  transform: translateZ(0);
 }
-.nx-blob.one { left: -180px; top: -170px; background: rgba(124,58,237,.75); }
-.nx-blob.two { right: -200px; bottom: -200px; background: rgba(6,182,212,.55); animation-duration: 12s; opacity: .25; }
-.nx-blob.three { left: 30%; bottom: -260px; background: rgba(99,102,241,.65); animation-duration: 14s; opacity: .18; }
-
-@keyframes nxFloat {
+@keyframes nxFloat{
   0%,100% { transform: translate3d(0,0,0) scale(1); }
-  50%     { transform: translate3d(48px,-34px,0) scale(1.06); }
+  50% { transform: translate3d(10px,-10px,0) scale(1.02); }
 }
 
-/* Subtle noise */
-.nx-noise {
-  position: absolute;
-  inset: 0;
-  opacity: .06;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
-}
-
-/* ===== Buttons / click feel (NO @apply) ===== */
-.nx-btn {
-  border-radius: 16px;
-  padding: 12px 20px;
-  font-weight: 800;
-  transition: all .2s ease;
-  user-select: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.nx-btn:active { transform: scale(.98); }
-
-.nx-btn-primary {
-  color: white;
-  background: linear-gradient(90deg, #7c3aed, #06b6d4);
-  box-shadow: 0 18px 40px rgba(124,58,237,.22);
-}
-
-.nx-btn-ghost {
+.nx-card{
+  border-radius: 28px;
   border: 1px solid rgba(255,255,255,.10);
+  background: rgba(10,14,24,.45);
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  backdrop-filter: blur(18px);
+}
+
+.nx-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:10px;
+  border-radius: 18px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color:white;
+  padding: 10px 14px;
+  font-weight: 800;
+  transition: transform .15s ease, opacity .15s ease, background .15s ease;
+}
+.nx-btn:hover{ opacity:.95; transform: translateY(-1px); }
+.nx-btn:active{ transform: translateY(0px) scale(.99); }
+
+.nx-btn-primary{
+  border: 1px solid rgba(255,255,255,.10);
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  box-shadow: 0 16px 30px rgba(124,58,237,.18);
+}
+
+.nx-btn-ghost{
   background: rgba(255,255,255,.05);
 }
-.nx-btn-ghost:hover { background: rgba(255,255,255,.10); }
 
-/* Glass cards */
-.nx-card {
-  border-radius: 24px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.03);
-  overflow: hidden;
+.nx-input{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  padding: 12px 14px;
+  outline: none;
+  color: white;
 }
-.nx-card:hover { background: rgba(255,255,255,.05); }
+.nx-input::placeholder{ color: rgba(255,255,255,.45); }
+
+.nx-chip{
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  padding: 8px 10px;
+}
+
+.nx-badge{
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.35);
+  padding: 6px 10px;
+  font-size: 12px;
+}
