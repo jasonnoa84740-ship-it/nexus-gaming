@@ -39,7 +39,41 @@ export default function CartPage() {
 
     window.location.href = data.url;
   }
+async function goCheckout() {
+  try {
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: cart.map((it) => ({
+          id: it.product.id,
+          name: it.product.name,
+          price: it.product.price,
+          qty: it.qty,
+        })),
+      }),
+    });
 
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data?.error || "Erreur checkout");
+      console.log("Checkout error:", data);
+      return;
+    }
+
+    if (!data?.url) {
+      alert("URL Stripe manquante (voir console)");
+      console.log("No url:", data);
+      return;
+    }
+
+    window.location.href = data.url; // ✅ redirection Stripe
+  } catch (e) {
+    alert("Erreur réseau checkout (voir console)");
+    console.log(e);
+  }
+}
   return (
     <NexusShell title="Panier" subtitle="Gère tes articles puis passe au paiement sécurisé Stripe.">
       <section className="mx-auto max-w-6xl px-4 pb-16">
@@ -101,9 +135,13 @@ export default function CartPage() {
                 <span>{euro(total)}</span>
               </div>
 
-              <button className="nx-btn nx-btn-primary w-full mt-4" onClick={goCheckout}>
-                Payer en sécurisé
-              </button>
+              <button
+                                           type="button"
+                                          className="nx-btn nx-btn-primary w-full mt-4"
+                                          onClick={goCheckout}
+                                      >
+                                         Payer en sécurisé
+                                      </button>
 
               <div className="mt-3 text-xs text-white/55">
                 Paiement sécurisé via Stripe • Retours 30 jours • Support 7j/7
