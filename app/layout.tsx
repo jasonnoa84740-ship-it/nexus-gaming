@@ -1,5 +1,5 @@
 import "./globals.css";
-import { CartProvider } from "./lib/cart";
+import { CartProvider } from "@/lib/cart";
 
 export const metadata = {
   title: "Nexus Gaming",
