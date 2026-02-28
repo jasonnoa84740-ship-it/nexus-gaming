@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import AuthGate from "@/components/AuthGate";
@@ -31,11 +31,11 @@ function TabBtn({
   );
 }
 
-export default function AccountPage() {
+function AccountInner() {
   const router = useRouter();
-  const params = useSearchParams();
+  const params = useSearchParams(); // ✅ maintenant OK car dans Suspense
 
-  const tab = (params.get("tab") as Tab) || "settings";
+  const tab = ((params.get("tab") as Tab) || "settings") satisfies Tab;
 
   const [user, setUser] = useState<any>(null);
   const [pseudo, setPseudo] = useState("");
@@ -99,10 +99,26 @@ export default function AccountPage() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <TabBtn active={tab === "settings"} label="⚙️ Réglages" onClick={() => setTab("settings")} />
-            <TabBtn active={tab === "orders"} label="📦 Commandes" onClick={() => setTab("orders")} />
-            <TabBtn active={tab === "tracking"} label="🚚 Suivi" onClick={() => setTab("tracking")} />
-            <TabBtn active={tab === "promos"} label="🎟️ Codes promo" onClick={() => setTab("promos")} />
+            <TabBtn
+              active={tab === "settings"}
+              label="⚙️ Réglages"
+              onClick={() => setTab("settings")}
+            />
+            <TabBtn
+              active={tab === "orders"}
+              label="📦 Commandes"
+              onClick={() => setTab("orders")}
+            />
+            <TabBtn
+              active={tab === "tracking"}
+              label="🚚 Suivi"
+              onClick={() => setTab("tracking")}
+            />
+            <TabBtn
+              active={tab === "promos"}
+              label="🎟️ Codes promo"
+              onClick={() => setTab("promos")}
+            />
           </div>
         </div>
 
@@ -139,10 +155,13 @@ export default function AccountPage() {
                         <div className="font-semibold">
                           Commande #{String(o.id).slice(0, 8)}
                         </div>
-                        <div className="text-xs text-white/60">{new Date(o.created_at).toLocaleString("fr-FR")}</div>
+                        <div className="text-xs text-white/60">
+                          {new Date(o.created_at).toLocaleString("fr-FR")}
+                        </div>
                       </div>
                       <div className="mt-2 text-sm text-white/70">
-                        Statut: <b>{o.status}</b> • Total: <b>{(o.amount_total ?? 0) / 100}€</b>
+                        Statut: <b>{o.status}</b> • Total:{" "}
+                        <b>{(o.amount_total ?? 0) / 100}€</b>
                       </div>
                       <div className="mt-2 text-sm text-white/70">
                         Suivi: <b>{o.tracking_status}</b>{" "}
@@ -181,7 +200,9 @@ export default function AccountPage() {
                         <div className="text-sm text-white/70">-{p.percent}%</div>
                       </div>
                       <div className="text-xs text-white/60 mt-1">
-                        {p.expires_at ? `Expire le ${new Date(p.expires_at).toLocaleDateString("fr-FR")}` : "Sans expiration"}
+                        {p.expires_at
+                          ? `Expire le ${new Date(p.expires_at).toLocaleDateString("fr-FR")}`
+                          : "Sans expiration"}
                       </div>
                     </div>
                   ))
@@ -195,5 +216,21 @@ export default function AccountPage() {
         </div>
       </div>
     </AuthGate>
+  );
+}
+
+export default function AccountPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center px-4">
+          <div className="nx-card p-6 max-w-md w-full text-white/80">
+            Chargement du compte…
+          </div>
+        </div>
+      }
+    >
+      <AccountInner />
+    </Suspense>
   );
 }
