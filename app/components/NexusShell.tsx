@@ -1,5 +1,6 @@
 "use client";
 
+import NexusHeader from "./NexusHeader";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "../lib/cart";
