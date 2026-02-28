@@ -1,5 +1,19 @@
 "use client";
 
+import AuthGate from "./components/AuthGate";
+import NexusShell from "./components/NexusShell";
+
+export default function HomePage() {
+  return (
+    <AuthGate>
+      <NexusShell>
+        {/* ton shop actuel ici */}
+        <div>TON SHOP / PRODUITS / etc...</div>
+      </NexusShell>
+    </AuthGate>
+  );
+}
+
 import { useMemo, useState } from "react";
 import NexusShell from "./components/NexusShell";
 import { Product, useCart, euro } from "./lib/cart";

@@ -2,85 +2,56 @@
 
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function SignupPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [pass, setPass] = useState("");
   const [pseudo, setPseudo] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  async function handleSignup(e: React.FormEvent) {
+  async function signup(e: React.FormEvent) {
     e.preventDefault();
-    setMessage(null);
+    setLoading(true);
+    setMsg(null);
 
-    const { data, error } = await supabase.auth.signUp({
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+    const { error } = await supabase.auth.signUp({
       email,
-      password,
+      password: pass,
       options: {
-        data: { pseudo },
+        emailRedirectTo: `${siteUrl}/auth/callback`,
+        data: { pseudo }, // metadata profil
       },
     });
 
-    if (error) {
-      setMessage(error.message);
-      return;
-    }
+    setLoading(false);
 
-    if (!data.session) {
-      setMessage("Compte créé ! Vérifie ton email.");
-      return;
-    }
+    if (error) return setMsg("Erreur: " + error.message);
 
-    router.push("/account");
+    setMsg("✅ Compte créé. Regarde tes emails et confirme ton inscription.");
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-white">
-      <div className="nx-card p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold">Créer un compte</h1>
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="nx-card p-6 max-w-md w-full">
+        <h1 className="text-xl font-black">Créer un compte</h1>
 
-        <form onSubmit={handleSignup} className="space-y-3 mt-5">
-          <input
-            className="nx-input w-full"
-            placeholder="Pseudo"
-            value={pseudo}
-            onChange={(e) => setPseudo(e.target.value)}
-            required
-          />
-          <input
-            className="nx-input w-full"
-            placeholder="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            className="nx-input w-full"
-            placeholder="Mot de passe"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-          <button className="nx-btn nx-btn-primary w-full">
-            S'inscrire
+        <form onSubmit={signup} className="mt-4 space-y-3">
+          <input className="nx-input w-full" placeholder="Pseudo" value={pseudo} onChange={(e) => setPseudo(e.target.value)} />
+          <input className="nx-input w-full" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input className="nx-input w-full" placeholder="Mot de passe" type="password" value={pass} onChange={(e) => setPass(e.target.value)} />
+          <button disabled={loading} className="nx-btn nx-btn-primary w-full">
+            {loading ? "Création..." : "S’inscrire"}
           </button>
         </form>
 
-        {message && (
-          <div className="mt-4 text-sm text-white/70">{message}</div>
-        )}
+        {msg && <div className="mt-3 text-sm text-white/80">{msg}</div>}
 
-        <div className="mt-4 text-sm">
-          Déjà un compte ?{" "}
-          <Link href="/login" className="underline">
-            Se connecter
-          </Link>
+        <div className="mt-4 text-sm text-white/70">
+          Déjà un compte ? <Link className="underline" href="/login">Se connecter</Link>
         </div>
       </div>
     </div>

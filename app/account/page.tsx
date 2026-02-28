@@ -3,49 +3,68 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import AuthGate from "../components/AuthGate";
 
 export default function AccountPage() {
-  const router = useRouter();
   const [user, setUser] = useState<any>(null);
+  const [pseudo, setPseudo] = useState("");
+  const [msg, setMsg] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) {
-        router.push("/login");
-      } else {
-        setUser(data.user);
-      }
+      setUser(data.user);
+      setPseudo(data.user?.user_metadata?.pseudo || "");
     });
-  }, [router]);
+  }, []);
+
+  async function saveProfile() {
+    setMsg(null);
+    const { error } = await supabase.auth.updateUser({
+      data: { pseudo },
+    });
+    if (error) setMsg("Erreur: " + error.message);
+    else setMsg("✅ Profil mis à jour");
+  }
 
   async function logout() {
     await supabase.auth.signOut();
-    router.push("/");
+    router.replace("/auth");
   }
 
-  if (!user) return null;
-
   return (
-    <div className="min-h-screen flex items-center justify-center text-white">
-      <div className="nx-card p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold">Mon profil</h1>
+    <AuthGate>
+      <div className="min-h-screen px-4 py-10 max-w-3xl mx-auto">
+        <div className="nx-card p-6">
+          <h1 className="text-2xl font-black">Mon compte</h1>
+          <p className="text-white/70 mt-1">{user?.email}</p>
 
-        <div className="mt-4 space-y-2 text-white/70">
-          <div>Email : {user.email}</div>
-          <div>Pseudo : {user.user_metadata?.pseudo || "—"}</div>
-          <div>ID : {user.id}</div>
-        </div>
+          <div id="settings" className="mt-6">
+            <h2 className="font-black text-lg">⚙️ Réglages</h2>
+            <div className="mt-3 space-y-2">
+              <label className="text-sm text-white/70">Pseudo</label>
+              <input className="nx-input w-full" value={pseudo} onChange={(e) => setPseudo(e.target.value)} />
+              <button onClick={saveProfile} className="nx-btn nx-btn-primary">
+                Enregistrer
+              </button>
+              {msg && <div className="text-sm text-white/80">{msg}</div>}
+            </div>
+          </div>
 
-        <div className="mt-6 flex gap-3">
-          <Link href="/" className="nx-btn nx-btn-ghost">
-            Boutique
-          </Link>
-          <button onClick={logout} className="nx-btn nx-btn-primary">
-            Déconnexion
-          </button>
+          <div id="orders" className="mt-8">
+            <h2 className="font-black text-lg">📦 Mes commandes</h2>
+            <p className="text-white/70 mt-2">
+              (On va les brancher après : on enregistrera les commandes Stripe dans Supabase.)
+            </p>
+          </div>
+
+          <div className="mt-8">
+            <button onClick={logout} className="nx-btn nx-btn-ghost">
+              🚪 Déconnexion
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </AuthGate>
   );
 }
