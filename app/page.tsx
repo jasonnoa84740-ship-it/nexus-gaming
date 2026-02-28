@@ -1,152 +1,717 @@
 "use client";
 
+import { useMemo, useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+
 import AuthGate from "./components/AuthGate";
 import NexusShell from "./components/NexusShell";
+import { useCart, euro, Product } from "./lib/cart";
 
-export default function HomePage() {
-  return (
-    <AuthGate>
-      <NexusShell>
-        {/* ton shop actuel ici */}
-        <div>TON SHOP / PRODUITS / etc...</div>
-      </NexusShell>
-    </AuthGate>
-  );
-}
+type Cat =
+  | "GPU"
+  | "PC"
+  | "Console"
+  | "Écran"
+  | "Clavier"
+  | "Souris"
+  | "Casque"
+  | "Manette"
+  | "VR"
+  | "Streaming"
+  | "Stockage"
+  | "Réseau"
+  | "Chaise"
+  | "Accessoires";
 
-import { useMemo, useState } from "react";
-import NexusShell from "./components/NexusShell";
-import { Product, useCart, euro } from "./lib/cart";
-import Link from "next/link";
+const year = new Date().getFullYear();
+
+const P = (seed: string) => `https://picsum.photos/seed/${encodeURIComponent(seed)}/900/700`;
 
 const PRODUCTS: Product[] = [
+  // GPU
   {
-    id: "gpu-5090",
+    id: "gpu-rtx-5070",
     brand: "NVIDIA",
-    name: "RTX 5090 ULTRA RGB",
-    price: 2199,
-    oldPrice: 2399,
-    tag: "Nouveau 2026",
-    ship: "Livraison 24/48h • Point Relais dès 2,99€",
-    image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d4?auto=format&fit=crop&w=1200&q=80",
-    details: ["Ray Tracing nouvelle gen", "DLSS • Perf boost", "Garantie 2 ans"],
+    name: "GeForce RTX 5070 Twin RGB",
+    category: "GPU",
+    price: 379,
+    oldPrice: 429,
+    badge: "Nouveau 2026",
+    desc:
+      "GPU perf/€ ultra solide pour 1440p. Refroidissement silencieux, backplate, RGB sobre.",
+    ship: "Livraison 48h • Point Relais 2,99€",
+    image: P("rtx5070"),
   },
   {
-    id: "ps5-pro",
+    id: "gpu-rx-8800",
+    brand: "AMD",
+    name: "Radeon RX 8800 Pulse",
+    category: "GPU",
+    price: 349,
+    oldPrice: 399,
+    badge: "Best deal",
+    desc:
+      "Gros FPS en 1440p, consommation maîtrisée. Idéale pour un PC gaming équilibré.",
+    ship: "Livraison 48h • Point Relais offert dès 199€",
+    image: P("rx8800"),
+  },
+  {
+    id: "gpu-rtx-4060",
+    brand: "NVIDIA",
+    name: "GeForce RTX 4060 Compact",
+    category: "GPU",
+    price: 219,
+    oldPrice: 249,
+    badge: "Pas cher",
+    desc:
+      "Parfaite pour un premier PC gamer. DLSS, encodage stream, format compact.",
+    ship: "Livraison 2-3 jours • Retours 30 jours",
+    image: P("rtx4060"),
+  },
+
+  // PC / Bundles
+  {
+    id: "pc-starter-144",
+    brand: "Nexus",
+    name: "PC Starter 144FPS (1080p)",
+    category: "PC",
+    price: 599,
+    oldPrice: 679,
+    badge: "Top vente",
+    desc:
+      "Config prête à jouer: CPU 6 cœurs, 16Go RAM, SSD NVMe. Ultra fluide en 1080p.",
+    ship: "Livraison 3-5 jours • Montage inclus",
+    image: P("pc1080"),
+  },
+  {
+    id: "pc-creator-stream",
+    brand: "Nexus",
+    name: "PC Stream & Creator",
+    category: "PC",
+    price: 799,
+    oldPrice: 899,
+    badge: "Streaming",
+    desc:
+      "Pour streamer + jouer: CPU multi-cœurs, 32Go RAM, SSD rapide. Setup stable.",
+    ship: "Livraison 3-5 jours • Support 7j/7",
+    image: P("pcstream"),
+  },
+
+  // Console
+  {
+    id: "console-ps5-slim",
     brand: "PlayStation",
-    name: "Console PS5 Pro Pack",
-    price: 699,
-    oldPrice: 749,
-    tag: "Best-seller",
-    ship: "Livraison 2-3 jours • Point Relais offert dès 99€",
-    image: "https://images.unsplash.com/photo-1606813909355-c7cfa7c8fef2?auto=format&fit=crop&w=1200&q=80",
-    details: ["Pack prêt à jouer", "Manette + câbles", "Stock limité"],
+    name: "Console PS5 Slim (Edition standard)",
+    category: "Console",
+    price: 449,
+    oldPrice: 499,
+    badge: "Populaire",
+    desc:
+      "La console incontournable pour les exclus. Plus compacte, plus silencieuse.",
+    ship: "Livraison 24/48h • Point Relais 2,99€",
+    image: P("ps5slim"),
   },
   {
-    id: "headset-71",
+    id: "console-switch-oled",
+    brand: "Nintendo",
+    name: "Switch OLED + Housse",
+    category: "Console",
+    price: 299,
+    oldPrice: 329,
+    badge: "Nomade",
+    desc:
+      "Écran OLED, couleurs magnifiques. Parfait pour jouer partout sans prise de tête.",
+    ship: "Livraison 48h • Retours 30 jours",
+    image: P("switcholed"),
+  },
+
+  // Écran
+  {
+    id: "screen-27-165",
+    brand: "Nexus",
+    name: "Écran 27\" 165Hz IPS (1ms)",
+    category: "Écran",
+    price: 169,
+    oldPrice: 199,
+    badge: "Smooth",
+    desc:
+      "165Hz ultra fluide, IPS colors, idéal FPS/MOBA. Support VESA.",
+    ship: "Livraison 2-3 jours • Point Relais offert dès 199€",
+    image: P("screen27"),
+  },
+  {
+    id: "screen-24-144",
+    brand: "Nexus",
+    name: "Écran 24\" 144Hz (Gaming)",
+    category: "Écran",
+    price: 119,
+    oldPrice: 149,
+    badge: "Pas cher",
+    desc:
+      "Le bon plan 144Hz: parfait pour starter l’e-sport en 1080p.",
+    ship: "Livraison 2-3 jours • Retours 30 jours",
+    image: P("screen24"),
+  },
+
+  // Clavier
+  {
+    id: "kbd-mecha-75",
+    brand: "Nexus",
+    name: "Clavier Mécanique 75% (Hot-swap)",
+    category: "Clavier",
+    price: 69,
+    oldPrice: 89,
+    badge: "Pro",
+    desc:
+      "Compact, RGB, hot-swap. Touches PBT, super feeling pour tryhard.",
+    ship: "Livraison 48h • Point Relais 2,99€",
+    image: P("keyboard75"),
+  },
+  {
+    id: "kbd-lowprofile",
+    brand: "Nexus",
+    name: "Clavier Low-profile Wireless",
+    category: "Clavier",
+    price: 49,
+    oldPrice: 59,
+    badge: "Sans fil",
+    desc:
+      "Confort bureautique + gaming chill. Autonomie longue durée.",
+    ship: "Livraison 48h • Retours 30 jours",
+    image: P("keyboardlow"),
+  },
+
+  // Souris
+  {
+    id: "mouse-ultralight",
+    brand: "Nexus",
+    name: "Souris Ultralight 59g (Wireless)",
+    category: "Souris",
+    price: 39,
+    oldPrice: 49,
+    badge: "FPS",
+    desc:
+      "Ultra légère, capteur précis, latence faible. Pour flicks rapides.",
+    ship: "Livraison 48h • Point Relais 2,99€",
+    image: P("mouseultra"),
+  },
+  {
+    id: "mouse-ergo",
+    brand: "Nexus",
+    name: "Souris Ergonomique (Main droite)",
+    category: "Souris",
+    price: 29,
+    oldPrice: 39,
+    badge: "Confort",
+    desc:
+      "Confort long gaming, clics silencieux, prise en main naturelle.",
+    ship: "Livraison 2-3 jours • Retours 30 jours",
+    image: P("mouseergo"),
+  },
+
+  // Casque
+  {
+    id: "headset-7-1",
     brand: "Nexus",
     name: "Casque 7.1 Spatial Neo",
-    price: 149,
-    oldPrice: 179,
-    tag: "Top audio",
+    category: "Casque",
+    price: 59,
+    oldPrice: 79,
+    badge: "Top audio",
+    desc:
+      "Spatial 7.1, micro clair, confortable. Bon pour FPS + Discord.",
     ship: "Livraison 48h • Retours 30 jours",
-    image: "https://images.unsplash.com/photo-1599669454699-248893623440?auto=format&fit=crop&w=1200&q=80",
-    details: ["Spatial 7.1", "Micro clear", "Confort longue session"],
+    image: P("headset71"),
   },
   {
-    id: "kb-mecha",
+    id: "headset-wireless",
     brand: "Nexus",
-    name: "Clavier Meca Aurora TKL",
-    price: 129,
-    oldPrice: 159,
-    tag: "RGB",
-    ship: "Livraison 48h • Point Relais",
-    image: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=80",
-    details: ["Switches premium", "TKL compact", "RGB dynamique"],
-  },
-  {
-    id: "mouse-pro",
-    brand: "Nexus",
-    name: "Souris Pro 8K Sensor",
+    name: "Casque Wireless Pro (latence low)",
+    category: "Casque",
     price: 89,
     oldPrice: 109,
-    tag: "E-sport",
-    ship: "Livraison 48h",
-    image: "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=1200&q=80",
-    details: ["Capteur 8K", "Ultra légère", "Grip antidérapant"],
+    badge: "Sans fil",
+    desc:
+      "Wireless stable, autonomie solide, micro détachable. Ultra clean.",
+    ship: "Livraison 48h • Point Relais offert dès 199€",
+    image: P("headsetwireless"),
+  },
+
+  // Manette
+  {
+    id: "pad-pro",
+    brand: "Nexus",
+    name: "Manette Pro (Hall Effect)",
+    category: "Manette",
+    price: 39,
+    oldPrice: 49,
+    badge: "Drift-free",
+    desc:
+      "Sticks Hall Effect, meilleure durée de vie, super pour Rocket League.",
+    ship: "Livraison 48h • Retours 30 jours",
+    image: P("controllerpro"),
+  },
+
+  // VR
+  {
+    id: "vr-quest",
+    brand: "Meta",
+    name: "Casque VR (Pack Starter)",
+    category: "VR",
+    price: 279,
+    oldPrice: 329,
+    badge: "VR",
+    desc:
+      "Entrée parfaite dans la VR. Setup rapide, bibliothèque énorme.",
+    ship: "Livraison 2-3 jours • Point Relais 2,99€",
+    image: P("vrset"),
+  },
+
+  // Streaming
+  {
+    id: "stream-mic",
+    brand: "Nexus",
+    name: "Micro Streaming USB (Anti-bruit)",
+    category: "Streaming",
+    price: 39,
+    oldPrice: 59,
+    badge: "Streamer",
+    desc:
+      "Voix claire, filtre anti-pop, installation simple. Go live direct.",
+    ship: "Livraison 48h • Retours 30 jours",
+    image: P("micusb"),
+  },
+  {
+    id: "stream-cam",
+    brand: "Nexus",
+    name: "Webcam 1080p 60fps",
+    category: "Streaming",
+    price: 29,
+    oldPrice: 39,
+    badge: "60fps",
+    desc:
+      "Image fluide, autofocus correct, top pour Twitch/Discord.",
+    ship: "Livraison 48h • Point Relais 2,99€",
+    image: P("webcam1080"),
+  },
+
+  // Stockage
+  {
+    id: "ssd-1tb",
+    brand: "Nexus",
+    name: "SSD NVMe 1To (3500MB/s)",
+    category: "Stockage",
+    price: 59,
+    oldPrice: 79,
+    badge: "Rapide",
+    desc:
+      "Chargements instantanés, parfait pour gros jeux et Windows.",
+    ship: "Livraison 48h • Retours 30 jours",
+    image: P("ssd1tb"),
+  },
+  {
+    id: "hdd-2tb",
+    brand: "Nexus",
+    name: "Disque Dur 2To (Backup & jeux)",
+    category: "Stockage",
+    price: 49,
+    oldPrice: 59,
+    badge: "Budget",
+    desc:
+      "Pour stocker bibliothèque Steam, clips, sauvegardes et mods.",
+    ship: "Livraison 2-3 jours • Retours 30 jours",
+    image: P("hdd2tb"),
+  },
+
+  // Réseau
+  {
+    id: "router-gaming",
+    brand: "Nexus",
+    name: "Routeur Gaming Wi-Fi 6 (Low ping)",
+    category: "Réseau",
+    price: 69,
+    oldPrice: 89,
+    badge: "Ping",
+    desc:
+      "Wi-Fi 6, priorisation gaming, connexion stable. Adieu lag spikes.",
+    ship: "Livraison 48h • Point Relais 2,99€",
+    image: P("routerwifi6"),
+  },
+
+  // Chaise
+  {
+    id: "chair-ergonomic",
+    brand: "Nexus",
+    name: "Chaise Ergonomique (Support lombaires)",
+    category: "Chaise",
+    price: 129,
+    oldPrice: 169,
+    badge: "Confort",
+    desc:
+      "Confort longue session, réglages, posture meilleure (dos merci).",
+    ship: "Livraison 3-5 jours • Retours 30 jours",
+    image: P("chairergo"),
+  },
+
+  // Accessoires
+  {
+    id: "mousepad-xl",
+    brand: "Nexus",
+    name: "Tapis XL (Control)",
+    category: "Accessoires",
+    price: 19,
+    oldPrice: 25,
+    badge: "Must",
+    desc:
+      "Surface control, bord cousu, parfait FPS.",
+    ship: "Livraison 48h • Retours 30 jours",
+    image: P("mousepadxl"),
+  },
+  {
+    id: "rgb-strip",
+    brand: "Nexus",
+    name: "Bande LED RGB (2m) + Télécommande",
+    category: "Accessoires",
+    price: 15,
+    oldPrice: 19,
+    badge: "RGB",
+    desc:
+      "Ambiance 2026 direct. Facile à poser derrière écran/bureau.",
+    ship: "Livraison 48h • Point Relais 2,99€",
+    image: P("rgbstrip"),
   },
 ];
 
-export default function HomePage() {
+const CATEGORIES: Cat[] = [
+  "GPU",
+  "PC",
+  "Console",
+  "Écran",
+  "Clavier",
+  "Souris",
+  "Casque",
+  "Manette",
+  "VR",
+  "Streaming",
+  "Stockage",
+  "Réseau",
+  "Chaise",
+  "Accessoires",
+];
+
+function Chip({
+  active,
+  label,
+  onClick,
+}: {
+  active: boolean;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={[
+        "px-3 py-1 rounded-full text-xs font-semibold border transition",
+        active
+          ? "bg-white/15 border-white/20"
+          : "bg-white/5 border-white/10 hover:bg-white/10",
+      ].join(" ")}
+    >
+      {label}
+    </button>
+  );
+}
+
+function Badge({ text }: { text?: string }) {
+  if (!text) return null;
+  return (
+    <span className="inline-flex items-center gap-2 px-2 py-1 rounded-full text-[11px] bg-white/10 border border-white/10">
+      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+      {text}
+    </span>
+  );
+}
+
+export default function Page() {
   const { add, count } = useCart();
   const [q, setQ] = useState("");
+  const [cat, setCat] = useState<Cat | "Tous">("Tous");
+  const [active, setActive] = useState<Product | null>(null);
+  const [promo, setPromo] = useState("");
 
-  const list = useMemo(() => {
+  // petit effet “parallax souris” (le fond est géré dans NexusShell mais on ajoute un micro offset)
+  const [mx, setMx] = useState(0);
+  const [my, setMy] = useState(0);
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      setMx((e.clientX - cx) / cx);
+      setMy((e.clientY - cy) / cy);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
-    if (!s) return PRODUCTS;
-    return PRODUCTS.filter((p) => `${p.brand} ${p.name}`.toLowerCase().includes(s));
-  }, [q]);
+    return PRODUCTS.filter((p) => {
+      const inCat = cat === "Tous" ? true : p.category === cat;
+      const inSearch =
+        !s ||
+        p.name.toLowerCase().includes(s) ||
+        p.brand.toLowerCase().includes(s) ||
+        p.category.toLowerCase().includes(s);
+      return inCat && inSearch;
+    });
+  }, [q, cat]);
 
   return (
-    <NexusShell
-      title="Le shop gaming Nexus 2026"
-      subtitle="Fond animé, glow violet, parallax souris. Produits gaming, transitions fluides, et page panier dédiée."
-    >
-      <section id="produits" className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="flex flex-col md:flex-row md:items-center gap-3 mt-4">
-          <input
-            className="nx-input flex-1"
-            placeholder="Rechercher GPU, console, périphériques…"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
-          <Link href="/cart" className="nx-btn nx-btn-ghost">
-            Aller au panier ({count})
-          </Link>
-        </div>
+    <AuthGate>
+      <NexusShell title={`Le shop gaming Nexus ${year}`} subtitle="Fond animé, glow violet, parallax souris. Produits gaming, transitions fluides, et page panier dédiée.">
+        {/* HERO */}
+        <div className="mx-auto max-w-6xl px-4 pt-6">
+          <motion.div
+            className="nx-card p-6 md:p-8 overflow-hidden relative"
+            style={{
+              transform: `translate3d(${mx * 6}px, ${my * 6}px, 0)`,
+            }}
+          >
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge text="⚡ Nexus vibe • Fond animé • Parallax" />
+              <Badge text="🔒 Paiement sécurisé (Stripe)" />
+              <Badge text="📦 Point Relais" />
+              <Badge text="↩️ Retours 30 jours" />
+            </div>
 
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {list.map((p) => (
-            <article key={p.id} className="nx-card overflow-hidden group">
-              <div className="relative h-44">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="absolute inset-0 h-full w-full object-cover opacity-90 group-hover:opacity-100 transition"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                {p.tag ? (
-                  <div className="absolute left-3 top-3 nx-badge">{p.tag}</div>
-                ) : null}
-              </div>
+            <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
+              <div>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight">
+                  Le shop gaming <span className="text-white/90">Nexus {year}</span>
+                </h1>
+                <p className="mt-3 text-white/70 max-w-xl">
+                  Setup complet: GPU, consoles, périphériques, VR, streaming… prix clean,
+                  livraison rapide, et une vibe 2026.
+                </p>
 
-              <div className="p-4">
-                <div className="text-xs text-white/60">{p.brand}</div>
-                <div className="text-lg font-black">{p.name}</div>
+                <div className="mt-5 flex flex-col sm:flex-row gap-3">
+                  <div className="flex-1">
+                    <input
+                      value={q}
+                      onChange={(e) => setQ(e.target.value)}
+                      className="nx-input w-full"
+                      placeholder="Rechercher GPU, console, périphériques..."
+                    />
+                  </div>
 
-                <div className="mt-2 flex items-end gap-2">
-                  <div className="text-2xl font-black">{euro(p.price)}</div>
-                  {p.oldPrice ? (
-                    <div className="text-white/50 line-through text-sm">{euro(p.oldPrice)}</div>
-                  ) : null}
+                  <Link
+                    href="/cart"
+                    className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2"
+                  >
+                    🛒 Panier ({count})
+                  </Link>
                 </div>
 
-                <div className="mt-2 text-sm text-white/70">{p.ship}</div>
-
-                <div className="mt-4 flex gap-2">
-                  <button className="nx-btn nx-btn-ghost flex-1" onClick={() => alert(p.details.join("\n"))}>
-                    Détails
-                  </button>
-                  <button className="nx-btn nx-btn-primary flex-1" onClick={() => add(p)}>
-                    Ajouter
-                  </button>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Chip active={cat === "Tous"} label="Tous" onClick={() => setCat("Tous")} />
+                  {CATEGORIES.map((c) => (
+                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
+                  ))}
                 </div>
               </div>
-            </article>
-          ))}
+
+              <div className="nx-card p-4 border-white/10 bg-white/5">
+                <div className="text-sm font-semibold text-white/80">Promo rapide</div>
+                <div className="text-xs text-white/60 mt-1">
+                  (fake promo pour la démo) — essaie: <b>NEXUS10</b> ou <b>SHIPFREE</b>
+                </div>
+
+                <div className="mt-3 flex gap-2">
+                  <input
+                    value={promo}
+                    onChange={(e) => setPromo(e.target.value)}
+                    className="nx-input flex-1"
+                    placeholder="Code promo"
+                  />
+                  <button
+                    onClick={() => alert("✅ Code promo appliqué (démo)")}
+                    className="nx-btn nx-btn-ghost"
+                  >
+                    Appliquer
+                  </button>
+                </div>
+
+                <div className="mt-3 text-xs text-white/60">
+                  Livraison: 48h standard • Express disponible • Point relais dès 2,99€ (souvent offert)
+                </div>
+              </div>
+            </div>
+
+            {/* petites “lumières” */}
+            <div className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+          </motion.div>
         </div>
-      </section>
-    </NexusShell>
+
+        {/* GRID PRODUCTS */}
+        <div className="mx-auto max-w-6xl px-4 pb-14 pt-8">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <div className="text-sm text-white/60">Résultats</div>
+              <div className="text-lg font-black">{filtered.length} article(s)</div>
+            </div>
+            <Link href="/account" className="nx-btn nx-btn-ghost">
+              👤 Mon compte
+            </Link>
+          </div>
+
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((p) => (
+              <motion.div
+                key={p.id}
+                className="nx-card overflow-hidden"
+                whileHover={{ y: -4 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              >
+                <div className="relative">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="h-44 w-full object-cover opacity-90"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className="absolute top-3 left-3 flex gap-2">
+                    <Badge text={p.badge} />
+                  </div>
+                  <div className="absolute bottom-3 left-3 text-xs text-white/80">
+                    {p.category} • {p.brand}
+                  </div>
+                </div>
+
+                <div className="p-4">
+                  <div className="text-sm text-white/60">{p.brand}</div>
+                  <div className="font-black text-lg leading-snug">{p.name}</div>
+
+                  <div className="mt-2 flex items-end gap-2">
+                    <div className="text-2xl font-black">{euro(p.price)}</div>
+                    {p.oldPrice ? (
+                      <div className="text-white/40 line-through text-sm mb-1">
+                        {euro(p.oldPrice)}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <div className="mt-2 text-xs text-white/60">{p.ship}</div>
+
+                  <div className="mt-4 flex gap-2">
+                    <button
+                      onClick={() => setActive(p)}
+                      className="nx-btn nx-btn-ghost flex-1"
+                    >
+                      Détails
+                    </button>
+                    <button
+                      onClick={() => add(p, 1)}
+                      className="nx-btn nx-btn-primary flex-1"
+                    >
+                      Ajouter
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* DETAILS MODAL */}
+        <AnimatePresence>
+          {active && (
+            <motion.div
+              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActive(null)}
+            >
+              <motion.div
+                className="nx-card w-full max-w-3xl overflow-hidden"
+                initial={{ y: 18, opacity: 0, scale: 0.98 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                exit={{ y: 18, opacity: 0, scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="grid md:grid-cols-2">
+                  <div className="relative">
+                    <img
+                      src={active.image}
+                      alt={active.name}
+                      className="h-72 md:h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                    <div className="absolute top-3 left-3 flex gap-2">
+                      <Badge text={active.badge} />
+                      <Badge text={active.category} />
+                    </div>
+                  </div>
+
+                  <div className="p-5 md:p-6">
+                    <div className="text-sm text-white/60">{active.brand}</div>
+                    <div className="text-2xl font-black leading-tight">{active.name}</div>
+
+                    <div className="mt-2 flex items-end gap-2">
+                      <div className="text-3xl font-black">{euro(active.price)}</div>
+                      {active.oldPrice ? (
+                        <div className="text-white/40 line-through mb-1">
+                          {euro(active.oldPrice)}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <p className="mt-3 text-white/75">{active.desc}</p>
+
+                    <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">
+                      <div className="text-sm font-semibold">Livraison & Retours</div>
+                      <div className="mt-1 text-sm text-white/70">
+                        {active.ship}
+                        <br />
+                        Retours 30 jours • Support 7j/7 • Paiement sécurisé Stripe
+                      </div>
+                    </div>
+
+                    <div className="mt-6 flex gap-2">
+                      <button
+                        onClick={() => add(active, 1)}
+                        className="nx-btn nx-btn-primary flex-1"
+                      >
+                        Ajouter au panier
+                      </button>
+                      <Link
+                        href="/cart"
+                        className="nx-btn nx-btn-ghost flex-1 text-center"
+                        onClick={() => add(active, 1)}
+                      >
+                        Acheter maintenant
+                      </Link>
+                    </div>
+
+                    <button
+                      className="mt-3 w-full text-sm text-white/60 hover:text-white/80 transition"
+                      onClick={() => setActive(null)}
+                    >
+                      Fermer
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </NexusShell>
+    </AuthGate>
   );
 }
