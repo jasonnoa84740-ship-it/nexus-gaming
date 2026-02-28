@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
 import { useRouter } from "next/navigation";
+
+import { supabase } from "@/lib/supabaseClient";
 
 export default function AuthHome() {
   const [loading, setLoading] = useState(true);
@@ -27,10 +28,16 @@ export default function AuthHome() {
         </p>
 
         <div className="mt-5 flex gap-2">
-          <Link className="nx-btn nx-btn-primary flex-1 text-center" href="/login">
+          <Link
+            className="nx-btn nx-btn-primary flex-1 text-center"
+            href="/login"
+          >
             Se connecter
           </Link>
-          <Link className="nx-btn nx-btn-ghost flex-1 text-center" href="/signup">
+          <Link
+            className="nx-btn nx-btn-ghost flex-1 text-center"
+            href="/signup"
+          >
             S’inscrire
           </Link>
         </div>

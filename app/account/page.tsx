@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
 import { useRouter } from "next/navigation";
-import AuthGate from "../components/AuthGate";
+
+import { supabase } from "@/lib/supabaseClient";
+import AuthGate from "@/components/AuthGate";
 
 export default function AccountPage() {
   const [user, setUser] = useState<any>(null);
@@ -20,9 +21,11 @@ export default function AccountPage() {
 
   async function saveProfile() {
     setMsg(null);
+
     const { error } = await supabase.auth.updateUser({
       data: { pseudo },
     });
+
     if (error) setMsg("Erreur: " + error.message);
     else setMsg("✅ Profil mis à jour");
   }
@@ -43,23 +46,36 @@ export default function AccountPage() {
             <h2 className="font-black text-lg">⚙️ Réglages</h2>
             <div className="mt-3 space-y-2">
               <label className="text-sm text-white/70">Pseudo</label>
-              <input className="nx-input w-full" value={pseudo} onChange={(e) => setPseudo(e.target.value)} />
-              <button onClick={saveProfile} className="nx-btn nx-btn-primary">
+              <input
+                className="nx-input w-full"
+                value={pseudo}
+                onChange={(e) => setPseudo(e.target.value)}
+              />
+              <button
+                onClick={saveProfile}
+                className="nx-btn nx-btn-primary"
+              >
                 Enregistrer
               </button>
-              {msg && <div className="text-sm text-white/80">{msg}</div>}
+              {msg && (
+                <div className="text-sm text-white/80">{msg}</div>
+              )}
             </div>
           </div>
 
           <div id="orders" className="mt-8">
             <h2 className="font-black text-lg">📦 Mes commandes</h2>
             <p className="text-white/70 mt-2">
-              (On va les brancher après : on enregistrera les commandes Stripe dans Supabase.)
+              (On va les brancher après : on enregistrera les commandes Stripe
+              dans Supabase.)
             </p>
           </div>
 
           <div className="mt-8">
-            <button onClick={logout} className="nx-btn nx-btn-ghost">
+            <button
+              onClick={logout}
+              className="nx-btn nx-btn-ghost"
+            >
               🚪 Déconnexion
             </button>
           </div>

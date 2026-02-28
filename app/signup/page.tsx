@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
 import Link from "next/link";
+
+import { supabase } from "@/lib/supabaseClient";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -40,9 +41,25 @@ export default function SignupPage() {
         <h1 className="text-xl font-black">Créer un compte</h1>
 
         <form onSubmit={signup} className="mt-4 space-y-3">
-          <input className="nx-input w-full" placeholder="Pseudo" value={pseudo} onChange={(e) => setPseudo(e.target.value)} />
-          <input className="nx-input w-full" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input className="nx-input w-full" placeholder="Mot de passe" type="password" value={pass} onChange={(e) => setPass(e.target.value)} />
+          <input
+            className="nx-input w-full"
+            placeholder="Pseudo"
+            value={pseudo}
+            onChange={(e) => setPseudo(e.target.value)}
+          />
+          <input
+            className="nx-input w-full"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="nx-input w-full"
+            placeholder="Mot de passe"
+            type="password"
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+          />
           <button disabled={loading} className="nx-btn nx-btn-primary w-full">
             {loading ? "Création..." : "S’inscrire"}
           </button>
@@ -51,7 +68,10 @@ export default function SignupPage() {
         {msg && <div className="mt-3 text-sm text-white/80">{msg}</div>}
 
         <div className="mt-4 text-sm text-white/70">
-          Déjà un compte ? <Link className="underline" href="/login">Se connecter</Link>
+          Déjà un compte ?{" "}
+          <Link className="underline" href="/login">
+            Se connecter
+          </Link>
         </div>
       </div>
     </div>

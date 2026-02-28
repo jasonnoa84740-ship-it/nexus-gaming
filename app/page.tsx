@@ -4,9 +4,9 @@ import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
-import AuthGate from "./components/AuthGate";
-import NexusShell from "./components/NexusShell";
-import { useCart, euro, Product } from "./lib/cart";
+import AuthGate from "@/components/AuthGate";
+import NexusShell from "@/components/NexusShell";
+import { useCart, euro, Product } from "@/lib/cart";
 
 type Cat =
   | "GPU"
@@ -26,7 +26,8 @@ type Cat =
 
 const year = new Date().getFullYear();
 
-const P = (seed: string) => `https://picsum.photos/seed/${encodeURIComponent(seed)}/900/700`;
+const P = (seed: string) =>
+  `https://picsum.photos/seed/${encodeURIComponent(seed)}/900/700`;
 
 const PRODUCTS: Product[] = [
   // GPU
@@ -135,8 +136,7 @@ const PRODUCTS: Product[] = [
     price: 169,
     oldPrice: 199,
     badge: "Smooth",
-    desc:
-      "165Hz ultra fluide, IPS colors, idéal FPS/MOBA. Support VESA.",
+    desc: "165Hz ultra fluide, IPS colors, idéal FPS/MOBA. Support VESA.",
     ship: "Livraison 2-3 jours • Point Relais offert dès 199€",
     image: P("screen27"),
   },
@@ -148,8 +148,7 @@ const PRODUCTS: Product[] = [
     price: 119,
     oldPrice: 149,
     badge: "Pas cher",
-    desc:
-      "Le bon plan 144Hz: parfait pour starter l’e-sport en 1080p.",
+    desc: "Le bon plan 144Hz: parfait pour starter l’e-sport en 1080p.",
     ship: "Livraison 2-3 jours • Retours 30 jours",
     image: P("screen24"),
   },
@@ -163,8 +162,7 @@ const PRODUCTS: Product[] = [
     price: 69,
     oldPrice: 89,
     badge: "Pro",
-    desc:
-      "Compact, RGB, hot-swap. Touches PBT, super feeling pour tryhard.",
+    desc: "Compact, RGB, hot-swap. Touches PBT, super feeling pour tryhard.",
     ship: "Livraison 48h • Point Relais 2,99€",
     image: P("keyboard75"),
   },
@@ -176,8 +174,7 @@ const PRODUCTS: Product[] = [
     price: 49,
     oldPrice: 59,
     badge: "Sans fil",
-    desc:
-      "Confort bureautique + gaming chill. Autonomie longue durée.",
+    desc: "Confort bureautique + gaming chill. Autonomie longue durée.",
     ship: "Livraison 48h • Retours 30 jours",
     image: P("keyboardlow"),
   },
@@ -191,8 +188,7 @@ const PRODUCTS: Product[] = [
     price: 39,
     oldPrice: 49,
     badge: "FPS",
-    desc:
-      "Ultra légère, capteur précis, latence faible. Pour flicks rapides.",
+    desc: "Ultra légère, capteur précis, latence faible. Pour flicks rapides.",
     ship: "Livraison 48h • Point Relais 2,99€",
     image: P("mouseultra"),
   },
@@ -204,8 +200,7 @@ const PRODUCTS: Product[] = [
     price: 29,
     oldPrice: 39,
     badge: "Confort",
-    desc:
-      "Confort long gaming, clics silencieux, prise en main naturelle.",
+    desc: "Confort long gaming, clics silencieux, prise en main naturelle.",
     ship: "Livraison 2-3 jours • Retours 30 jours",
     image: P("mouseergo"),
   },
@@ -219,8 +214,7 @@ const PRODUCTS: Product[] = [
     price: 59,
     oldPrice: 79,
     badge: "Top audio",
-    desc:
-      "Spatial 7.1, micro clair, confortable. Bon pour FPS + Discord.",
+    desc: "Spatial 7.1, micro clair, confortable. Bon pour FPS + Discord.",
     ship: "Livraison 48h • Retours 30 jours",
     image: P("headset71"),
   },
@@ -232,8 +226,7 @@ const PRODUCTS: Product[] = [
     price: 89,
     oldPrice: 109,
     badge: "Sans fil",
-    desc:
-      "Wireless stable, autonomie solide, micro détachable. Ultra clean.",
+    desc: "Wireless stable, autonomie solide, micro détachable. Ultra clean.",
     ship: "Livraison 48h • Point Relais offert dès 199€",
     image: P("headsetwireless"),
   },
@@ -262,8 +255,7 @@ const PRODUCTS: Product[] = [
     price: 279,
     oldPrice: 329,
     badge: "VR",
-    desc:
-      "Entrée parfaite dans la VR. Setup rapide, bibliothèque énorme.",
+    desc: "Entrée parfaite dans la VR. Setup rapide, bibliothèque énorme.",
     ship: "Livraison 2-3 jours • Point Relais 2,99€",
     image: P("vrset"),
   },
@@ -277,8 +269,7 @@ const PRODUCTS: Product[] = [
     price: 39,
     oldPrice: 59,
     badge: "Streamer",
-    desc:
-      "Voix claire, filtre anti-pop, installation simple. Go live direct.",
+    desc: "Voix claire, filtre anti-pop, installation simple. Go live direct.",
     ship: "Livraison 48h • Retours 30 jours",
     image: P("micusb"),
   },
@@ -290,8 +281,7 @@ const PRODUCTS: Product[] = [
     price: 29,
     oldPrice: 39,
     badge: "60fps",
-    desc:
-      "Image fluide, autofocus correct, top pour Twitch/Discord.",
+    desc: "Image fluide, autofocus correct, top pour Twitch/Discord.",
     ship: "Livraison 48h • Point Relais 2,99€",
     image: P("webcam1080"),
   },
@@ -305,8 +295,7 @@ const PRODUCTS: Product[] = [
     price: 59,
     oldPrice: 79,
     badge: "Rapide",
-    desc:
-      "Chargements instantanés, parfait pour gros jeux et Windows.",
+    desc: "Chargements instantanés, parfait pour gros jeux et Windows.",
     ship: "Livraison 48h • Retours 30 jours",
     image: P("ssd1tb"),
   },
@@ -318,8 +307,7 @@ const PRODUCTS: Product[] = [
     price: 49,
     oldPrice: 59,
     badge: "Budget",
-    desc:
-      "Pour stocker bibliothèque Steam, clips, sauvegardes et mods.",
+    desc: "Pour stocker bibliothèque Steam, clips, sauvegardes et mods.",
     ship: "Livraison 2-3 jours • Retours 30 jours",
     image: P("hdd2tb"),
   },
@@ -333,8 +321,7 @@ const PRODUCTS: Product[] = [
     price: 69,
     oldPrice: 89,
     badge: "Ping",
-    desc:
-      "Wi-Fi 6, priorisation gaming, connexion stable. Adieu lag spikes.",
+    desc: "Wi-Fi 6, priorisation gaming, connexion stable. Adieu lag spikes.",
     ship: "Livraison 48h • Point Relais 2,99€",
     image: P("routerwifi6"),
   },
@@ -348,8 +335,7 @@ const PRODUCTS: Product[] = [
     price: 129,
     oldPrice: 169,
     badge: "Confort",
-    desc:
-      "Confort longue session, réglages, posture meilleure (dos merci).",
+    desc: "Confort longue session, réglages, posture meilleure (dos merci).",
     ship: "Livraison 3-5 jours • Retours 30 jours",
     image: P("chairergo"),
   },
@@ -363,8 +349,7 @@ const PRODUCTS: Product[] = [
     price: 19,
     oldPrice: 25,
     badge: "Must",
-    desc:
-      "Surface control, bord cousu, parfait FPS.",
+    desc: "Surface control, bord cousu, parfait FPS.",
     ship: "Livraison 48h • Retours 30 jours",
     image: P("mousepadxl"),
   },
@@ -376,8 +361,7 @@ const PRODUCTS: Product[] = [
     price: 15,
     oldPrice: 19,
     badge: "RGB",
-    desc:
-      "Ambiance 2026 direct. Facile à poser derrière écran/bureau.",
+    desc: "Ambiance 2026 direct. Facile à poser derrière écran/bureau.",
     ship: "Livraison 48h • Point Relais 2,99€",
     image: P("rgbstrip"),
   },
@@ -471,7 +455,10 @@ export default function Page() {
 
   return (
     <AuthGate>
-      <NexusShell title={`Le shop gaming Nexus ${year}`} subtitle="Fond animé, glow violet, parallax souris. Produits gaming, transitions fluides, et page panier dédiée.">
+      <NexusShell
+        title={`Le shop gaming Nexus ${year}`}
+        subtitle="Fond animé, glow violet, parallax souris. Produits gaming, transitions fluides, et page panier dédiée."
+      >
         {/* HERO */}
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <motion.div
@@ -490,11 +477,12 @@ export default function Page() {
             <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
               <div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-                  Le shop gaming <span className="text-white/90">Nexus {year}</span>
+                  Le shop gaming{" "}
+                  <span className="text-white/90">Nexus {year}</span>
                 </h1>
                 <p className="mt-3 text-white/70 max-w-xl">
-                  Setup complet: GPU, consoles, périphériques, VR, streaming… prix clean,
-                  livraison rapide, et une vibe 2026.
+                  Setup complet: GPU, consoles, périphériques, VR, streaming… prix
+                  clean, livraison rapide, et une vibe 2026.
                 </p>
 
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -516,17 +504,29 @@ export default function Page() {
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <Chip active={cat === "Tous"} label="Tous" onClick={() => setCat("Tous")} />
+                  <Chip
+                    active={cat === "Tous"}
+                    label="Tous"
+                    onClick={() => setCat("Tous")}
+                  />
                   {CATEGORIES.map((c) => (
-                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
+                    <Chip
+                      key={c}
+                      active={cat === c}
+                      label={c}
+                      onClick={() => setCat(c)}
+                    />
                   ))}
                 </div>
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">Promo rapide</div>
+                <div className="text-sm font-semibold text-white/80">
+                  Promo rapide
+                </div>
                 <div className="text-xs text-white/60 mt-1">
-                  (fake promo pour la démo) — essaie: <b>NEXUS10</b> ou <b>SHIPFREE</b>
+                  (fake promo pour la démo) — essaie: <b>NEXUS10</b> ou{" "}
+                  <b>SHIPFREE</b>
                 </div>
 
                 <div className="mt-3 flex gap-2">
@@ -545,7 +545,8 @@ export default function Page() {
                 </div>
 
                 <div className="mt-3 text-xs text-white/60">
-                  Livraison: 48h standard • Express disponible • Point relais dès 2,99€ (souvent offert)
+                  Livraison: 48h standard • Express disponible • Point relais dès
+                  2,99€ (souvent offert)
                 </div>
               </div>
             </div>
@@ -661,10 +662,14 @@ export default function Page() {
 
                   <div className="p-5 md:p-6">
                     <div className="text-sm text-white/60">{active.brand}</div>
-                    <div className="text-2xl font-black leading-tight">{active.name}</div>
+                    <div className="text-2xl font-black leading-tight">
+                      {active.name}
+                    </div>
 
                     <div className="mt-2 flex items-end gap-2">
-                      <div className="text-3xl font-black">{euro(active.price)}</div>
+                      <div className="text-3xl font-black">
+                        {euro(active.price)}
+                      </div>
                       {active.oldPrice ? (
                         <div className="text-white/40 line-through mb-1">
                           {euro(active.oldPrice)}
@@ -675,7 +680,9 @@ export default function Page() {
                     <p className="mt-3 text-white/75">{active.desc}</p>
 
                     <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">
-                      <div className="text-sm font-semibold">Livraison & Retours</div>
+                      <div className="text-sm font-semibold">
+                        Livraison & Retours
+                      </div>
                       <div className="mt-1 text-sm text-white/70">
                         {active.ship}
                         <br />

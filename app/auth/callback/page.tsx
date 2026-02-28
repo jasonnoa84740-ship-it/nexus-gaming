@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabaseClient";
 import { useRouter, useSearchParams } from "next/navigation";
+
+import { supabase } from "@/lib/supabaseClient";
 
 export default function AuthCallback() {
   const router = useRouter();
