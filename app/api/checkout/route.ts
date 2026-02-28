@@ -44,4 +44,10 @@ export async function POST(req: Request) {
   } catch (e: any) {
     return NextResponse.json({ error: e?.message || "Stripe error" }, { status: 500 });
   }
+}export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    hasKey: Boolean(process.env.STRIPE_SECRET_KEY),
+    siteUrl: process.env.NEXT_PUBLIC_SITE_URL || null,
+  });
 }
