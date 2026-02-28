@@ -26,9 +26,6 @@ type Cat =
 
 const year = new Date().getFullYear();
 
-const P = (seed: string) =>
-  `https://picsum.photos/seed/${encodeURIComponent(seed)}/900/700`;
-
 const PRODUCTS: Product[] = [
   // GPU
   {
@@ -42,7 +39,7 @@ const PRODUCTS: Product[] = [
     desc:
       "GPU perf/€ ultra solide pour 1440p. Refroidissement silencieux, backplate, RGB sobre.",
     ship: "Livraison 48h • Point Relais 2,99€",
-    image: P("rtx5070"),
+    image: "/products/gpu/rtx-5070.jpg",
   },
   {
     id: "gpu-rx-8800",
@@ -55,7 +52,7 @@ const PRODUCTS: Product[] = [
     desc:
       "Gros FPS en 1440p, consommation maîtrisée. Idéale pour un PC gaming équilibré.",
     ship: "Livraison 48h • Point Relais offert dès 199€",
-    image: P("rx8800"),
+    image: "/products/gpu/rx-8800.jpg",
   },
   {
     id: "gpu-rtx-4060",
@@ -68,7 +65,7 @@ const PRODUCTS: Product[] = [
     desc:
       "Parfaite pour un premier PC gamer. DLSS, encodage stream, format compact.",
     ship: "Livraison 2-3 jours • Retours 30 jours",
-    image: P("rtx4060"),
+    image: "/products/gpu/rtx-4060.jpg",
   },
 
   // PC / Bundles
@@ -83,7 +80,7 @@ const PRODUCTS: Product[] = [
     desc:
       "Config prête à jouer: CPU 6 cœurs, 16Go RAM, SSD NVMe. Ultra fluide en 1080p.",
     ship: "Livraison 3-5 jours • Montage inclus",
-    image: P("pc1080"),
+    image: "/products/pc/starter-144.jpg",
   },
   {
     id: "pc-creator-stream",
@@ -96,7 +93,7 @@ const PRODUCTS: Product[] = [
     desc:
       "Pour streamer + jouer: CPU multi-cœurs, 32Go RAM, SSD rapide. Setup stable.",
     ship: "Livraison 3-5 jours • Support 7j/7",
-    image: P("pcstream"),
+    image: "/products/pc/creator-stream.jpg",
   },
 
   // Console
@@ -111,7 +108,7 @@ const PRODUCTS: Product[] = [
     desc:
       "La console incontournable pour les exclus. Plus compacte, plus silencieuse.",
     ship: "Livraison 24/48h • Point Relais 2,99€",
-    image: P("ps5slim"),
+    image: "/products/console/ps5-slim.jpg",
   },
   {
     id: "console-switch-oled",
@@ -124,7 +121,7 @@ const PRODUCTS: Product[] = [
     desc:
       "Écran OLED, couleurs magnifiques. Parfait pour jouer partout sans prise de tête.",
     ship: "Livraison 48h • Retours 30 jours",
-    image: P("switcholed"),
+    image: "/products/console/switch-oled.jpg",
   },
 
   // Écran
@@ -138,7 +135,7 @@ const PRODUCTS: Product[] = [
     badge: "Smooth",
     desc: "165Hz ultra fluide, IPS colors, idéal FPS/MOBA. Support VESA.",
     ship: "Livraison 2-3 jours • Point Relais offert dès 199€",
-    image: P("screen27"),
+    image: "/products/screen/27-165.jpg",
   },
   {
     id: "screen-24-144",
@@ -150,7 +147,7 @@ const PRODUCTS: Product[] = [
     badge: "Pas cher",
     desc: "Le bon plan 144Hz: parfait pour starter l’e-sport en 1080p.",
     ship: "Livraison 2-3 jours • Retours 30 jours",
-    image: P("screen24"),
+    image: "/products/screen/24-144.jpg",
   },
 
   // Clavier
@@ -164,7 +161,7 @@ const PRODUCTS: Product[] = [
     badge: "Pro",
     desc: "Compact, RGB, hot-swap. Touches PBT, super feeling pour tryhard.",
     ship: "Livraison 48h • Point Relais 2,99€",
-    image: P("keyboard75"),
+    image: "/products/keyboard/mecha-75.jpg",
   },
   {
     id: "kbd-lowprofile",
@@ -176,7 +173,7 @@ const PRODUCTS: Product[] = [
     badge: "Sans fil",
     desc: "Confort bureautique + gaming chill. Autonomie longue durée.",
     ship: "Livraison 48h • Retours 30 jours",
-    image: P("keyboardlow"),
+    image: "/products/keyboard/lowprofile.jpg",
   },
 
   // Souris
@@ -190,7 +187,7 @@ const PRODUCTS: Product[] = [
     badge: "FPS",
     desc: "Ultra légère, capteur précis, latence faible. Pour flicks rapides.",
     ship: "Livraison 48h • Point Relais 2,99€",
-    image: P("mouseultra"),
+    image: "/products/mouse/ultralight.jpg",
   },
   {
     id: "mouse-ergo",
@@ -202,7 +199,7 @@ const PRODUCTS: Product[] = [
     badge: "Confort",
     desc: "Confort long gaming, clics silencieux, prise en main naturelle.",
     ship: "Livraison 2-3 jours • Retours 30 jours",
-    image: P("mouseergo"),
+    image: "/products/mouse/ergo.jpg",
   },
 
   // Casque
@@ -216,7 +213,7 @@ const PRODUCTS: Product[] = [
     badge: "Top audio",
     desc: "Spatial 7.1, micro clair, confortable. Bon pour FPS + Discord.",
     ship: "Livraison 48h • Retours 30 jours",
-    image: P("headset71"),
+    image: "/products/headset/7-1.jpg",
   },
   {
     id: "headset-wireless",
@@ -228,7 +225,7 @@ const PRODUCTS: Product[] = [
     badge: "Sans fil",
     desc: "Wireless stable, autonomie solide, micro détachable. Ultra clean.",
     ship: "Livraison 48h • Point Relais offert dès 199€",
-    image: P("headsetwireless"),
+    image: "/products/headset/wireless-pro.jpg",
   },
 
   // Manette
@@ -243,7 +240,7 @@ const PRODUCTS: Product[] = [
     desc:
       "Sticks Hall Effect, meilleure durée de vie, super pour Rocket League.",
     ship: "Livraison 48h • Retours 30 jours",
-    image: P("controllerpro"),
+    image: "/products/controller/pro-hall.jpg",
   },
 
   // VR
@@ -257,7 +254,7 @@ const PRODUCTS: Product[] = [
     badge: "VR",
     desc: "Entrée parfaite dans la VR. Setup rapide, bibliothèque énorme.",
     ship: "Livraison 2-3 jours • Point Relais 2,99€",
-    image: P("vrset"),
+    image: "/products/vr/quest-starter.jpg",
   },
 
   // Streaming
@@ -271,7 +268,7 @@ const PRODUCTS: Product[] = [
     badge: "Streamer",
     desc: "Voix claire, filtre anti-pop, installation simple. Go live direct.",
     ship: "Livraison 48h • Retours 30 jours",
-    image: P("micusb"),
+    image: "/products/stream/mic-usb.jpg",
   },
   {
     id: "stream-cam",
@@ -283,7 +280,7 @@ const PRODUCTS: Product[] = [
     badge: "60fps",
     desc: "Image fluide, autofocus correct, top pour Twitch/Discord.",
     ship: "Livraison 48h • Point Relais 2,99€",
-    image: P("webcam1080"),
+    image: "/products/stream/webcam-1080-60.jpg",
   },
 
   // Stockage
@@ -297,7 +294,7 @@ const PRODUCTS: Product[] = [
     badge: "Rapide",
     desc: "Chargements instantanés, parfait pour gros jeux et Windows.",
     ship: "Livraison 48h • Retours 30 jours",
-    image: P("ssd1tb"),
+    image: "/products/storage/ssd-1tb.jpg",
   },
   {
     id: "hdd-2tb",
@@ -309,7 +306,7 @@ const PRODUCTS: Product[] = [
     badge: "Budget",
     desc: "Pour stocker bibliothèque Steam, clips, sauvegardes et mods.",
     ship: "Livraison 2-3 jours • Retours 30 jours",
-    image: P("hdd2tb"),
+    image: "/products/storage/hdd-2tb.jpg",
   },
 
   // Réseau
@@ -323,7 +320,7 @@ const PRODUCTS: Product[] = [
     badge: "Ping",
     desc: "Wi-Fi 6, priorisation gaming, connexion stable. Adieu lag spikes.",
     ship: "Livraison 48h • Point Relais 2,99€",
-    image: P("routerwifi6"),
+    image: "/products/network/router-wifi6.jpg",
   },
 
   // Chaise
@@ -337,7 +334,7 @@ const PRODUCTS: Product[] = [
     badge: "Confort",
     desc: "Confort longue session, réglages, posture meilleure (dos merci).",
     ship: "Livraison 3-5 jours • Retours 30 jours",
-    image: P("chairergo"),
+    image: "/products/chair/ergonomic.jpg",
   },
 
   // Accessoires
@@ -351,7 +348,7 @@ const PRODUCTS: Product[] = [
     badge: "Must",
     desc: "Surface control, bord cousu, parfait FPS.",
     ship: "Livraison 48h • Retours 30 jours",
-    image: P("mousepadxl"),
+    image: "/products/accessories/mousepad-xl.jpg",
   },
   {
     id: "rgb-strip",
@@ -363,7 +360,7 @@ const PRODUCTS: Product[] = [
     badge: "RGB",
     desc: "Ambiance 2026 direct. Facile à poser derrière écran/bureau.",
     ship: "Livraison 48h • Point Relais 2,99€",
-    image: P("rgbstrip"),
+    image: "/products/accessories/rgb-strip.jpg",
   },
 ];
 
@@ -423,9 +420,11 @@ export default function Page() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<Cat | "Tous">("Tous");
   const [active, setActive] = useState<Product | null>(null);
-  const [promo, setPromo] = useState("");
 
-  // petit effet “parallax souris” (le fond est géré dans NexusShell mais on ajoute un micro offset)
+  const [promo, setPromo] = useState("");
+  const [promoStatus, setPromoStatus] = useState<string | null>(null);
+
+  // petit effet “parallax souris”
   const [mx, setMx] = useState(0);
   const [my, setMy] = useState(0);
 
@@ -452,6 +451,14 @@ export default function Page() {
       return inCat && inSearch;
     });
   }, [q, cat]);
+
+  function applyPromo() {
+    const code = promo.trim().toUpperCase();
+    if (!code) return setPromoStatus("Entre un code promo.");
+    if (code === "NEXUS10") return setPromoStatus("✅ -10% (sera appliqué au panier).");
+    if (code === "SHIPFREE") return setPromoStatus("✅ Livraison offerte (sera appliqué au panier).");
+    return setPromoStatus("❌ Code invalide.");
+  }
 
   return (
     <AuthGate>
@@ -504,18 +511,9 @@ export default function Page() {
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <Chip
-                    active={cat === "Tous"}
-                    label="Tous"
-                    onClick={() => setCat("Tous")}
-                  />
+                  <Chip active={cat === "Tous"} label="Tous" onClick={() => setCat("Tous")} />
                   {CATEGORIES.map((c) => (
-                    <Chip
-                      key={c}
-                      active={cat === c}
-                      label={c}
-                      onClick={() => setCat(c)}
-                    />
+                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
                   ))}
                 </div>
               </div>
@@ -525,8 +523,7 @@ export default function Page() {
                   Promo rapide
                 </div>
                 <div className="text-xs text-white/60 mt-1">
-                  (fake promo pour la démo) — essaie: <b>NEXUS10</b> ou{" "}
-                  <b>SHIPFREE</b>
+                  Essaie: <b>NEXUS10</b> ou <b>SHIPFREE</b>
                 </div>
 
                 <div className="mt-3 flex gap-2">
@@ -536,13 +533,14 @@ export default function Page() {
                     className="nx-input flex-1"
                     placeholder="Code promo"
                   />
-                  <button
-                    onClick={() => alert("✅ Code promo appliqué (démo)")}
-                    className="nx-btn nx-btn-ghost"
-                  >
+                  <button onClick={applyPromo} className="nx-btn nx-btn-ghost">
                     Appliquer
                   </button>
                 </div>
+
+                {promoStatus ? (
+                  <div className="mt-2 text-xs text-white/70">{promoStatus}</div>
+                ) : null}
 
                 <div className="mt-3 text-xs text-white/60">
                   Livraison: 48h standard • Express disponible • Point relais dès
@@ -551,7 +549,7 @@ export default function Page() {
               </div>
             </div>
 
-            {/* petites “lumières” */}
+            {/* lumières */}
             <div className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           </motion.div>

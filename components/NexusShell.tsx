@@ -1,9 +1,14 @@
 "use client";
 
-import NexusHeader from "./NexusHeader";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { useCart } from "../lib/cart";
+import { usePathname, useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
+import { useCart } from "@/lib/cart";
+
+function cx(...a: Array<string | false | undefined | null>) {
+  return a.filter(Boolean).join(" ");
+}
 
 export default function NexusShell({
   title,
@@ -15,71 +20,162 @@ export default function NexusShell({
   children: React.ReactNode;
 }) {
   const { count } = useCart();
-  const [p, setP] = useState({ x: 0, y: 0 });
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [pseudo, setPseudo] = useState<string>("");
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      setP({ x, y });
+    let mounted = true;
+
+    supabase.auth.getUser().then(({ data }) => {
+      if (!mounted) return;
+      setUser(data.user);
+      setPseudo(data.user?.user_metadata?.pseudo || "");
+    });
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUser(session?.user ?? null);
+      setPseudo(session?.user?.user_metadata?.pseudo || "");
+    });
+
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
     };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-  const transform = useMemo(() => `translate3d(${p.x * 10}px, ${p.y * 10}px, 0)`, [p]);
+  const initials = useMemo(() => {
+    const s = (pseudo || user?.email || "U").trim();
+    return s.slice(0, 1).toUpperCase();
+  }, [pseudo, user?.email]);
+
+  async function logout() {
+    await supabase.auth.signOut();
+    setOpen(false);
+    router.replace("/auth");
+  }
 
   return (
-    <main className="min-h-screen text-white overflow-x-hidden">
-      {/* Background */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="nx-bg" style={{ transform }} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(124,58,237,.35),transparent_45%),radial-gradient(circle_at_70%_65%,rgba(6,182,212,.25),transparent_50%)]" />
-        <div className="absolute inset-0 opacity-[.16] [background-image:linear-gradient(rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.07)_1px,transparent_1px)] [background-size:52px_52px]" />
-      </div>
-
+    <div className="min-h-screen text-white">
       {/* Top bar */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/35 backdrop-blur-xl">
-        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center gap-3">
-          <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-purple-500 to-cyan-400 shadow-[0_0_30px_rgba(124,58,237,.35)]" />
-          <div className="leading-tight">
-            <div className="font-black tracking-wide">NEXUS GAMING</div>
-            <div className="text-xs text-white/60">Boutique 100% gaming • 2026</div>
-          </div>
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur-xl">
+        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-3">
+          <Link href="/" className="font-black tracking-tight text-lg">
+            NEXUS<span className="text-white/60">GAMING</span>
+          </Link>
 
-          <div className="ml-auto flex items-center gap-2">
-            <Link href="/#produits" className="nx-btn nx-btn-ghost">Produits</Link>
-            <Link href="/cart" className="nx-btn nx-btn-primary relative">
-              🛒 Panier
-              <span className="ml-2 inline-flex items-center justify-center min-w-6 h-6 px-2 rounded-full bg-white/10 border border-white/15 text-xs">
-                {count}
-              </span>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/cart"
+              className={cx(
+                "nx-btn nx-btn-ghost",
+                pathname === "/cart" && "bg-white/10"
+              )}
+            >
+              🛒 Panier ({count})
             </Link>
+
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setOpen((v) => !v)}
+                  className="nx-btn nx-btn-ghost inline-flex items-center gap-2"
+                >
+                  <span className="h-8 w-8 rounded-full bg-white/10 border border-white/10 grid place-items-center font-black">
+                    {initials}
+                  </span>
+                  <span className="hidden sm:block text-left">
+                    <div className="text-xs text-white/60 leading-none">
+                      Connecté
+                    </div>
+                    <div className="text-sm font-semibold leading-none">
+                      {pseudo || user.email}
+                    </div>
+                  </span>
+                  <span className="text-white/60">▾</span>
+                </button>
+
+                {open && (
+                  <div
+                    className="absolute right-0 mt-2 w-64 nx-card p-2 border-white/10 bg-black/80"
+                    onMouseLeave={() => setOpen(false)}
+                  >
+                    <div className="px-2 py-2">
+                      <div className="text-sm font-black">
+                        {pseudo || "Mon profil"}
+                      </div>
+                      <div className="text-xs text-white/60">{user.email}</div>
+                    </div>
+
+                    <div className="h-px bg-white/10 my-2" />
+
+                    <Link
+                      onClick={() => setOpen(false)}
+                      href="/account?tab=settings"
+                      className="block px-2 py-2 rounded-lg hover:bg-white/10 text-sm"
+                    >
+                      ⚙️ Mes réglages
+                    </Link>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      href="/account?tab=orders"
+                      className="block px-2 py-2 rounded-lg hover:bg-white/10 text-sm"
+                    >
+                      📦 Mes commandes
+                    </Link>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      href="/account?tab=tracking"
+                      className="block px-2 py-2 rounded-lg hover:bg-white/10 text-sm"
+                    >
+                      🚚 Mes suivis
+                    </Link>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      href="/account?tab=promos"
+                      className="block px-2 py-2 rounded-lg hover:bg-white/10 text-sm"
+                    >
+                      🎟️ Mes codes promo
+                    </Link>
+
+                    <div className="h-px bg-white/10 my-2" />
+
+                    <button
+                      onClick={logout}
+                      className="w-full text-left px-2 py-2 rounded-lg hover:bg-white/10 text-sm"
+                    >
+                      🚪 Déconnexion
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link href="/auth" className="nx-btn nx-btn-primary">
+                Se connecter
+              </Link>
+            )}
           </div>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-4 pt-10 pb-6">
-        <div className="nx-card p-8 md:p-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">
-            ⚡ Nexus vibe • Fond animé • Parallax
-          </div>
-          <h1 className="mt-4 text-4xl md:text-6xl font-black tracking-tight">
-            {title}
-          </h1>
-          {subtitle ? <p className="mt-3 text-white/70 max-w-2xl">{subtitle}</p> : null}
-
-          <div className="mt-6 flex flex-wrap gap-2 text-sm text-white/75">
-            <span className="nx-chip">🔒 Paiement sécurisé (Stripe)</span>
-            <span className="nx-chip">📦 Point relais</span>
-            <span className="nx-chip">↩️ Retours 30j</span>
-            <span className="nx-chip">⚡ Expédition 24/48h</span>
-          </div>
+      {/* Page header */}
+      <div className="mx-auto max-w-6xl px-4 pt-6">
+        <div className="nx-card p-6 md:p-8">
+          <h1 className="text-2xl md:text-4xl font-black">{title}</h1>
+          {subtitle ? <p className="mt-2 text-white/70">{subtitle}</p> : null}
         </div>
-      </section>
+      </div>
 
-      {children}
-    </main>
+      {/* Content */}
+      <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+
+      {/* Footer */}
+      <footer className="mx-auto max-w-6xl px-4 pb-12 text-xs text-white/50">
+        © {new Date().getFullYear()} Nexus Gaming • Paiement sécurisé • Support 7j/7
+      </footer>
+    </div>
   );
 }
