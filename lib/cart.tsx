@@ -6,11 +6,17 @@ export type Product = {
   id: string;
   brand: string;
   name: string;
+
+  // utile pour le filtre catégories
   category: string;
+
   price: number;
   oldPrice?: number;
+
+  // chips UI
   badge?: string;
   desc?: string;
+
   ship: string;
   image: string;
 };
@@ -77,11 +83,23 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [cart]
   );
 
+  // livraison offerte dès 99€
   const shipping = subtotal >= 99 ? 0 : cart.length ? 4.99 : 0;
   const total = subtotal + shipping;
   const count = cart.reduce((s, it) => s + it.qty, 0);
 
-  const value: CartCtx = { cart, add, inc, dec, remove, clear, subtotal, shipping, total, count };
+  const value: CartCtx = {
+    cart,
+    add,
+    inc,
+    dec,
+    remove,
+    clear,
+    subtotal,
+    shipping,
+    total,
+    count,
+  };
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

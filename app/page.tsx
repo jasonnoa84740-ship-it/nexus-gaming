@@ -1,14 +1,15 @@
 "use client";
 
-import { PRODUCTS, CATEGORIES, type Cat } from "@/lib/products";
-import ModalPortal from "@/components/ModalPortal";
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 import AuthGate from "@/components/AuthGate";
 import NexusShell from "@/components/NexusShell";
+import ModalPortal from "@/components/ModalPortal";
+
 import { useCart, euro, type Product } from "@/lib/cart";
+import { PRODUCTS, CATEGORIES, type Cat } from "@/lib/products";
 
 const year = new Date().getFullYear();
 
@@ -53,7 +54,10 @@ export default function Page() {
   const [cat, setCat] = useState<Cat | "Tous">("Tous");
   const [active, setActive] = useState<Product | null>(null);
 
-  // Parallax
+  const [promo, setPromo] = useState("");
+  const [promoStatus, setPromoStatus] = useState<string | null>(null);
+
+  // parallax souris
   const [mx, setMx] = useState(0);
   const [my, setMy] = useState(0);
 
@@ -68,7 +72,7 @@ export default function Page() {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-  // ✅ Scroll lock pour que le modal ne “s’ouvre pas en bas”
+  // scroll lock modal (sinon t’as l’impression que “ça s’ouvre en bas”)
   useEffect(() => {
     if (!active) return;
     const prev = document.body.style.overflow;
@@ -91,11 +95,19 @@ export default function Page() {
     });
   }, [q, cat]);
 
+  function applyPromo() {
+    const code = promo.trim().toUpperCase();
+    if (!code) return setPromoStatus("Entre un code promo.");
+    if (code === "NEXUS10") return setPromoStatus("✅ -10% (démo)");
+    if (code === "SHIPFREE") return setPromoStatus("✅ Livraison offerte (démo)");
+    return setPromoStatus("❌ Code invalide.");
+  }
+
   return (
     <AuthGate>
       <NexusShell
         title={`Le shop gaming Nexus ${year}`}
-        subtitle="Catégories en boutons (GPU/CPU/Simu…), recherche, parallax, modal détails bien centré."
+        subtitle="Fond animé, glow violet, parallax souris. Produits gaming, transitions fluides, et page panier dédiée."
       >
         {/* HERO */}
         <div className="mx-auto max-w-6xl px-4 pt-6">
@@ -104,9 +116,9 @@ export default function Page() {
             style={{ transform: `translate3d(${mx * 6}px, ${my * 6}px, 0)` }}
           >
             <div className="flex flex-wrap items-center gap-2">
-              <Badge text="⚡ Nexus vibe" />
-              <Badge text="🔒 Stripe" />
-              <Badge text="📦 Livraison rapide" />
+              <Badge text="⚡ Nexus vibe • Fond animé • Parallax" />
+              <Badge text="🔒 Paiement sécurisé (Stripe)" />
+              <Badge text="📦 Point Relais" />
               <Badge text="↩️ Retours 30 jours" />
             </div>
 
@@ -116,7 +128,7 @@ export default function Page() {
                   Le shop gaming <span className="text-white/90">Nexus {year}</span>
                 </h1>
                 <p className="mt-3 text-white/70 max-w-xl">
-                  GPU, CPU, consoles, écrans, simulateur… catalogue élargi.
+                  GPU, CPU, périphériques, simulateur… filtre par catégorie + détails en modal.
                 </p>
 
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -125,7 +137,7 @@ export default function Page() {
                       value={q}
                       onChange={(e) => setQ(e.target.value)}
                       className="nx-input w-full"
-                      placeholder="Rechercher (GPU, CPU, écran, volant...)"
+                      placeholder="Rechercher GPU, CPU, écran..."
                     />
                   </div>
 
@@ -146,16 +158,29 @@ export default function Page() {
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">
-                  Catalogue
-                </div>
+                <div className="text-sm font-semibold text-white/80">Promo rapide</div>
                 <div className="text-xs text-white/60 mt-1">
-                  {PRODUCTS.length} produits • filtres par catégories
+                  Essaie: <b>NEXUS10</b> ou <b>SHIPFREE</b>
                 </div>
 
+                <div className="mt-3 flex gap-2">
+                  <input
+                    value={promo}
+                    onChange={(e) => setPromo(e.target.value)}
+                    className="nx-input flex-1"
+                    placeholder="Code promo"
+                  />
+                  <button onClick={applyPromo} className="nx-btn nx-btn-ghost">
+                    Appliquer
+                  </button>
+                </div>
+
+                {promoStatus ? (
+                  <div className="mt-2 text-xs text-white/70">{promoStatus}</div>
+                ) : null}
+
                 <div className="mt-3 text-xs text-white/60">
-                  Astuce: mets tes vraies images dans{" "}
-                  <b>/public/products/...</b> et garde les mêmes chemins.
+                  Livraison: 48h standard • Express disponible • Point relais dès 2,99€
                 </div>
               </div>
             </div>
@@ -170,9 +195,7 @@ export default function Page() {
           <div className="flex items-end justify-between gap-3">
             <div>
               <div className="text-sm text-white/60">Résultats</div>
-              <div className="text-lg font-black">
-                {filtered.length} article(s)
-              </div>
+              <div className="text-lg font-black">{filtered.length} article(s)</div>
             </div>
             <Link href="/account" className="nx-btn nx-btn-ghost">
               👤 Mon compte
@@ -280,9 +303,7 @@ export default function Page() {
                       </div>
 
                       <div className="mt-2 flex items-end gap-2">
-                        <div className="text-3xl font-black">
-                          {euro(active.price)}
-                        </div>
+                        <div className="text-3xl font-black">{euro(active.price)}</div>
                         {active.oldPrice ? (
                           <div className="text-white/40 line-through mb-1">
                             {euro(active.oldPrice)}
@@ -290,12 +311,12 @@ export default function Page() {
                         ) : null}
                       </div>
 
-                      <p className="mt-3 text-white/75">{active.desc}</p>
+                      {active.desc ? (
+                        <p className="mt-3 text-white/75">{active.desc}</p>
+                      ) : null}
 
                       <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">
-                        <div className="text-sm font-semibold">
-                          Livraison & Retours
-                        </div>
+                        <div className="text-sm font-semibold">Livraison & Retours</div>
                         <div className="mt-1 text-sm text-white/70">
                           {active.ship}
                           <br />
