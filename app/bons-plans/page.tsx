@@ -1,64 +1,26 @@
-import NexusShell from "@/components/NexusShell";
+// app/bons-plans/page.tsx
 
-const deals = [
-  {
-    title: "Souris Gaming RGB 7200 DPI",
-    price: "19,99€",
-    desc: "Souris gamer précise, RGB, idéale setup pas cher.",
-    link: "https://amzn.to/4u0u0hk",
-    image: "https://m.media-amazon.com/images/I/71Kr3WAj1FL._AC_SL1500_.jpg",
-  },
-  {
-    title: "Casque Gaming PS5 / PC",
-    price: "39,99€",
-    desc: "Son surround, micro antibruit, très bon rapport qualité/prix.",
-    link: "https://amzn.to/4u0u0hk",
-    image: "https://m.media-amazon.com/images/I/71BKQhFzDmL._AC_SL1500_.jpg",
-  },
-  {
-    title: "Clavier Mécanique RGB",
-    price: "49,99€",
-    desc: "Switches mécaniques, rétroéclairage RGB, parfait gaming.",
-    link: "https://amzn.to/4u0u0hk",
-    image: "https://m.media-amazon.com/images/I/71uXnU7L5rL._AC_SL1500_.jpg",
-  },
-];
+import ProductCard from "@/components/ProductCard";
+import { amazonProducts } from "@/lib/amazonProducts";
+
+export const metadata = {
+  title: "Bons plans Amazon | Nexus Gaming",
+  description: "Sélection Nexus Gaming de produits Amazon (liens affiliés).",
+};
 
 export default function BonsPlansPage() {
   return (
-    <NexusShell
-      title="🔥 Bons Plans Gaming Amazon"
-      subtitle="Sélection d’accessoires gaming au meilleur prix."
-    >
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="grid md:grid-cols-3 gap-6">
-          {deals.map((item, i) => (
-            <div key={i} className="nx-card p-4">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="rounded-xl w-full h-48 object-cover"
-              />
+    <main className="mx-auto w-full max-w-6xl px-4 py-10">
+      <h1 className="text-3xl font-bold">Bons plans Amazon</h1>
+      <p className="mt-2 opacity-80">
+        Sélection Nexus Gaming (liens affiliés). Tu paies sur Amazon, nous on touche une petite commission.
+      </p>
 
-              <h3 className="mt-4 font-bold text-lg">{item.title}</h3>
-              <p className="text-white/70 text-sm mt-1">{item.desc}</p>
-
-              <div className="mt-3 font-black text-xl">
-                {item.price}
-              </div>
-
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nx-btn nx-btn-primary w-full mt-4 text-center"
-              >
-                Voir sur Amazon
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
-    </NexusShell>
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {amazonProducts.map((p) => (
+          <ProductCard key={p.id} product={p} />
+        ))}
+      </div>
+    </main>
   );
 }

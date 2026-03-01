@@ -8,8 +8,7 @@ import AuthGate from "@/components/AuthGate";
 import NexusShell from "@/components/NexusShell";
 import ModalPortal from "@/components/ModalPortal";
 
-import { useCart, euro, type Product } from "@/lib/cart";
-import { PRODUCTS, CATEGORIES, type Cat } from "@/lib/products";
+import { amazonProducts, type AmazonProduct } from "@/lib/amazonProducts";
 
 const year = new Date().getFullYear();
 
@@ -61,7 +60,7 @@ function Stars({ value }: { value: number }) {
   );
 }
 
-/** Bandeau promo sticky (Phase 1) */
+/** Bandeau promo sticky */
 function PromoBar() {
   return (
     <div className="sticky top-0 z-[60] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
@@ -69,15 +68,15 @@ function PromoBar() {
         <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm text-white/90">
           <span className="inline-flex items-center gap-2">
             <span className="animate-pulse">🔥</span>
-            <span className="font-semibold">-10%</span> avec{" "}
-            <span className="font-semibold">NEXUS10</span>
+            <span className="font-semibold">Bons plans</span> sélection{" "}
+            <span className="font-semibold">Nexus</span>
           </span>
           <span className="text-white/40">•</span>
           <span>
-            🚚 Livraison offerte dès <span className="font-semibold">79€</span>
+            ✅ Achat sur <span className="font-semibold">Amazon</span>
           </span>
           <span className="text-white/40">•</span>
-          <span>⚡ Stock limité sur certaines RTX</span>
+          <span>🔗 Liens affiliés</span>
         </div>
       </div>
     </div>
@@ -87,57 +86,45 @@ function PromoBar() {
 const REVIEWS = [
   {
     name: "Lucas M.",
-    text: "Livraison ultra rapide, GPU super bien protégé. Packaging clean.",
+    text: "Sélection solide, j’ai trouvé un bon deal sur mon setup.",
     stars: 5,
   },
   {
     name: "Sarah T.",
-    text: "Support au top : ils m’ont aidée à choisir une config compatible.",
+    text: "Le filtre par catégorie est clean, ça fait gagner du temps.",
     stars: 5,
   },
   {
     name: "Mehdi K.",
-    text: "Prix compétitifs et retour simple. Je recommande.",
+    text: "Simple et efficace : je clique et j’achète direct sur Amazon.",
     stars: 5,
   },
 ];
 
 const BENEFITS = [
-  {
-    icon: "🔒",
-    title: "Paiement sécurisé",
-    desc: "Stripe / 3D Secure • checkout fiable",
-  },
-  {
-    icon: "🚚",
-    title: "Livraison rapide",
-    desc: "48h standard • Express dispo",
-  },
-  {
-    icon: "🛡️",
-    title: "Garantie 2 ans",
-    desc: "Constructeur officiel • SAV clair",
-  },
-  {
-    icon: "🧠",
-    title: "Support config",
-    desc: "Compatibilité CPU/CM/RAM • conseils",
-  },
+  { icon: "🛒", title: "Achat sur Amazon", desc: "Paiement, livraison, retours gérés par Amazon" },
+  { icon: "🔥", title: "Sélection Nexus", desc: "On choisit des produits gaming utiles et populaires" },
+  { icon: "🧠", title: "Gagne du temps", desc: "Recherche + catégories + sélection déjà filtrée" },
+  { icon: "🔗", title: "Liens affiliés", desc: "Ça nous aide à financer Nexus (sans surcoût pour toi)" },
 ];
 
+function getCategories(products: AmazonProduct[]) {
+  // Pour rester compatible avec ton ancien UI, on simule des "catégories"
+  // Si tu veux, on peut ajouter un champ category dans amazonProducts
+  // Ici: on met tout dans "Tous" uniquement.
+  return ["Tous"] as const;
+}
+
 export default function Page() {
-  const { add, count } = useCart();
-
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState<Cat | "Tous">("Tous");
-  const [active, setActive] = useState<Product | null>(null);
-
-  const [promo, setPromo] = useState("");
-  const [promoStatus, setPromoStatus] = useState<string | null>(null);
+  const [cat, setCat] = useState<(typeof cats)[number]>("Tous");
+  const [active, setActive] = useState<AmazonProduct | null>(null);
 
   // parallax souris
   const [mx, setMx] = useState(0);
   const [my, setMy] = useState(0);
+
+  const cats = getCategories(amazonProducts);
 
   useEffect(() => {
     let raf = 0;
@@ -172,51 +159,34 @@ export default function Page() {
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
-    return PRODUCTS.filter((p) => {
-      const inCat = cat === "Tous" ? true : p.category === cat;
+    return amazonProducts.filter((p) => {
+      const inCat = cat === "Tous" ? true : true;
       const inSearch =
         !s ||
-        p.name.toLowerCase().includes(s) ||
-        p.brand.toLowerCase().includes(s) ||
-        p.category.toLowerCase().includes(s);
+        p.title.toLowerCase().includes(s) ||
+        (p.subtitle || "").toLowerCase().includes(s) ||
+        (p.badge || "").toLowerCase().includes(s);
       return inCat && inSearch;
     });
   }, [q, cat]);
 
-  /** Best sellers: on privilégie promos/badges */
+  /** Best sellers: on prend les premiers (ou tu peux scorer avec badge) */
   const bestSellers = useMemo(() => {
-    return PRODUCTS.map((p) => {
-      let score = 0;
-      if (p.oldPrice && p.oldPrice > p.price) score += 3;
-      if (p.badge) score += 2;
-      if (p.category.toLowerCase().includes("gpu")) score += 1;
-      return { p, score };
-    })
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 4)
-      .map((x, idx) => ({
-        ...x.p,
-        sold: 18 + idx * 11, // démo preuve sociale
-        rating: 4.6 + (3 - idx) * 0.1, // démo
-        tag: x.p.oldPrice ? "Promo" : x.p.badge || "Top vente",
-      }));
+    return amazonProducts.slice(0, 4).map((p, idx) => ({
+      ...p,
+      sold: 18 + idx * 11, // démo preuve sociale
+      rating: 4.6 + (3 - idx) * 0.1, // démo
+      tag: p.badge || "Top vente",
+    }));
   }, []);
-
-  function applyPromo() {
-    const code = promo.trim().toUpperCase();
-    if (!code) return setPromoStatus("Entre un code promo.");
-    if (code === "NEXUS10") return setPromoStatus("✅ -10% (démo)");
-    if (code === "SHIPFREE") return setPromoStatus("✅ Livraison offerte (démo)");
-    return setPromoStatus("❌ Code invalide.");
-  }
 
   return (
     <AuthGate>
       <PromoBar />
 
       <NexusShell
-        title={`Le shop gaming Nexus ${year}`}
-        subtitle="Fond animé, glow violet, parallax souris. Produits gaming, transitions fluides, et page panier dédiée."
+        title={`Nexus Gaming • Bons plans Amazon ${year}`}
+        subtitle="Sélection gaming + filtres + détails en modal. Achat sur Amazon via liens affiliés."
       >
         {/* HERO */}
         <div className="mx-auto max-w-6xl px-4 pt-6">
@@ -226,20 +196,20 @@ export default function Page() {
           >
             <div className="flex flex-wrap items-center gap-2">
               <Badge text="⚡ Nexus vibe • Fond animé • Parallax" />
-              <Badge text="🔒 Paiement sécurisé (Stripe)" />
-              <Badge text="📦 Point Relais" />
-              <Badge text="↩️ Retours 30 jours" />
+              <Badge text="🛒 Achat sur Amazon" />
+              <Badge text="🔗 Liens affiliés" />
+              <Badge text="🎮 Sélection gaming" />
             </div>
 
             <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
               <div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-                  Le shop gaming{" "}
+                  Les bons plans{" "}
                   <span className="text-white/90">Nexus {year}</span>
                 </h1>
                 <p className="mt-3 text-white/70 max-w-xl">
-                  GPU, CPU, périphériques, simulateur… filtre par catégorie +
-                  détails en modal.
+                  On sélectionne du matos gaming utile, puis tu achètes directement
+                  sur Amazon.
                 </p>
 
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -248,50 +218,38 @@ export default function Page() {
                       value={q}
                       onChange={(e) => setQ(e.target.value)}
                       className="nx-input w-full"
-                      placeholder="Rechercher GPU, CPU, écran..."
+                      placeholder="Rechercher clavier, souris, GPU..."
                     />
                   </div>
 
                   <Link
-                    href="/cart"
+                    href="/bons-plans"
                     className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2"
                   >
-                    🛒 Panier ({count})
+                    🔥 Voir tous les bons plans
                   </Link>
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <Chip active={cat === "Tous"} label="Tous" onClick={() => setCat("Tous")} />
-                  {CATEGORIES.map((c) => (
+                  {cats.map((c) => (
                     <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
                   ))}
                 </div>
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">Promo rapide</div>
-                <div className="text-xs text-white/60 mt-1">
-                  Essaie: <b>NEXUS10</b> ou <b>SHIPFREE</b>
+                <div className="text-sm font-semibold text-white/80">
+                  Transparence
+                </div>
+                <div className="text-sm text-white/70 mt-2 leading-relaxed">
+                  Les boutons redirigent vers Amazon. Certains liens sont affiliés :
+                  ça nous aide à financer Nexus, sans coût en plus pour toi.
                 </div>
 
-                <div className="mt-3 flex gap-2">
-                  <input
-                    value={promo}
-                    onChange={(e) => setPromo(e.target.value)}
-                    className="nx-input flex-1"
-                    placeholder="Code promo"
-                  />
-                  <button onClick={applyPromo} className="nx-btn nx-btn-ghost">
-                    Appliquer
-                  </button>
-                </div>
-
-                {promoStatus ? (
-                  <div className="mt-2 text-xs text-white/70">{promoStatus}</div>
-                ) : null}
-
-                <div className="mt-3 text-xs text-white/60">
-                  Livraison: 48h standard • Express disponible • Point relais dès 2,99€
+                <div className="mt-4">
+                  <Link href="/bons-plans" className="nx-btn nx-btn-ghost w-full text-center">
+                    Découvrir la sélection
+                  </Link>
                 </div>
               </div>
             </div>
@@ -301,24 +259,21 @@ export default function Page() {
           </motion.div>
         </div>
 
-        {/* ✅ PHASE 1: BEST SELLERS (amélioré premium) */}
+        {/* BEST SELLERS */}
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <div className="nx-card p-6">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold">
-                  ⭐ Meilleures ventes Nexus
+                  ⭐ Sélection Nexus (Top)
                 </h2>
                 <p className="text-white/70 mt-1">
-                  Les produits les plus populaires en ce moment — bons deals, stock qui part vite.
+                  Quelques recommandations rapides — clique et achète sur Amazon.
                 </p>
               </div>
 
-              <a
-                href="#catalogue"
-                className="nx-btn nx-btn-primary self-start sm:self-auto"
-              >
-                Voir tout le catalogue →
+              <a href="#catalogue" className="nx-btn nx-btn-primary self-start sm:self-auto">
+                Voir la sélection →
               </a>
             </div>
 
@@ -334,64 +289,48 @@ export default function Page() {
                     <span className="rounded-full border border-white/10 bg-black/25 px-2 py-1 text-[11px] text-white/80">
                       {p.tag}
                     </span>
-                    <span className="text-[11px] text-white/60">+{p.sold} vendus</span>
+                    <span className="text-[11px] text-white/60">+{p.sold} vus</span>
                   </div>
 
                   <div className="mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10 relative">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.image}
-                      alt={p.name}
+                      alt={p.title}
                       className="h-full w-full object-cover opacity-90"
                       loading="lazy"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   </div>
 
-                  <div className="mt-3 text-xs text-white/60">{p.brand}</div>
-                  <div className="mt-1 font-semibold leading-snug">{p.name}</div>
+                  <div className="mt-3 text-xs text-white/60">Nexus selection</div>
+                  <div className="mt-1 font-semibold leading-snug">{p.title}</div>
 
                   <div className="mt-2">
                     <Stars value={p.rating} />
                   </div>
 
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <div className="text-lg font-extrabold">{euro(p.price)}</div>
-                    {p.oldPrice ? (
-                      <div className="text-sm text-white/40 line-through">
-                        {euro(p.oldPrice)}
-                      </div>
-                    ) : null}
-                  </div>
-
-                  <div className="mt-1 text-xs text-white/65">
-                    ⚡ Expédié sous <span className="font-semibold">24h</span> •{" "}
-                    <span className="text-white/60">Stock: </span>
-                    <span className="font-semibold text-white/80">
-                      {p.oldPrice ? "faible" : "dispo"}
-                    </span>
-                  </div>
-
-                  <button
-                    className="nx-btn nx-btn-primary mt-4 w-full"
-                    onClick={() => add(p, 1)}
+                  <a
+                    className="nx-btn nx-btn-primary mt-4 w-full text-center"
+                    href={`/go/${p.id}`}
+                    rel="nofollow sponsored noopener"
                   >
-                    Ajouter au panier
-                  </button>
+                    Acheter sur Amazon
+                  </a>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* ✅ PHASE 1: AVIS */}
+        {/* AVIS */}
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <div className="nx-card p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold">💬 Avis clients</h2>
+                <h2 className="text-2xl sm:text-3xl font-extrabold">💬 Avis</h2>
                 <p className="text-white/70 mt-1">
-                  La confiance, c’est la base — surtout sur du hardware.
+                  L’objectif : rendre la recherche plus simple.
                 </p>
               </div>
               <div className="hidden sm:block text-sm text-white/70">
@@ -401,41 +340,31 @@ export default function Page() {
 
             <div className="mt-6 grid gap-4 lg:grid-cols-3">
               {REVIEWS.map((r, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-3xl border border-white/10 bg-white/5 p-5"
-                >
+                <div key={idx} className="rounded-3xl border border-white/10 bg-white/5 p-5">
                   <div className="text-white/90">
                     {Array.from({ length: r.stars }).map((_, i) => (
                       <span key={i}>★</span>
                     ))}
                   </div>
                   <p className="mt-3 text-white/75 leading-relaxed">“{r.text}”</p>
-                  <div className="mt-4 text-sm text-white/60">
-                    — {r.name} <span className="text-white/40">(achat vérifié)</span>
-                  </div>
+                  <div className="mt-4 text-sm text-white/60">— {r.name}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* ✅ PHASE 1: POURQUOI NEXUS */}
+        {/* POURQUOI NEXUS */}
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <div className="nx-card p-6">
-            <h2 className="text-2xl sm:text-3xl font-extrabold">
-              🏆 Pourquoi acheter chez Nexus ?
-            </h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold">🏆 Pourquoi Nexus ?</h2>
             <p className="text-white/70 mt-1">
-              On met la perf et la fiabilité devant le blabla. Et on te couvre en cas de souci.
+              On te met une sélection claire, et tu achètes sur Amazon.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {BENEFITS.map((b) => (
-                <div
-                  key={b.title}
-                  className="rounded-3xl border border-white/10 bg-white/5 p-5"
-                >
+                <div key={b.title} className="rounded-3xl border border-white/10 bg-white/5 p-5">
                   <div className="text-xl">{b.icon}</div>
                   <div className="mt-2 font-semibold">{b.title}</div>
                   <div className="mt-1 text-sm text-white/65">{b.desc}</div>
@@ -469,7 +398,7 @@ export default function Page() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={p.image}
-                    alt={p.name}
+                    alt={p.title}
                     className="h-44 w-full object-cover opacity-90"
                     loading="lazy"
                   />
@@ -478,24 +407,14 @@ export default function Page() {
                     <Badge text={p.badge} />
                   </div>
                   <div className="absolute bottom-3 left-3 text-xs text-white/80">
-                    {p.category} • {p.brand}
+                    Nexus • Amazon
                   </div>
                 </div>
 
                 <div className="p-4">
-                  <div className="text-sm text-white/60">{p.brand}</div>
-                  <div className="font-black text-lg leading-snug">{p.name}</div>
-
-                  <div className="mt-2 flex items-end gap-2">
-                    <div className="text-2xl font-black">{euro(p.price)}</div>
-                    {p.oldPrice ? (
-                      <div className="text-white/40 line-through text-sm mb-1">
-                        {euro(p.oldPrice)}
-                      </div>
-                    ) : null}
-                  </div>
-
-                  <div className="mt-2 text-xs text-white/60">{p.ship}</div>
+                  <div className="text-sm text-white/60">Sélection Nexus</div>
+                  <div className="font-black text-lg leading-snug">{p.title}</div>
+                  {p.subtitle ? <div className="mt-2 text-sm text-white/70">{p.subtitle}</div> : null}
 
                   <div className="mt-4 flex gap-2">
                     <button
@@ -504,12 +423,13 @@ export default function Page() {
                     >
                       Détails
                     </button>
-                    <button
-                      onClick={() => add(p, 1)}
-                      className="nx-btn nx-btn-primary flex-1"
+                    <a
+                      href={`/go/${p.id}`}
+                      rel="nofollow sponsored noopener"
+                      className="nx-btn nx-btn-primary flex-1 text-center"
                     >
-                      Ajouter
-                    </button>
+                      Amazon
+                    </a>
                   </div>
                 </div>
               </motion.div>
@@ -541,58 +461,43 @@ export default function Page() {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={active.image}
-                        alt={active.name}
+                        alt={active.title}
                         className="h-72 md:h-full w-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                       <div className="absolute top-3 left-3 flex gap-2">
                         <Badge text={active.badge} />
-                        <Badge text={active.category} />
+                        <Badge text="Amazon" />
                       </div>
                     </div>
 
                     <div className="p-5 md:p-6">
-                      <div className="text-sm text-white/60">{active.brand}</div>
-                      <div className="text-2xl font-black leading-tight">
-                        {active.name}
-                      </div>
-
-                      <div className="mt-2 flex items-end gap-2">
-                        <div className="text-3xl font-black">{euro(active.price)}</div>
-                        {active.oldPrice ? (
-                          <div className="text-white/40 line-through mb-1">
-                            {euro(active.oldPrice)}
-                          </div>
-                        ) : null}
-                      </div>
-
-                      {active.desc ? (
-                        <p className="mt-3 text-white/75">{active.desc}</p>
-                      ) : null}
+                      <div className="text-sm text-white/60">Sélection Nexus</div>
+                      <div className="text-2xl font-black leading-tight">{active.title}</div>
+                      {active.subtitle ? <p className="mt-3 text-white/75">{active.subtitle}</p> : null}
 
                       <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">
-                        <div className="text-sm font-semibold">Livraison & Retours</div>
+                        <div className="text-sm font-semibold">Achat</div>
                         <div className="mt-1 text-sm text-white/70">
-                          {active.ship}
-                          <br />
-                          Retours 30 jours • Support 7j/7 • Paiement sécurisé Stripe
+                          Tu seras redirigé vers Amazon pour payer et te faire livrer.
                         </div>
                       </div>
 
                       <div className="mt-6 flex gap-2">
-                        <button
-                          onClick={() => add(active, 1)}
-                          className="nx-btn nx-btn-primary flex-1"
+                        <a
+                          href={`/go/${active.id}`}
+                          className="nx-btn nx-btn-primary flex-1 text-center"
+                          rel="nofollow sponsored noopener"
                         >
-                          Ajouter au panier
-                        </button>
+                          Acheter sur Amazon
+                        </a>
 
                         <Link
-                          href="/cart"
+                          href="/bons-plans"
                           className="nx-btn nx-btn-ghost flex-1 text-center"
-                          onClick={() => add(active, 1)}
+                          onClick={() => setActive(null)}
                         >
-                          Acheter maintenant
+                          Voir la liste
                         </Link>
                       </div>
 
