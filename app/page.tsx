@@ -47,6 +47,84 @@ function Badge({ text }: { text?: string }) {
   );
 }
 
+/** ⭐ mini composant étoiles */
+function Stars({ value }: { value: number }) {
+  const full = Math.max(0, Math.min(5, Math.round(value)));
+  return (
+    <div className="flex items-center gap-1 text-white/90">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <span key={i} className={i < full ? "opacity-100" : "opacity-30"}>
+          ★
+        </span>
+      ))}
+      <span className="ml-2 text-xs text-white/60">{value.toFixed(1)}</span>
+    </div>
+  );
+}
+
+function PromoBar() {
+  return (
+    <div className="sticky top-0 z-[60]">
+      <div className="border-b border-white/10 bg-black/35 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm text-white/90">
+          <span className="inline-flex items-center gap-2">
+            <span className="animate-pulse">🔥</span>
+            <span className="font-semibold">-10%</span> avec{" "}
+            <span className="font-semibold">NEXUS10</span>
+          </span>
+          <span className="text-white/40">•</span>
+          <span>
+            🚚 Livraison offerte dès <span className="font-semibold">79€</span>
+          </span>
+          <span className="text-white/40">•</span>
+          <span>⚡ Stock limité sur certaines RTX</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const REVIEWS = [
+  {
+    name: "Lucas M.",
+    text: "Livraison ultra rapide, GPU super bien protégé. Packaging clean.",
+    stars: 5,
+  },
+  {
+    name: "Sarah T.",
+    text: "Support au top : ils m’ont aidée à choisir une config compatible.",
+    stars: 5,
+  },
+  {
+    name: "Mehdi K.",
+    text: "Prix compétitifs et retour simple. Je recommande.",
+    stars: 5,
+  },
+];
+
+const BENEFITS = [
+  {
+    icon: "🔒",
+    title: "Paiement sécurisé",
+    desc: "Stripe / 3D Secure • checkout fiable",
+  },
+  {
+    icon: "🚚",
+    title: "Livraison rapide",
+    desc: "48h standard • Express dispo",
+  },
+  {
+    icon: "🛡️",
+    title: "Garantie 2 ans",
+    desc: "Constructeur officiel • SAV clair",
+  },
+  {
+    icon: "🧠",
+    title: "Support config",
+    desc: "Compatibilité CPU/CM/RAM • conseils",
+  },
+];
+
 export default function Page() {
   const { add, count } = useCart();
 
@@ -65,22 +143,23 @@ export default function Page() {
     let raf = 0;
 
     const onMove = (e: MouseEvent) => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      setMx((e.clientX - cx) / cx);
-      setMy((e.clientY - cy) / cy);
-    });
-  };
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        setMx((e.clientX - cx) / cx);
+        setMy((e.clientY - cy) / cy);
+      });
+    };
 
-  window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mousemove", onMove, { passive: true });
 
-  return () => {
-    cancelAnimationFrame(raf);
-    window.removeEventListener("mousemove", onMove);
-  };
-}, []);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onMove);
+    };
+  }, []);
+
   // scroll lock modal (sinon t’as l’impression que “ça s’ouvre en bas”)
   useEffect(() => {
     if (!active) return;
@@ -104,6 +183,27 @@ export default function Page() {
     });
   }, [q, cat]);
 
+  /** ⭐ Best sellers: on prend 4 produits “promos” ou “badgés”, sinon les 4 premiers */
+  const bestSellers = useMemo(() => {
+    const scored = PRODUCTS.map((p) => {
+      let score = 0;
+      if (p.oldPrice && p.oldPrice > p.price) score += 3; // promo
+      if (p.badge) score += 2; // mis en avant
+      if (p.category.toLowerCase().includes("gpu")) score += 1; // souvent top vendeur
+      return { p, score };
+    })
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 4)
+      .map((x, idx) => ({
+        ...x.p,
+        sold: 18 + idx * 11, // démo (preuve sociale visuelle)
+        rating: 4.6 + (3 - idx) * 0.1, // démo
+        tag: x.p.oldPrice ? "Promo" : x.p.badge || "Top vente",
+      }));
+
+    return scored;
+  }, []);
+
   function applyPromo() {
     const code = promo.trim().toUpperCase();
     if (!code) return setPromoStatus("Entre un code promo.");
@@ -114,6 +214,9 @@ export default function Page() {
 
   return (
     <AuthGate>
+      {/* Phase 1: bandeau promo sticky */}
+      <PromoBar />
+
       <NexusShell
         title={`Le shop gaming Nexus ${year}`}
         subtitle="Fond animé, glow violet, parallax souris. Produits gaming, transitions fluides, et page panier dédiée."
@@ -134,10 +237,12 @@ export default function Page() {
             <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
               <div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-                  Le shop gaming <span className="text-white/90">Nexus {year}</span>
+                  Le shop gaming{" "}
+                  <span className="text-white/90">Nexus {year}</span>
                 </h1>
                 <p className="mt-3 text-white/70 max-w-xl">
-                  GPU, CPU, périphériques, simulateur… filtre par catégorie + détails en modal.
+                  GPU, CPU, périphériques, simulateur… filtre par catégorie +
+                  détails en modal.
                 </p>
 
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -159,15 +264,26 @@ export default function Page() {
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <Chip active={cat === "Tous"} label="Tous" onClick={() => setCat("Tous")} />
+                  <Chip
+                    active={cat === "Tous"}
+                    label="Tous"
+                    onClick={() => setCat("Tous")}
+                  />
                   {CATEGORIES.map((c) => (
-                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
+                    <Chip
+                      key={c}
+                      active={cat === c}
+                      label={c}
+                      onClick={() => setCat(c)}
+                    />
                   ))}
                 </div>
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">Promo rapide</div>
+                <div className="text-sm font-semibold text-white/80">
+                  Promo rapide
+                </div>
                 <div className="text-xs text-white/60 mt-1">
                   Essaie: <b>NEXUS10</b> ou <b>SHIPFREE</b>
                 </div>
@@ -189,7 +305,8 @@ export default function Page() {
                 ) : null}
 
                 <div className="mt-3 text-xs text-white/60">
-                  Livraison: 48h standard • Express disponible • Point relais dès 2,99€
+                  Livraison: 48h standard • Express disponible • Point relais dès
+                  2,99€
                 </div>
               </div>
             </div>
@@ -199,8 +316,148 @@ export default function Page() {
           </motion.div>
         </div>
 
+        {/* ✅ PHASE 1: BEST SELLERS */}
+        <div className="mx-auto max-w-6xl px-4 pt-6">
+          <div className="nx-card p-6">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold">
+                  ⭐ Meilleures ventes Nexus
+                </h2>
+                <p className="text-white/70 mt-1">
+                  Les produits les plus populaires en ce moment — bons deals,
+                  stock qui part vite.
+                </p>
+              </div>
+
+              <a href="#catalogue" className="nx-btn nx-btn-ghost self-start sm:self-auto">
+                Voir tout le catalogue →
+              </a>
+            </div>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {bestSellers.map((p) => (
+                <div
+                  key={p.id}
+                  className="rounded-3xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="rounded-full border border-white/10 bg-black/25 px-2 py-1 text-[11px] text-white/80">
+                      {p.tag}
+                    </span>
+                    <span className="text-[11px] text-white/60">
+                      +{p.sold} vendus
+                    </span>
+                  </div>
+
+                  <div className="mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="h-full w-full object-cover opacity-90"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="mt-3 text-xs text-white/60">{p.brand}</div>
+                  <div className="mt-1 font-semibold leading-snug">{p.name}</div>
+
+                  <div className="mt-2">
+                    <Stars value={p.rating} />
+                  </div>
+
+                  <div className="mt-3 flex items-baseline gap-2">
+                    <div className="text-lg font-extrabold">{euro(p.price)}</div>
+                    {p.oldPrice ? (
+                      <div className="text-sm text-white/40 line-through">
+                        {euro(p.oldPrice)}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <button
+                    className="nx-btn nx-btn-primary mt-4 w-full"
+                    onClick={() => add(p, 1)}
+                  >
+                    Ajouter au panier
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ✅ PHASE 1: AVIS */}
+        <div className="mx-auto max-w-6xl px-4 pt-6">
+          <div className="nx-card p-6">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold">
+                  💬 Avis clients
+                </h2>
+                <p className="text-white/70 mt-1">
+                  La confiance, c’est la base — surtout sur du hardware.
+                </p>
+              </div>
+              <div className="hidden sm:block text-sm text-white/70">
+                Note moyenne{" "}
+                <span className="font-semibold text-white">4.8/5</span>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-4 lg:grid-cols-3">
+              {REVIEWS.map((r, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-3xl border border-white/10 bg-white/5 p-5"
+                >
+                  <div className="text-white/90">
+                    {Array.from({ length: r.stars }).map((_, i) => (
+                      <span key={i}>★</span>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-white/75 leading-relaxed">
+                    “{r.text}”
+                  </p>
+                  <div className="mt-4 text-sm text-white/60">
+                    — {r.name}{" "}
+                    <span className="text-white/40">(achat vérifié)</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ✅ PHASE 1: POURQUOI NEXUS */}
+        <div className="mx-auto max-w-6xl px-4 pt-6">
+          <div className="nx-card p-6">
+            <h2 className="text-2xl sm:text-3xl font-extrabold">
+              🏆 Pourquoi acheter chez Nexus ?
+            </h2>
+            <p className="text-white/70 mt-1">
+              On met la perf et la fiabilité devant le blabla. Et on te couvre en
+              cas de souci.
+            </p>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {BENEFITS.map((b) => (
+                <div
+                  key={b.title}
+                  className="rounded-3xl border border-white/10 bg-white/5 p-5"
+                >
+                  <div className="text-xl">{b.icon}</div>
+                  <div className="mt-2 font-semibold">{b.title}</div>
+                  <div className="mt-1 text-sm text-white/65">{b.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* GRID */}
-        <div className="mx-auto max-w-6xl px-4 pb-14 pt-8">
+        <div id="catalogue" className="mx-auto max-w-6xl px-4 pb-14 pt-8">
           <div className="flex items-end justify-between gap-3">
             <div>
               <div className="text-sm text-white/60">Résultats</div>
