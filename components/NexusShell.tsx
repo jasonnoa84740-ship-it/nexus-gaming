@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -10,6 +11,8 @@ import { motion, useReducedMotion } from "framer-motion";
 function cx(...a: Array<string | false | undefined | null>) {
   return a.filter(Boolean).join(" ");
 }
+
+const LOGO_SRC = "/ng-logo.jpg"; // ✅ mets ton logo dans /public/ng-logo.jpg
 
 export default function NexusShell({
   title,
@@ -76,6 +79,7 @@ export default function NexusShell({
     router.replace("/auth");
   }
 
+  // parallax fond (logo + glow)
   const bgParallax = reduceMotion
     ? {}
     : {
@@ -84,7 +88,7 @@ export default function NexusShell({
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
-      {/* 🔮 Background layer (violet, glow, animated, parallax) */}
+      {/* 🔮 Background layer (violet + logo watermark animé) */}
       <div aria-hidden className="fixed inset-0 -z-10">
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#090012] via-[#05010a] to-black" />
@@ -100,6 +104,62 @@ export default function NexusShell({
 
         {/* Parallax wrapper */}
         <div className="absolute inset-0" style={bgParallax}>
+          {/* ✅ Logo watermark en fond (bouge doucement) */}
+          {!reduceMotion ? (
+            <motion.div
+              className="absolute inset-0"
+              initial={{ opacity: 0.0, scale: 1.02 }}
+              animate={{ opacity: 1, scale: [1.02, 1.04, 1.02] }}
+              transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <div
+                className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  width: "min(920px, 90vw)",
+                  height: "min(920px, 90vw)",
+                }}
+              >
+                {/* On utilise un div background-image pour “watermark” doux */}
+                <div
+                  className="absolute inset-0 rounded-full blur-[0px]"
+                  style={{
+                    backgroundImage: `url(${LOGO_SRC})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    backgroundSize: "contain",
+                    opacity: 0.10,
+                    filter: "saturate(1.15) contrast(1.05)",
+                    mixBlendMode: "screen",
+                  }}
+                />
+                {/* petit glow derrière le logo */}
+                <div
+                  className="absolute inset-0 rounded-full blur-3xl"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.18), transparent 60%)",
+                    opacity: 0.9,
+                  }}
+                />
+              </div>
+            </motion.div>
+          ) : (
+            <div
+              className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2"
+              style={{
+                width: "min(920px, 90vw)",
+                height: "min(920px, 90vw)",
+                backgroundImage: `url(${LOGO_SRC})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "contain",
+                opacity: 0.10,
+                filter: "saturate(1.15) contrast(1.05)",
+                mixBlendMode: "screen",
+              }}
+            />
+          )}
+
           {/* Animated blobs */}
           {!reduceMotion ? (
             <>
@@ -122,22 +182,7 @@ export default function NexusShell({
                 transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
               />
             </>
-          ) : (
-            <>
-              <div
-                className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full blur-3xl"
-                style={{ background: "rgba(168,85,247,0.20)" }}
-              />
-              <div
-                className="absolute top-[20%] -right-48 h-[560px] w-[560px] rounded-full blur-3xl"
-                style={{ background: "rgba(99,102,241,0.16)" }}
-              />
-              <div
-                className="absolute bottom-[-220px] left-[30%] h-[640px] w-[640px] rounded-full blur-3xl"
-                style={{ background: "rgba(236,72,153,0.10)" }}
-              />
-            </>
-          )}
+          ) : null}
         </div>
 
         {/* Subtle grid overlay */}
@@ -163,8 +208,20 @@ export default function NexusShell({
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-black/35 backdrop-blur-xl">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-3">
-          <Link href="/" className="font-black tracking-tight text-lg">
-            NEXUS<span className="text-white/60">GAMING</span>
+          {/* ✅ Logo petit + texte */}
+          <Link href="/" className="flex items-center gap-2 font-black tracking-tight text-lg">
+            <span className="relative h-8 w-8 rounded-xl overflow-hidden border border-white/10 bg-white/5">
+              <Image
+                src={LOGO_SRC}
+                alt="Nexus Gaming"
+                fill
+                className="object-cover"
+                priority
+              />
+            </span>
+            <span>
+              NEXUS<span className="text-white/60">GAMING</span>
+            </span>
           </Link>
 
           <div className="flex items-center gap-2">
