@@ -6,12 +6,12 @@ export type Product = {
   id: string;
   brand: string;
   name: string;
-  category: string; // ✅ utilisé dans app/page.tsx
+  category: string;
   price: number;
   oldPrice?: number;
-  badge?: string; // ✅ utilisé dans app/page.tsx
-  desc?: string; // ✅ utilisé dans app/page.tsx
-  ship?: string; // ✅ certains produits ont ship, on le rend optionnel
+  badge?: string;
+  desc?: string;
+  ship: string;
   image: string;
 };
 
@@ -26,7 +26,7 @@ export function euro(n: number) {
 
 type CartCtx = {
   cart: CartItem[];
-  add: (p: Product, qty?: number) => void; // ✅ add(p, 1) OK
+  add: (p: Product, qty?: number) => void;
   inc: (id: string) => void;
   dec: (id: string) => void;
   remove: (id: string) => void;
@@ -57,9 +57,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const inc = (id: string) =>
     setCart((p) =>
-      p.map((it) =>
-        it.product.id === id ? { ...it, qty: it.qty + 1 } : it
-      )
+      p.map((it) => (it.product.id === id ? { ...it, qty: it.qty + 1 } : it))
     );
 
   const dec = (id: string) =>
@@ -79,23 +77,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [cart]
   );
 
-  // règle simple livraison: offerte dès 99€, sinon 4.99€ (si panier non vide)
   const shipping = subtotal >= 99 ? 0 : cart.length ? 4.99 : 0;
   const total = subtotal + shipping;
   const count = cart.reduce((s, it) => s + it.qty, 0);
 
-  const value: CartCtx = {
-    cart,
-    add,
-    inc,
-    dec,
-    remove,
-    clear,
-    subtotal,
-    shipping,
-    total,
-    count,
-  };
+  const value: CartCtx = { cart, add, inc, dec, remove, clear, subtotal, shipping, total, count };
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
