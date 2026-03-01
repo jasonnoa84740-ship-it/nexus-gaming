@@ -62,16 +62,25 @@ export default function Page() {
   const [my, setMy] = useState(0);
 
   useEffect(() => {
+    let raf = 0;
+
     const onMove = (e: MouseEvent) => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
       setMx((e.clientX - cx) / cx);
       setMy((e.clientY - cy) / cy);
-    };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
+    });
+  };
 
+  window.addEventListener("mousemove", onMove, { passive: true });
+
+  return () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener("mousemove", onMove);
+  };
+}, []);
   // scroll lock modal (sinon t’as l’impression que “ça s’ouvre en bas”)
   useEffect(() => {
     if (!active) return;

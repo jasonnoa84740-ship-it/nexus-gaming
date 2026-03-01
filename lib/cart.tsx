@@ -7,16 +7,17 @@ export type Product = {
   brand: string;
   name: string;
 
-  // shop
+  // important pour tes filtres + boutique
   category: string;
+
   price: number;
   oldPrice?: number;
 
-  // UI
+  // optionnels (affichage boutique)
   badge?: string;
   desc?: string;
 
-  // logistic
+  // affichage cartes
   ship: string;
   image: string;
 };
@@ -24,10 +25,7 @@ export type Product = {
 type CartItem = { product: Product; qty: number };
 
 export function euro(n: number) {
-  return new Intl.NumberFormat("fr-FR", {
-    style: "currency",
-    currency: "EUR",
-  }).format(n);
+  return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
 }
 
 type CartCtx = {
@@ -62,44 +60,23 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const inc = (id: string) =>
-    setCart((p) =>
-      p.map((it) => (it.product.id === id ? { ...it, qty: it.qty + 1 } : it))
-    );
+    setCart((p) => p.map((it) => (it.product.id === id ? { ...it, qty: it.qty + 1 } : it)));
 
   const dec = (id: string) =>
-    setCart((p) =>
-      p.map((it) =>
-        it.product.id === id ? { ...it, qty: Math.max(1, it.qty - 1) } : it
-      )
-    );
+    setCart((p) => p.map((it) => (it.product.id === id ? { ...it, qty: Math.max(1, it.qty - 1) } : it)));
 
-  const remove = (id: string) =>
-    setCart((p) => p.filter((it) => it.product.id !== id));
-
+  const remove = (id: string) => setCart((p) => p.filter((it) => it.product.id !== id));
   const clear = () => setCart([]);
 
-  const subtotal = useMemo(
-    () => cart.reduce((s, it) => s + it.qty * it.product.price, 0),
-    [cart]
-  );
+  const subtotal = useMemo(() => cart.reduce((s, it) => s + it.qty * it.product.price, 0), [cart]);
 
-  // livraison: offerte dès 99€, sinon 4.99€ (si panier non vide)
+  // Livraison offerte dès 99€
   const shipping = subtotal >= 99 ? 0 : cart.length ? 4.99 : 0;
+
   const total = subtotal + shipping;
   const count = cart.reduce((s, it) => s + it.qty, 0);
 
-  const value: CartCtx = {
-    cart,
-    add,
-    inc,
-    dec,
-    remove,
-    clear,
-    subtotal,
-    shipping,
-    total,
-    count,
-  };
+  const value: CartCtx = { cart, add, inc, dec, remove, clear, subtotal, shipping, total, count };
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
