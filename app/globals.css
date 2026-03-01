@@ -3,244 +3,199 @@
 @tailwind utilities;
 
 /* =========================
-   Nexus Gaming – Global CSS
+   Nexus Gaming — Global
+   Style 2026 (clean/violet)
    ========================= */
 
 :root {
-  --nx-bg: #05050a;
-  --nx-card: rgba(255, 255, 255, 0.06);
-  --nx-border: rgba(255, 255, 255, 0.12);
-  --nx-text: rgba(255, 255, 255, 0.92);
-  --nx-muted: rgba(255, 255, 255, 0.65);
-
-  --nx-violet: 168 85 247;  /* violet */
-  --nx-fuchsia: 217 70 239; /* fuchsia */
-  --nx-cyan: 34 211 238;    /* cyan */
+  --nx-bg0: #07030b;
+  --nx-bg1: #0b0612;
+  --nx-purple: #a855f7; /* purple-500 */
+  --nx-purple2: #7c3aed; /* violet-600 */
+  --nx-border: rgba(255, 255, 255, 0.10);
+  --nx-card: rgba(0, 0, 0, 0.40);
+  --nx-glass: rgba(255, 255, 255, 0.06);
+  --nx-text-dim: rgba(255, 255, 255, 0.70);
 }
 
-/* Base */
 html,
 body {
   height: 100%;
 }
 
 body {
-  background: var(--nx-bg);
-  color: var(--nx-text);
+  background: radial-gradient(1200px 700px at 20% -10%, rgba(168, 85, 247, 0.22), transparent 55%),
+    radial-gradient(900px 600px at 80% 0%, rgba(124, 58, 237, 0.18), transparent 60%),
+    radial-gradient(900px 600px at 50% 110%, rgba(76, 29, 149, 0.20), transparent 60%),
+    linear-gradient(to bottom, var(--nx-bg1), var(--nx-bg0));
+  color: white;
   overflow-x: hidden;
 }
 
-/* =========================
-   Fond animé + watermark logo
-   (partout sur le site)
-   ========================= */
-
-/* On met tout sur body pour que login/signup aient le même fond */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -3;
-
-  /* Fond “aurora” + dégradés */
-  background:
-    radial-gradient(1200px 800px at 15% 20%, rgba(var(--nx-violet), 0.22), transparent 55%),
-    radial-gradient(1000px 700px at 85% 30%, rgba(var(--nx-fuchsia), 0.18), transparent 58%),
-    radial-gradient(900px 650px at 35% 85%, rgba(var(--nx-cyan), 0.10), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00) 55%, rgba(255,255,255,0.02));
-  filter: saturate(1.15);
+/* Typo clean */
+h1, h2, h3 {
+  letter-spacing: -0.02em;
 }
 
-/* Grille / scanlines très léger */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-
-  background:
-    linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(255,255,255,0) 40%),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255,255,255,0.035) 0,
-      rgba(255,255,255,0.035) 1px,
-      rgba(0,0,0,0) 1px,
-      rgba(0,0,0,0) 44px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,0.03) 0,
-      rgba(255,255,255,0.03) 1px,
-      rgba(0,0,0,0) 1px,
-      rgba(0,0,0,0) 44px
-    );
-
-  opacity: 0.07;
-  transform: translateZ(0);
-}
-
-/* Watermark logo animé (toujours derrière) */
-.nx-watermark {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  display: grid;
-  place-items: center;
-}
-
-/* L’image */
-.nx-watermark::before {
-  content: "";
-  width: min(820px, 92vw);
-  height: min(820px, 92vw);
-
-  background-image: url("/brand/ng-logo.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
-  opacity: 0.12; /* augmente si tu veux le voir plus */
-  filter: drop-shadow(0 0 30px rgba(var(--nx-violet), 0.25));
-
-  transform: translate3d(0, 0, 0) rotate(-3deg);
-  animation: nxLogoFloat 10s ease-in-out infinite;
-}
-
-/* Petit glow supplémentaire */
-.nx-watermark::after {
-  content: "";
-  position: absolute;
-  width: min(920px, 96vw);
-  height: min(920px, 96vw);
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(var(--nx-violet), 0.16), transparent 60%);
-  filter: blur(18px);
-  opacity: 0.65;
-  animation: nxGlowPulse 6.5s ease-in-out infinite;
-}
-
-/* Animation watermark */
-@keyframes nxLogoFloat {
-  0%   { transform: translate3d(0, 0, 0) rotate(-3deg) scale(1); }
-  50%  { transform: translate3d(0, -18px, 0) rotate(2deg) scale(1.02); }
-  100% { transform: translate3d(0, 0, 0) rotate(-3deg) scale(1); }
-}
-
-@keyframes nxGlowPulse {
-  0%   { transform: scale(1); opacity: 0.55; }
-  50%  { transform: scale(1.05); opacity: 0.78; }
-  100% { transform: scale(1); opacity: 0.55; }
-}
-
-/* Réduit les animations si l’utilisateur a “reduce motion” */
-@media (prefers-reduced-motion: reduce) {
-  .nx-watermark::before,
-  .nx-watermark::after {
-    animation: none !important;
+/* Scrollbar (desktop) */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    border: 2px solid rgba(0, 0, 0, 0.35);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.18);
   }
 }
 
 /* =========================
-   Components style (nx-*)
+   Background layers helper
+   (utilisable partout)
    ========================= */
 
-.nx-card {
-  border-radius: 24px;
-  border: 1px solid var(--nx-border);
-  background: var(--nx-card);
-  box-shadow:
-    0 10px 40px rgba(0,0,0,0.35),
-    0 0 0 1px rgba(255,255,255,0.02) inset;
-  backdrop-filter: blur(16px);
+.nx-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
 }
 
-.nx-input {
-  width: 100%;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(0,0,0,0.35);
-  padding: 12px 14px;
-  color: rgba(255,255,255,0.92);
-  outline: none;
-  transition: 160ms ease;
+/* Grain ultra léger (donne du “premium”) */
+.nx-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
 }
 
-.nx-input::placeholder {
-  color: rgba(255,255,255,0.45);
+/* Watermark logo (NG) */
+.nx-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: -9;
+  pointer-events: none;
+  opacity: 0.10;
+  background: url("/ng-logo.png") center / 520px no-repeat;
+  filter: saturate(1.2);
+  animation: nxFloat 10s ease-in-out infinite;
 }
 
-.nx-input:focus {
-  border-color: rgba(var(--nx-violet), 0.55);
-  box-shadow: 0 0 0 4px rgba(var(--nx-violet), 0.18);
+/* Glow clouds (violet) */
+.nx-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  opacity: 0.45;
+  filter: blur(60px);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(168, 85, 247, 0.28), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(124, 58, 237, 0.26), transparent 42%),
+    radial-gradient(circle at 50% 80%, rgba(76, 29, 149, 0.28), transparent 46%);
+  animation: nxGlowMove 14s ease-in-out infinite;
 }
 
-.nx-btn {
-  border-radius: 18px;
-  padding: 10px 14px;
-  font-weight: 800;
-  letter-spacing: 0.2px;
-  border: 1px solid rgba(255,255,255,0.12);
-  transition: 160ms ease;
-  user-select: none;
+/* ⚠️ iOS: on évite les trucs lourds.
+   Si tu veux, tu peux activer ce mode via classe "nx-ios" sur body */
+.nx-ios .nx-glow {
+  filter: none;
+  opacity: 0.25;
+  animation: none;
+}
+.nx-ios .nx-watermark {
+  background-size: 320px;
+  animation: none;
 }
 
-.nx-btn:active {
-  transform: translateY(1px);
+@keyframes nxGlowMove {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(0,-12px,0) scale(1.02); }
+  100% { transform: translate3d(0,0,0) scale(1); }
 }
 
-.nx-btn-primary {
-  background: linear-gradient(
-    135deg,
-    rgba(var(--nx-violet), 0.95),
-    rgba(var(--nx-fuchsia), 0.85)
-  );
-  border-color: rgba(255,255,255,0.14);
-  box-shadow: 0 14px 40px rgba(var(--nx-violet), 0.20);
-}
-
-.nx-btn-primary:hover {
-  filter: brightness(1.05);
-  box-shadow: 0 16px 48px rgba(var(--nx-violet), 0.28);
-}
-
-.nx-btn-ghost {
-  background: rgba(255,255,255,0.06);
-}
-
-.nx-btn-ghost:hover {
-  background: rgba(255,255,255,0.10);
-}
-
-/* Badge / chips helpers (si besoin) */
-.nx-chip {
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  padding: 6px 10px;
-  font-size: 12px;
-  font-weight: 800;
+@keyframes nxFloat {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(0, -10px, 0) scale(1.01); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 
 /* =========================
-   Petit logo dans la topbar
-   (optionnel côté CSS)
+   UI Kits (nx-*)
    ========================= */
 
-.nx-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+@layer components {
+  .nx-card {
+    @apply rounded-3xl border shadow-xl;
+    border-color: var(--nx-border);
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.06),
+      rgba(255,255,255,0.03)
+    );
+    backdrop-filter: blur(14px);
+  }
+
+  /* iOS safe: si tu mets "nx-ios" sur body, pas de blur */
+  .nx-ios .nx-card {
+    backdrop-filter: none;
+    background: rgba(0,0,0,0.55);
+  }
+
+  .nx-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold transition;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+  }
+  .nx-btn:hover {
+    background: rgba(255,255,255,0.10);
+  }
+  .nx-btn:active {
+    transform: translateY(1px);
+  }
+
+  .nx-btn-primary {
+    border-color: rgba(168,85,247,0.35);
+    background: linear-gradient(135deg, rgba(168,85,247,0.35), rgba(124,58,237,0.25));
+    box-shadow: 0 10px 40px rgba(168,85,247,0.10);
+  }
+  .nx-btn-primary:hover {
+    background: linear-gradient(135deg, rgba(168,85,247,0.45), rgba(124,58,237,0.30));
+  }
+
+  .nx-btn-ghost {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .nx-input {
+    @apply rounded-2xl px-4 py-2 text-sm outline-none transition w-full;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.35);
+  }
+  .nx-input:focus {
+    border-color: rgba(168,85,247,0.55);
+    box-shadow: 0 0 0 3px rgba(168,85,247,0.18);
+  }
 }
 
-.nx-brand-logo {
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  background-image: url("/brand/ng-logo.jpg");
-  background-size: cover;
-  background-position: center;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.12) inset,
-    0 10px 25px rgba(var(--nx-violet), 0.16);
+/* =========================
+   Fix visuel mobile / layout
+   ========================= */
+
+/* Empêche les boutons d'être énormes / bizarres sur mobile */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }

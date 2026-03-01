@@ -75,8 +75,11 @@ export default function NexusShell({
 
   return (
     <div className="min-h-screen text-white relative">
-      {/* ✅ Background global : lourd sur PC, léger sur iOS */}
-      {!isIOS ? (
+    <div className="nx-bg" />
+    <div className="nx-glow" />
+    <div className="nx-watermark" />
+    {/* ✅ Background global : lourd sur PC, léger sur iOS */}
+    {!isIOS ? (
         <>
           {/* Effets PC (tu peux garder tes layers existants) */}
           <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,#2b0a3d_0%,transparent_55%),radial-gradient(ellipse_at_bottom,#120019_0%,transparent_55%)]" />
