@@ -12,7 +12,11 @@ function cx(...a: Array<string | false | undefined | null>) {
   return a.filter(Boolean).join(" ");
 }
 
-const LOGO_SRC = "/ng-logo.jpg"; // ✅ mets ton logo dans /public/ng-logo.jpg
+const LOGO_SRC = "/ng-logo.jpg";
+
+function rand(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
 
 export default function NexusShell({
   title,
@@ -79,106 +83,162 @@ export default function NexusShell({
     router.replace("/auth");
   }
 
-  // parallax fond (logo + glow)
+  // parallax fond
   const bgParallax = reduceMotion
     ? {}
     : {
-        transform: `translate3d(${mx * 14}px, ${my * 14}px, 0)`,
+        transform: `translate3d(${mx * 16}px, ${my * 16}px, 0)`,
       };
+
+  // Particules (générées une fois)
+  const particles = useMemo(() => {
+    return Array.from({ length: 26 }).map((_, i) => ({
+      id: i,
+      left: rand(5, 95),
+      top: rand(8, 92),
+      size: rand(2, 5),
+      dur: rand(8, 16),
+      driftX: rand(-40, 40),
+      driftY: rand(-30, 30),
+      delay: rand(0, 4),
+      opacity: rand(0.18, 0.5),
+    }));
+  }, []);
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
-      {/* 🔮 Background layer (violet + logo watermark animé) */}
+      {/* 🔮 Background layer */}
       <div aria-hidden className="fixed inset-0 -z-10">
         {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#090012] via-[#05010a] to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0016] via-[#06000d] to-black" />
 
-        {/* Glow radial */}
+        {/* Glow radial stronger */}
         <div
-          className="absolute inset-0 opacity-90"
+          className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(900px 600px at 50% 10%, rgba(168,85,247,0.22), transparent 60%), radial-gradient(700px 520px at 20% 40%, rgba(99,102,241,0.16), transparent 60%), radial-gradient(700px 520px at 80% 55%, rgba(236,72,153,0.12), transparent 60%)",
+              "radial-gradient(900px 620px at 50% 10%, rgba(168,85,247,0.28), transparent 60%), radial-gradient(800px 600px at 18% 42%, rgba(99,102,241,0.20), transparent 60%), radial-gradient(900px 700px at 82% 55%, rgba(236,72,153,0.14), transparent 60%)",
+            opacity: 1,
           }}
         />
 
         {/* Parallax wrapper */}
         <div className="absolute inset-0" style={bgParallax}>
-          {/* ✅ Logo watermark en fond (bouge doucement) */}
-          {!reduceMotion ? (
-            <motion.div
-              className="absolute inset-0"
-              initial={{ opacity: 0.0, scale: 1.02 }}
-              animate={{ opacity: 1, scale: [1.02, 1.04, 1.02] }}
-              transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <div
-                className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  width: "min(920px, 90vw)",
-                  height: "min(920px, 90vw)",
-                }}
-              >
-                {/* On utilise un div background-image pour “watermark” doux */}
-                <div
-                  className="absolute inset-0 rounded-full blur-[0px]"
-                  style={{
-                    backgroundImage: `url(${LOGO_SRC})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    backgroundSize: "contain",
-                    opacity: 0.10,
-                    filter: "saturate(1.15) contrast(1.05)",
-                    mixBlendMode: "screen",
-                  }}
-                />
-                {/* petit glow derrière le logo */}
-                <div
-                  className="absolute inset-0 rounded-full blur-3xl"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.18), transparent 60%)",
-                    opacity: 0.9,
-                  }}
-                />
-              </div>
-            </motion.div>
-          ) : (
+          {/* ✅ Logo watermark plus visible + rotation lente */}
+          {reduceMotion ? (
             <div
-              className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2"
+              className="absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2"
               style={{
-                width: "min(920px, 90vw)",
-                height: "min(920px, 90vw)",
+                width: "min(980px, 92vw)",
+                height: "min(980px, 92vw)",
                 backgroundImage: `url(${LOGO_SRC})`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 backgroundSize: "contain",
-                opacity: 0.10,
-                filter: "saturate(1.15) contrast(1.05)",
+                opacity: 0.16, // ✅ plus visible
+                filter: "saturate(1.25) contrast(1.15) drop-shadow(0 0 35px rgba(168,85,247,0.22))",
+                mixBlendMode: "screen",
+              }}
+            />
+          ) : (
+            <motion.div
+              className="absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2"
+              style={{
+                width: "min(980px, 92vw)",
+                height: "min(980px, 92vw)",
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 120, repeat: Infinity, ease: "linear" }} // ✅ rotation ultra lente
+            >
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${LOGO_SRC})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                  backgroundSize: "contain",
+                  opacity: 0.16, // ✅ plus visible
+                  filter:
+                    "saturate(1.25) contrast(1.15) drop-shadow(0 0 35px rgba(168,85,247,0.22))",
+                  mixBlendMode: "screen",
+                }}
+              />
+              {/* halo derrière */}
+              <div
+                className="absolute inset-0 rounded-full blur-3xl"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.22), transparent 62%)",
+                  opacity: 1,
+                }}
+              />
+            </motion.div>
+          )}
+
+          {/* ✅ Scanline violet (balayage) */}
+          {!reduceMotion && (
+            <motion.div
+              className="absolute left-0 right-0 h-40"
+              initial={{ y: -200, opacity: 0 }}
+              animate={{ y: ["-20%", "120%"], opacity: [0, 0.35, 0] }}
+              transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 2 }}
+              style={{
+                background:
+                  "linear-gradient(to bottom, transparent, rgba(168,85,247,0.25), rgba(99,102,241,0.18), transparent)",
+                filter: "blur(10px)",
                 mixBlendMode: "screen",
               }}
             />
           )}
 
-          {/* Animated blobs */}
+          {/* ✅ Particules */}
+          {!reduceMotion &&
+            particles.map((p) => (
+              <motion.div
+                key={p.id}
+                className="absolute rounded-full"
+                style={{
+                  left: `${p.left}%`,
+                  top: `${p.top}%`,
+                  width: p.size,
+                  height: p.size,
+                  background: "rgba(255,255,255,1)",
+                  opacity: p.opacity,
+                  boxShadow: "0 0 18px rgba(168,85,247,0.35)",
+                }}
+                animate={{
+                  x: [0, p.driftX, 0],
+                  y: [0, p.driftY, 0],
+                  opacity: [p.opacity, Math.min(0.75, p.opacity + 0.18), p.opacity],
+                }}
+                transition={{
+                  duration: p.dur,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: p.delay,
+                }}
+              />
+            ))}
+
+          {/* Animated blobs stronger */}
           {!reduceMotion ? (
             <>
               <motion.div
-                className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full blur-3xl"
-                style={{ background: "rgba(168,85,247,0.22)" }}
-                animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
+                className="absolute -top-44 -left-44 h-[560px] w-[560px] rounded-full blur-3xl"
+                style={{ background: "rgba(168,85,247,0.26)" }}
+                animate={{ x: [0, 48, 0], y: [0, 34, 0] }}
                 transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
               />
               <motion.div
-                className="absolute top-[20%] -right-48 h-[560px] w-[560px] rounded-full blur-3xl"
-                style={{ background: "rgba(99,102,241,0.18)" }}
-                animate={{ x: [0, -50, 0], y: [0, 35, 0] }}
+                className="absolute top-[18%] -right-56 h-[620px] w-[620px] rounded-full blur-3xl"
+                style={{ background: "rgba(99,102,241,0.22)" }}
+                animate={{ x: [0, -60, 0], y: [0, 40, 0] }}
                 transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
               />
               <motion.div
-                className="absolute bottom-[-220px] left-[30%] h-[640px] w-[640px] rounded-full blur-3xl"
-                style={{ background: "rgba(236,72,153,0.10)" }}
-                animate={{ x: [0, 55, 0], y: [0, -25, 0] }}
+                className="absolute bottom-[-260px] left-[28%] h-[720px] w-[720px] rounded-full blur-3xl"
+                style={{ background: "rgba(236,72,153,0.14)" }}
+                animate={{ x: [0, 60, 0], y: [0, -28, 0] }}
                 transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
               />
             </>
@@ -211,13 +271,7 @@ export default function NexusShell({
           {/* ✅ Logo petit + texte */}
           <Link href="/" className="flex items-center gap-2 font-black tracking-tight text-lg">
             <span className="relative h-8 w-8 rounded-xl overflow-hidden border border-white/10 bg-white/5">
-              <Image
-                src={LOGO_SRC}
-                alt="Nexus Gaming"
-                fill
-                className="object-cover"
-                priority
-              />
+              <Image src={LOGO_SRC} alt="Nexus Gaming" fill className="object-cover" priority />
             </span>
             <span>
               NEXUS<span className="text-white/60">GAMING</span>
@@ -243,9 +297,7 @@ export default function NexusShell({
                   </span>
                   <span className="hidden sm:block text-left">
                     <div className="text-xs text-white/60 leading-none">Connecté</div>
-                    <div className="text-sm font-semibold leading-none">
-                      {pseudo || user.email}
-                    </div>
+                    <div className="text-sm font-semibold leading-none">{pseudo || user.email}</div>
                   </span>
                   <span className="text-white/60">▾</span>
                 </button>
