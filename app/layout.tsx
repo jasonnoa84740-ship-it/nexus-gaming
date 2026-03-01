@@ -5,6 +5,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr">
       <body>
+       <div className="nx-watermark" />
         <CartProvider>
           {children}
         </CartProvider>
