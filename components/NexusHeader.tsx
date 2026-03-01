@@ -29,8 +29,7 @@ export default function NexusHeader() {
   }
 
   const active = (href: string) =>
-    pathname === href ||
-    (href !== "/" && pathname?.startsWith(href));
+    pathname === href || (href !== "/" && pathname?.startsWith(href));
 
   return (
     <header className="sticky top-0 z-50">
@@ -63,21 +62,35 @@ export default function NexusHeader() {
             >
               Accueil
             </Link>
+
+            {/* ✅ AJOUT */}
+            <Link
+              href="/bons-plans"
+              className={cn(
+                "px-3 py-2 rounded-xl text-sm transition",
+                active("/bons-plans") ? "bg-white/10" : "hover:bg-white/5"
+              )}
+            >
+              🔥 Bons Plans
+            </Link>
+
             <Link
               href="/#produits"
               className={cn(
                 "px-3 py-2 rounded-xl text-sm transition",
-                pathname?.includes("#produits") ? "bg-white/10" : "hover:bg-white/5"
+                "hover:bg-white/5"
               )}
             >
               Produits
             </Link>
+
             <Link
               href="/#livraison"
               className="px-3 py-2 rounded-xl text-sm hover:bg-white/5 transition"
             >
               Livraison
             </Link>
+
             <Link
               href="/#support"
               className="px-3 py-2 rounded-xl text-sm hover:bg-white/5 transition"
@@ -87,7 +100,10 @@ export default function NexusHeader() {
           </nav>
 
           {/* Search */}
-          <form onSubmit={goSearch} className="hidden md:flex flex-1 justify-center">
+          <form
+            onSubmit={goSearch}
+            className="hidden md:flex flex-1 justify-center"
+          >
             <div className="w-full max-w-md relative">
               <input
                 value={q}
