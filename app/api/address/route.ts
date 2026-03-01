@@ -90,11 +90,11 @@ export async function POST(req: Request) {
 
     const { data, error } = await admin
       .from("addresses")
-      .insert(payload)
       .select("*")
-      .single();
-
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      .eq("user_id", userId)
+      .limit(1)
+      .maybeSingle();
+      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
     return NextResponse.json({ ok: true, address: data });
   } catch (e: any) {
