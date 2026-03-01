@@ -53,6 +53,18 @@ const EMPTY_ADDRESS: AddressForm = {
   country: "FR",
 };
 
+async function safeJson(res: Response) {
+  // évite "Unexpected end of JSON input"
+  const text = await res.text();
+  if (!text) return {};
+  try {
+    return JSON.parse(text);
+  } catch {
+    // parfois Vercel renvoie du HTML (404/500), on renvoie un objet générique
+    return { error: text.slice(0, 200) };
+  }
+}
+
 export default function AccountClient() {
   const router = useRouter();
   const params = useSearchParams();
@@ -89,8 +101,10 @@ export default function AccountClient() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.error || "Erreur chargement adresse");
+      const json: any = await safeJson(res);
+      if (!res.ok) {
+        throw new Error(json?.error || `Erreur chargement adresse (HTTP ${res.status})`);
+      }
 
       if (json?.address) {
         setAddr({
@@ -103,7 +117,6 @@ export default function AccountClient() {
           country: json.address.country ?? "FR",
         });
       } else {
-        // pas d'adresse enregistrée
         setAddr((prev) => ({ ...EMPTY_ADDRESS, country: prev.country || "FR" }));
       }
     } catch (e: any) {
@@ -137,11 +150,12 @@ export default function AccountClient() {
         body: JSON.stringify(addr),
       });
 
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.error || "Erreur enregistrement adresse");
+      const json: any = await safeJson(res);
+      if (!res.ok) {
+        throw new Error(json?.error || `Erreur enregistrement adresse (HTTP ${res.status})`);
+      }
 
       setAddrMsg("✅ Adresse enregistrée");
-      // Recharge pour être sûr que tout est synchro
       await loadAddress();
     } catch (e: any) {
       setAddrMsg("❌ " + (e?.message || "Erreur"));
@@ -157,7 +171,6 @@ export default function AccountClient() {
     });
   }, []);
 
-  // Charge l'adresse quand on arrive sur l'onglet settings et qu'on a un user
   useEffect(() => {
     if (tab !== "settings") return;
     if (!user) return;
@@ -228,7 +241,6 @@ export default function AccountClient() {
                   </div>
                 </div>
 
-                {/* ✅ ADRESSE BRANCHÉE */}
                 <div className="nx-card p-4 bg-white/5 border-white/10">
                   <div className="flex items-center justify-between gap-3">
                     <div>
