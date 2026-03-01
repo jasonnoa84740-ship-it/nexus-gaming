@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-
 import { supabase } from "@/lib/supabaseClient";
+import Link from "next/link";
+import { signInWith } from "@/lib/authProviders";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ export default function SignupPage() {
       password: pass,
       options: {
         emailRedirectTo: `${siteUrl}/auth/callback`,
-        data: { pseudo }, // metadata profil
+        data: { pseudo },
       },
     });
 
@@ -35,12 +35,46 @@ export default function SignupPage() {
     setMsg("✅ Compte créé. Regarde tes emails et confirme ton inscription.");
   }
 
+  async function oauth(provider: "google" | "discord") {
+    try {
+      setMsg(null);
+      await signInWith(provider);
+    } catch (e: any) {
+      setMsg("Erreur OAuth: " + (e?.message || "inscription"));
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="nx-card p-6 max-w-md w-full">
         <h1 className="text-xl font-black">Créer un compte</h1>
 
-        <form onSubmit={signup} className="mt-4 space-y-3">
+        {/* OAuth */}
+        <div className="mt-4 grid gap-2">
+          <button
+            type="button"
+            className="nx-btn nx-btn-ghost w-full"
+            onClick={() => oauth("google")}
+          >
+            Continuer avec Google
+          </button>
+
+          <button
+            type="button"
+            className="nx-btn nx-btn-ghost w-full"
+            onClick={() => oauth("discord")}
+          >
+            Continuer avec Discord
+          </button>
+        </div>
+
+        <div className="my-4 flex items-center gap-3">
+          <div className="h-px flex-1 bg-white/10" />
+          <div className="text-xs text-white/50">ou</div>
+          <div className="h-px flex-1 bg-white/10" />
+        </div>
+
+        <form onSubmit={signup} className="space-y-3">
           <input
             className="nx-input w-full"
             placeholder="Pseudo"
