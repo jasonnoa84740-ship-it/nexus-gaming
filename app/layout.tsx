@@ -1,16 +1,21 @@
 import "./globals.css";
-import { CartProvider } from "@/lib/cart";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import Cursor from "@/components/Cursor";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata = {
   title: "Nexus Gaming",
-  description: "Boutique gaming 2026",
+  description: "Shop gaming Nexus",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
       <body>
-        <CartProvider>{children}</CartProvider>
+        <ThemeProvider>
+          <Cursor />
+          <PageTransition>{children}</PageTransition>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -342,9 +342,7 @@ export default function NexusShell({
                     >
                       🎟️ Mes codes promo
                     </Link>
-
-                    <div className="h-px bg-white/10 my-2" />
-
+                                    
                     <button
                       onClick={logout}
                       className="w-full text-left px-2 py-2 rounded-lg hover:bg-white/10 text-sm"

@@ -78,4 +78,49 @@ body {
   background: rgba(0,0,0,.35);
   padding: 6px 10px;
   font-size: 12px;
+}/* ===== THEMES ===== */
+:root {
+  --main-glow: 168, 85, 247; /* neon default */
+  --cursor-size: 22px;
+}
+
+:root[data-theme="classic"] { --main-glow: 99, 102, 241; }
+:root[data-theme="neon"] { --main-glow: 168, 85, 247; }
+:root[data-theme="cyberpunk"] { --main-glow: 255, 0, 128; }
+:root[data-theme="elite"] { --main-glow: 0, 255, 255; }
+
+/* ===== CURSOR ===== */
+.nx-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(-100px, -100px, 0);
+  transition: opacity 120ms ease;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 18px rgba(var(--main-glow), 0.35),
+    0 0 44px rgba(var(--main-glow), 0.18);
+  margin-left: calc(var(--cursor-size) / -2);
+  margin-top: calc(var(--cursor-size) / -2);
+}
+
+/* ===== PREMIUM GLOW UTILS ===== */
+.nx-glow {
+  box-shadow: 0 0 18px rgba(var(--main-glow), 0.35), 0 0 48px rgba(var(--main-glow), 0.18);
+}
+
+.nx-btn.nx-btn-primary {
+  border-color: rgba(var(--main-glow), 0.45) !important;
+  box-shadow: 0 0 18px rgba(var(--main-glow), 0.35), 0 0 48px rgba(var(--main-glow), 0.18);
+}
+
+.nx-btn.nx-btn-primary:hover {
+  box-shadow: 0 0 26px rgba(var(--main-glow), 0.55), 0 0 70px rgba(var(--main-glow), 0.22);
 }
