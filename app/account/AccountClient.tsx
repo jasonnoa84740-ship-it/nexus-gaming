@@ -8,6 +8,16 @@ import { supabase } from "@/lib/supabaseClient";
 
 type Tab = "settings" | "orders" | "tracking" | "promos";
 
+type AddressForm = {
+  full_name: string;
+  phone: string;
+  line1: string;
+  line2: string;
+  city: string;
+  postal_code: string;
+  country: string;
+};
+
 function TabBtn({
   active,
   label,
@@ -33,6 +43,16 @@ function TabBtn({
   );
 }
 
+const EMPTY_ADDRESS: AddressForm = {
+  full_name: "",
+  phone: "",
+  line1: "",
+  line2: "",
+  city: "",
+  postal_code: "",
+  country: "FR",
+};
+
 export default function AccountClient() {
   const router = useRouter();
   const params = useSearchParams();
@@ -41,11 +61,94 @@ export default function AccountClient() {
   const [pseudo, setPseudo] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
 
+  // Adresse (vraie)
+  const [addr, setAddr] = useState<AddressForm>(EMPTY_ADDRESS);
+  const [addrLoading, setAddrLoading] = useState(false);
+  const [addrSaving, setAddrSaving] = useState(false);
+  const [addrMsg, setAddrMsg] = useState<string | null>(null);
+
   const tab = useMemo<Tab>(() => {
     const t = (params.get("tab") || "settings") as Tab;
     if (t === "orders" || t === "tracking" || t === "promos" || t === "settings") return t;
     return "settings";
   }, [params]);
+
+  async function getAccessToken() {
+    const { data } = await supabase.auth.getSession();
+    return data.session?.access_token ?? null;
+  }
+
+  async function loadAddress() {
+    setAddrMsg(null);
+    setAddrLoading(true);
+    try {
+      const token = await getAccessToken();
+      if (!token) throw new Error("Session expirée. Reconnecte-toi.");
+
+      const res = await fetch("/api/address", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || "Erreur chargement adresse");
+
+      if (json?.address) {
+        setAddr({
+          full_name: json.address.full_name ?? "",
+          phone: json.address.phone ?? "",
+          line1: json.address.line1 ?? "",
+          line2: json.address.line2 ?? "",
+          city: json.address.city ?? "",
+          postal_code: json.address.postal_code ?? "",
+          country: json.address.country ?? "FR",
+        });
+      } else {
+        // pas d'adresse enregistrée
+        setAddr((prev) => ({ ...EMPTY_ADDRESS, country: prev.country || "FR" }));
+      }
+    } catch (e: any) {
+      setAddrMsg("❌ " + (e?.message || "Erreur"));
+    } finally {
+      setAddrLoading(false);
+    }
+  }
+
+  async function saveAddress() {
+    setAddrMsg(null);
+
+    // validation simple
+    if (!addr.full_name.trim()) return setAddrMsg("❌ Nom / Prénom requis.");
+    if (!addr.line1.trim()) return setAddrMsg("❌ Adresse requise.");
+    if (!addr.city.trim()) return setAddrMsg("❌ Ville requise.");
+    if (!addr.postal_code.trim()) return setAddrMsg("❌ Code postal requis.");
+    if (!addr.country.trim()) return setAddrMsg("❌ Pays requis.");
+
+    setAddrSaving(true);
+    try {
+      const token = await getAccessToken();
+      if (!token) throw new Error("Session expirée. Reconnecte-toi.");
+
+      const res = await fetch("/api/address", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(addr),
+      });
+
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || "Erreur enregistrement adresse");
+
+      setAddrMsg("✅ Adresse enregistrée");
+      // Recharge pour être sûr que tout est synchro
+      await loadAddress();
+    } catch (e: any) {
+      setAddrMsg("❌ " + (e?.message || "Erreur"));
+    } finally {
+      setAddrSaving(false);
+    }
+  }
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -53,6 +156,14 @@ export default function AccountClient() {
       setPseudo(data.user?.user_metadata?.pseudo || "");
     });
   }, []);
+
+  // Charge l'adresse quand on arrive sur l'onglet settings et qu'on a un user
+  useEffect(() => {
+    if (tab !== "settings") return;
+    if (!user) return;
+    loadAddress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, user]);
 
   function setTab(next: Tab) {
     router.replace(`/account?tab=${next}`);
@@ -110,28 +221,102 @@ export default function AccountClient() {
                       onChange={(e) => setPseudo(e.target.value)}
                       placeholder="Ton pseudo"
                     />
-                    <button onClick={saveProfile} className="nx-btn nx-btn-primary mt-3">
+                    <button onClick={saveProfile} className="nx-btn nx-btn-primary mt-3" type="button">
                       Enregistrer
                     </button>
                     {msg ? <div className="mt-2 text-sm text-white/80">{msg}</div> : null}
                   </div>
                 </div>
 
+                {/* ✅ ADRESSE BRANCHÉE */}
                 <div className="nx-card p-4 bg-white/5 border-white/10">
-                  <div className="font-black">Adresses (démo)</div>
-                  <div className="text-sm text-white/70 mt-1">
-                    On branchera ça à Supabase ensuite (adresse de livraison, facturation…).
-                  </div>
-                  <div className="mt-3 grid md:grid-cols-2 gap-3">
-                    <input className="nx-input" placeholder="Nom / Prénom" />
-                    <input className="nx-input" placeholder="Téléphone" />
-                    <input className="nx-input md:col-span-2" placeholder="Adresse" />
-                    <input className="nx-input" placeholder="Ville" />
-                    <input className="nx-input" placeholder="Code postal" />
-                    <input className="nx-input md:col-span-2" placeholder="Pays" />
-                    <button className="nx-btn nx-btn-ghost md:col-span-2" type="button">
-                      + Ajouter une adresse
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <div className="font-black">Adresse</div>
+                      <div className="text-sm text-white/70 mt-1">
+                        Adresse de livraison (et facturation si identique).
+                      </div>
+                    </div>
+
+                    <button
+                      className="nx-btn nx-btn-ghost"
+                      type="button"
+                      onClick={loadAddress}
+                      disabled={addrLoading}
+                      title="Recharger"
+                    >
+                      {addrLoading ? "…" : "↻ Recharger"}
                     </button>
+                  </div>
+
+                  <div className="mt-3 grid md:grid-cols-2 gap-3">
+                    <input
+                      className="nx-input"
+                      placeholder="Nom / Prénom"
+                      value={addr.full_name}
+                      onChange={(e) => setAddr((p) => ({ ...p, full_name: e.target.value }))}
+                      disabled={addrLoading || addrSaving}
+                    />
+                    <input
+                      className="nx-input"
+                      placeholder="Téléphone"
+                      value={addr.phone}
+                      onChange={(e) => setAddr((p) => ({ ...p, phone: e.target.value }))}
+                      disabled={addrLoading || addrSaving}
+                    />
+
+                    <input
+                      className="nx-input md:col-span-2"
+                      placeholder="Adresse"
+                      value={addr.line1}
+                      onChange={(e) => setAddr((p) => ({ ...p, line1: e.target.value }))}
+                      disabled={addrLoading || addrSaving}
+                    />
+
+                    <input
+                      className="nx-input md:col-span-2"
+                      placeholder="Complément (optionnel)"
+                      value={addr.line2}
+                      onChange={(e) => setAddr((p) => ({ ...p, line2: e.target.value }))}
+                      disabled={addrLoading || addrSaving}
+                    />
+
+                    <input
+                      className="nx-input"
+                      placeholder="Ville"
+                      value={addr.city}
+                      onChange={(e) => setAddr((p) => ({ ...p, city: e.target.value }))}
+                      disabled={addrLoading || addrSaving}
+                    />
+                    <input
+                      className="nx-input"
+                      placeholder="Code postal"
+                      value={addr.postal_code}
+                      onChange={(e) => setAddr((p) => ({ ...p, postal_code: e.target.value }))}
+                      disabled={addrLoading || addrSaving}
+                    />
+
+                    <input
+                      className="nx-input md:col-span-2"
+                      placeholder="Pays"
+                      value={addr.country}
+                      onChange={(e) => setAddr((p) => ({ ...p, country: e.target.value }))}
+                      disabled={addrLoading || addrSaving}
+                    />
+
+                    <button
+                      className="nx-btn nx-btn-primary md:col-span-2"
+                      type="button"
+                      onClick={saveAddress}
+                      disabled={addrLoading || addrSaving}
+                    >
+                      {addrSaving ? "Enregistrement…" : "Enregistrer l’adresse"}
+                    </button>
+                  </div>
+
+                  {addrMsg ? <div className="mt-3 text-sm text-white/80">{addrMsg}</div> : null}
+                  <div className="mt-2 text-xs text-white/55">
+                    Tes adresses sont privées (liées à ton compte) et protégées par RLS.
                   </div>
                 </div>
               </div>
@@ -143,9 +328,7 @@ export default function AccountClient() {
                 <div className="text-sm text-white/70 mt-1">
                   Ici on affichera les vraies commandes (Stripe → webhook → Supabase).
                 </div>
-                <div className="mt-4 text-sm text-white/60">
-                  (Démo) Aucune commande pour l’instant.
-                </div>
+                <div className="mt-4 text-sm text-white/60">(Démo) Aucune commande pour l’instant.</div>
               </div>
             ) : null}
 
@@ -181,9 +364,7 @@ export default function AccountClient() {
             {tab === "promos" ? (
               <div className="nx-card p-4 bg-white/5 border-white/10">
                 <div className="font-black">Mes codes promo</div>
-                <div className="text-sm text-white/70 mt-1">
-                  (Démo) Tes codes perso / fidélité apparaîtront ici.
-                </div>
+                <div className="text-sm text-white/70 mt-1">(Démo) Tes codes perso / fidélité apparaîtront ici.</div>
 
                 <div className="mt-4 grid gap-3 md:grid-cols-2">
                   <div className="nx-card p-3 bg-white/5 border-white/10">
