@@ -47,7 +47,6 @@ function Badge({ text }: { text?: string }) {
   );
 }
 
-/** ⭐ mini composant étoiles */
 function Stars({ value }: { value: number }) {
   const full = Math.max(0, Math.min(5, Math.round(value)));
   return (
@@ -62,10 +61,11 @@ function Stars({ value }: { value: number }) {
   );
 }
 
+/** Bandeau promo sticky (Phase 1) */
 function PromoBar() {
   return (
-    <div className="sticky top-0 z-[60]">
-      <div className="border-b border-white/10 bg-black/35 backdrop-blur-md">
+    <div className="sticky top-0 z-[60] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+      <div className="border-b border-white/10 bg-black/40 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm text-white/90">
           <span className="inline-flex items-center gap-2">
             <span className="animate-pulse">🔥</span>
@@ -160,7 +160,7 @@ export default function Page() {
     };
   }, []);
 
-  // scroll lock modal (sinon t’as l’impression que “ça s’ouvre en bas”)
+  // scroll lock modal
   useEffect(() => {
     if (!active) return;
     const prev = document.body.style.overflow;
@@ -183,25 +183,23 @@ export default function Page() {
     });
   }, [q, cat]);
 
-  /** ⭐ Best sellers: on prend 4 produits “promos” ou “badgés”, sinon les 4 premiers */
+  /** Best sellers: on privilégie promos/badges */
   const bestSellers = useMemo(() => {
-    const scored = PRODUCTS.map((p) => {
+    return PRODUCTS.map((p) => {
       let score = 0;
-      if (p.oldPrice && p.oldPrice > p.price) score += 3; // promo
-      if (p.badge) score += 2; // mis en avant
-      if (p.category.toLowerCase().includes("gpu")) score += 1; // souvent top vendeur
+      if (p.oldPrice && p.oldPrice > p.price) score += 3;
+      if (p.badge) score += 2;
+      if (p.category.toLowerCase().includes("gpu")) score += 1;
       return { p, score };
     })
       .sort((a, b) => b.score - a.score)
       .slice(0, 4)
       .map((x, idx) => ({
         ...x.p,
-        sold: 18 + idx * 11, // démo (preuve sociale visuelle)
+        sold: 18 + idx * 11, // démo preuve sociale
         rating: 4.6 + (3 - idx) * 0.1, // démo
         tag: x.p.oldPrice ? "Promo" : x.p.badge || "Top vente",
       }));
-
-    return scored;
   }, []);
 
   function applyPromo() {
@@ -214,7 +212,6 @@ export default function Page() {
 
   return (
     <AuthGate>
-      {/* Phase 1: bandeau promo sticky */}
       <PromoBar />
 
       <NexusShell
@@ -264,26 +261,15 @@ export default function Page() {
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <Chip
-                    active={cat === "Tous"}
-                    label="Tous"
-                    onClick={() => setCat("Tous")}
-                  />
+                  <Chip active={cat === "Tous"} label="Tous" onClick={() => setCat("Tous")} />
                   {CATEGORIES.map((c) => (
-                    <Chip
-                      key={c}
-                      active={cat === c}
-                      label={c}
-                      onClick={() => setCat(c)}
-                    />
+                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
                   ))}
                 </div>
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">
-                  Promo rapide
-                </div>
+                <div className="text-sm font-semibold text-white/80">Promo rapide</div>
                 <div className="text-xs text-white/60 mt-1">
                   Essaie: <b>NEXUS10</b> ou <b>SHIPFREE</b>
                 </div>
@@ -305,8 +291,7 @@ export default function Page() {
                 ) : null}
 
                 <div className="mt-3 text-xs text-white/60">
-                  Livraison: 48h standard • Express disponible • Point relais dès
-                  2,99€
+                  Livraison: 48h standard • Express disponible • Point relais dès 2,99€
                 </div>
               </div>
             </div>
@@ -316,7 +301,7 @@ export default function Page() {
           </motion.div>
         </div>
 
-        {/* ✅ PHASE 1: BEST SELLERS */}
+        {/* ✅ PHASE 1: BEST SELLERS (amélioré premium) */}
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <div className="nx-card p-6">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -325,12 +310,14 @@ export default function Page() {
                   ⭐ Meilleures ventes Nexus
                 </h2>
                 <p className="text-white/70 mt-1">
-                  Les produits les plus populaires en ce moment — bons deals,
-                  stock qui part vite.
+                  Les produits les plus populaires en ce moment — bons deals, stock qui part vite.
                 </p>
               </div>
 
-              <a href="#catalogue" className="nx-btn nx-btn-ghost self-start sm:self-auto">
+              <a
+                href="#catalogue"
+                className="nx-btn nx-btn-primary self-start sm:self-auto"
+              >
                 Voir tout le catalogue →
               </a>
             </div>
@@ -339,18 +326,18 @@ export default function Page() {
               {bestSellers.map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-3xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition"
+                  className="rounded-3xl border border-purple-500/25 bg-white/5 p-4 hover:bg-white/10 transition relative overflow-hidden"
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="pointer-events-none absolute -top-10 -right-10 h-28 w-28 rounded-full bg-purple-500/20 blur-2xl" />
+
+                  <div className="flex items-center justify-between relative">
                     <span className="rounded-full border border-white/10 bg-black/25 px-2 py-1 text-[11px] text-white/80">
                       {p.tag}
                     </span>
-                    <span className="text-[11px] text-white/60">
-                      +{p.sold} vendus
-                    </span>
+                    <span className="text-[11px] text-white/60">+{p.sold} vendus</span>
                   </div>
 
-                  <div className="mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10">
+                  <div className="mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10 relative">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.image}
@@ -358,6 +345,7 @@ export default function Page() {
                       className="h-full w-full object-cover opacity-90"
                       loading="lazy"
                     />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   </div>
 
                   <div className="mt-3 text-xs text-white/60">{p.brand}</div>
@@ -374,6 +362,14 @@ export default function Page() {
                         {euro(p.oldPrice)}
                       </div>
                     ) : null}
+                  </div>
+
+                  <div className="mt-1 text-xs text-white/65">
+                    ⚡ Expédié sous <span className="font-semibold">24h</span> •{" "}
+                    <span className="text-white/60">Stock: </span>
+                    <span className="font-semibold text-white/80">
+                      {p.oldPrice ? "faible" : "dispo"}
+                    </span>
                   </div>
 
                   <button
@@ -393,16 +389,13 @@ export default function Page() {
           <div className="nx-card p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold">
-                  💬 Avis clients
-                </h2>
+                <h2 className="text-2xl sm:text-3xl font-extrabold">💬 Avis clients</h2>
                 <p className="text-white/70 mt-1">
                   La confiance, c’est la base — surtout sur du hardware.
                 </p>
               </div>
               <div className="hidden sm:block text-sm text-white/70">
-                Note moyenne{" "}
-                <span className="font-semibold text-white">4.8/5</span>
+                Note moyenne <span className="font-semibold text-white">4.8/5</span>
               </div>
             </div>
 
@@ -417,12 +410,9 @@ export default function Page() {
                       <span key={i}>★</span>
                     ))}
                   </div>
-                  <p className="mt-3 text-white/75 leading-relaxed">
-                    “{r.text}”
-                  </p>
+                  <p className="mt-3 text-white/75 leading-relaxed">“{r.text}”</p>
                   <div className="mt-4 text-sm text-white/60">
-                    — {r.name}{" "}
-                    <span className="text-white/40">(achat vérifié)</span>
+                    — {r.name} <span className="text-white/40">(achat vérifié)</span>
                   </div>
                 </div>
               ))}
@@ -437,8 +427,7 @@ export default function Page() {
               🏆 Pourquoi acheter chez Nexus ?
             </h2>
             <p className="text-white/70 mt-1">
-              On met la perf et la fiabilité devant le blabla. Et on te couvre en
-              cas de souci.
+              On met la perf et la fiabilité devant le blabla. Et on te couvre en cas de souci.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
