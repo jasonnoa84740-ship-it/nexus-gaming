@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { useCart } from "@/lib/cart";
+import { motion, useReducedMotion } from "framer-motion";
 
 function cx(...a: Array<string | false | undefined | null>) {
   return a.filter(Boolean).join(" ");
@@ -22,10 +23,15 @@ export default function NexusShell({
   const { count } = useCart();
   const router = useRouter();
   const pathname = usePathname();
+  const reduceMotion = useReducedMotion();
 
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [pseudo, setPseudo] = useState<string>("");
+
+  // Parallax mouse (soft)
+  const [mx, setMx] = useState(0);
+  const [my, setMy] = useState(0);
 
   useEffect(() => {
     let mounted = true;
@@ -41,9 +47,21 @@ export default function NexusShell({
       setPseudo(session?.user?.user_metadata?.pseudo || "");
     });
 
+    const onMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const dx = (e.clientX - cx) / cx;
+      const dy = (e.clientY - cy) / cy;
+      setMx(dx);
+      setMy(dy);
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+
     return () => {
       mounted = false;
       sub.subscription.unsubscribe();
+      window.removeEventListener("mousemove", onMove);
     };
   }, []);
 
@@ -58,10 +76,92 @@ export default function NexusShell({
     router.replace("/auth");
   }
 
+  const bgParallax = reduceMotion
+    ? {}
+    : {
+        transform: `translate3d(${mx * 14}px, ${my * 14}px, 0)`,
+      };
+
   return (
-    <div className="min-h-screen text-white">
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* 🔮 Background layer (violet, glow, animated, parallax) */}
+      <div aria-hidden className="fixed inset-0 -z-10">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#090012] via-[#05010a] to-black" />
+
+        {/* Glow radial */}
+        <div
+          className="absolute inset-0 opacity-90"
+          style={{
+            background:
+              "radial-gradient(900px 600px at 50% 10%, rgba(168,85,247,0.22), transparent 60%), radial-gradient(700px 520px at 20% 40%, rgba(99,102,241,0.16), transparent 60%), radial-gradient(700px 520px at 80% 55%, rgba(236,72,153,0.12), transparent 60%)",
+          }}
+        />
+
+        {/* Parallax wrapper */}
+        <div className="absolute inset-0" style={bgParallax}>
+          {/* Animated blobs */}
+          {!reduceMotion ? (
+            <>
+              <motion.div
+                className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full blur-3xl"
+                style={{ background: "rgba(168,85,247,0.22)" }}
+                animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute top-[20%] -right-48 h-[560px] w-[560px] rounded-full blur-3xl"
+                style={{ background: "rgba(99,102,241,0.18)" }}
+                animate={{ x: [0, -50, 0], y: [0, 35, 0] }}
+                transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute bottom-[-220px] left-[30%] h-[640px] w-[640px] rounded-full blur-3xl"
+                style={{ background: "rgba(236,72,153,0.10)" }}
+                animate={{ x: [0, 55, 0], y: [0, -25, 0] }}
+                transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </>
+          ) : (
+            <>
+              <div
+                className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full blur-3xl"
+                style={{ background: "rgba(168,85,247,0.20)" }}
+              />
+              <div
+                className="absolute top-[20%] -right-48 h-[560px] w-[560px] rounded-full blur-3xl"
+                style={{ background: "rgba(99,102,241,0.16)" }}
+              />
+              <div
+                className="absolute bottom-[-220px] left-[30%] h-[640px] w-[640px] rounded-full blur-3xl"
+                style={{ background: "rgba(236,72,153,0.10)" }}
+              />
+            </>
+          )}
+        </div>
+
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.25) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+
+        {/* Noise overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"140\" height=\"140\"><filter id=\"n\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"3\" stitchTiles=\"stitch\"/></filter><rect width=\"140\" height=\"140\" filter=\"url(%23n)\" opacity=\"0.45\"/></svg>')",
+          }}
+        />
+      </div>
+
       {/* Top bar */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/35 backdrop-blur-xl">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-3">
           <Link href="/" className="font-black tracking-tight text-lg">
             NEXUS<span className="text-white/60">GAMING</span>
@@ -70,10 +170,7 @@ export default function NexusShell({
           <div className="flex items-center gap-2">
             <Link
               href="/cart"
-              className={cx(
-                "nx-btn nx-btn-ghost",
-                pathname === "/cart" && "bg-white/10"
-              )}
+              className={cx("nx-btn nx-btn-ghost", pathname === "/cart" && "bg-white/10")}
             >
               🛒 Panier ({count})
             </Link>
@@ -88,9 +185,7 @@ export default function NexusShell({
                     {initials}
                   </span>
                   <span className="hidden sm:block text-left">
-                    <div className="text-xs text-white/60 leading-none">
-                      Connecté
-                    </div>
+                    <div className="text-xs text-white/60 leading-none">Connecté</div>
                     <div className="text-sm font-semibold leading-none">
                       {pseudo || user.email}
                     </div>
@@ -104,9 +199,7 @@ export default function NexusShell({
                     onMouseLeave={() => setOpen(false)}
                   >
                     <div className="px-2 py-2">
-                      <div className="text-sm font-black">
-                        {pseudo || "Mon profil"}
-                      </div>
+                      <div className="text-sm font-black">{pseudo || "Mon profil"}</div>
                       <div className="text-xs text-white/60">{user.email}</div>
                     </div>
 
