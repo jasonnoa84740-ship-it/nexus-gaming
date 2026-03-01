@@ -1,5 +1,6 @@
-"use client";
+"use client"; 
 
+import ModalPortal from "@/components/ModalPortal";
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -627,96 +628,51 @@ export default function Page() {
         </div>
 
         {/* DETAILS MODAL */}
-        <AnimatePresence>
-          {active && (
-            <motion.div
-              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActive(null)}
-            >
-              <motion.div
-                className="nx-card w-full max-w-3xl overflow-hidden"
-                initial={{ y: 18, opacity: 0, scale: 0.98 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                exit={{ y: 18, opacity: 0, scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                onClick={(e) => e.stopPropagation()}
+<AnimatePresence>
+  {active && (
+    <ModalPortal>
+      <motion.div
+        className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setActive(null)}
+      >
+        <motion.div
+          className="nx-card w-full max-w-3xl overflow-hidden"
+          initial={{ y: 18, opacity: 0, scale: 0.98 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: 18, opacity: 0, scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 260, damping: 22 }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* ✅ ton contenu de modal reste EXACTEMENT pareil ici */}
+          <div className="grid md:grid-cols-2">
+            <div className="relative">
+              <img
+                src={active.image}
+                alt={active.name}
+                className="h-72 md:h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              <div className="absolute top-3 left-3 flex gap-2">
+                {/* ... tes badges ... */}
+              </div>
+            </div>
+
+            <div className="p-5 md:p-6">
+              {/* ... tout ton contenu (prix, description, boutons) ... */}
+              <button
+                className="mt-3 w-full text-sm text-white/60 hover:text-white/80 transition"
+                onClick={() => setActive(null)}
               >
-                <div className="grid md:grid-cols-2">
-                  <div className="relative">
-                    <img
-                      src={active.image}
-                      alt={active.name}
-                      className="h-72 md:h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                    <div className="absolute top-3 left-3 flex gap-2">
-                      <Badge text={active.badge} />
-                      <Badge text={active.category} />
-                    </div>
-                  </div>
-
-                  <div className="p-5 md:p-6">
-                    <div className="text-sm text-white/60">{active.brand}</div>
-                    <div className="text-2xl font-black leading-tight">
-                      {active.name}
-                    </div>
-
-                    <div className="mt-2 flex items-end gap-2">
-                      <div className="text-3xl font-black">
-                        {euro(active.price)}
-                      </div>
-                      {active.oldPrice ? (
-                        <div className="text-white/40 line-through mb-1">
-                          {euro(active.oldPrice)}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <p className="mt-3 text-white/75">{active.desc}</p>
-
-                    <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">
-                      <div className="text-sm font-semibold">
-                        Livraison & Retours
-                      </div>
-                      <div className="mt-1 text-sm text-white/70">
-                        {active.ship}
-                        <br />
-                        Retours 30 jours • Support 7j/7 • Paiement sécurisé Stripe
-                      </div>
-                    </div>
-
-                    <div className="mt-6 flex gap-2">
-                      <button
-                        onClick={() => add(active, 1)}
-                        className="nx-btn nx-btn-primary flex-1"
-                      >
-                        Ajouter au panier
-                      </button>
-                      <Link
-                        href="/cart"
-                        className="nx-btn nx-btn-ghost flex-1 text-center"
-                        onClick={() => add(active, 1)}
-                      >
-                        Acheter maintenant
-                      </Link>
-                    </div>
-
-                    <button
-                      className="mt-3 w-full text-sm text-white/60 hover:text-white/80 transition"
-                      onClick={() => setActive(null)}
-                    >
-                      Fermer
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </NexusShell>
-    </AuthGate>
-  );
-}
+                Fermer
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </ModalPortal>
+  )}
+</AnimatePresence>
+       
