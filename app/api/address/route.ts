@@ -17,15 +17,7 @@ function getToken(req: Request) {
 }
 
 export async function GET(req: Request) {
-  return NextResponse.json(
-    { debug: "ADDR_ROUTE_V2_OK", error: "No token (debug)" },
-    { status: 401 }
-  );
-}
-  // le reste ne s’exécutera pas tant que le return est là
-  // try { ... }
-} 
-try {
+  try {
     const admin = supabaseAdmin();
     const token = getToken(req);
     if (!token) return NextResponse.json({ error: "No token" }, { status: 401 });
@@ -37,16 +29,17 @@ try {
 
     const userId = userData.user.id;
 
-    // ✅ on prend la dernière créée (pas besoin de updated_at)
+    // ✅ ta table a created_at, pas updated_at
     const { data, error } = await admin
       .from("addresses")
       .select("*")
       .eq("user_id", userId)
-      .order("created_at", { ascending: false }) // 👈 IMPORTANT
+      .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
     return NextResponse.json({ address: data ?? null });
   } catch (e: any) {
     return NextResponse.json({ error: e?.message || "Server error" }, { status: 500 });
@@ -77,14 +70,13 @@ export async function POST(req: Request) {
       city: String(body.city || "").trim(),
       postal_code: String(body.postal_code || "").trim(),
       country: String(body.country || "FR").trim(),
-      is_default: true,
     };
 
     if (!payload.full_name || !payload.line1 || !payload.city || !payload.postal_code || !payload.country) {
       return NextResponse.json({ error: "Champs obligatoires manquants" }, { status: 400 });
     }
 
-    // ✅ au lieu d'insérer 100 lignes : on update la dernière adresse si elle existe
+    // ✅ update si déjà une adresse, sinon insert
     const { data: existing, error: exErr } = await admin
       .from("addresses")
       .select("id")
@@ -105,16 +97,17 @@ export async function POST(req: Request) {
 
       if (error) return NextResponse.json({ error: error.message }, { status: 500 });
       return NextResponse.json({ ok: true, address: data });
-    } else {
-      const { data, error } = await admin
-        .from("addresses")
-        .insert(payload)
-        .select("*")
-        .single();
-
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-      return NextResponse.json({ ok: true, address: data });
     }
+
+    const { data, error } = await admin
+      .from("addresses")
+      .insert(payload)
+      .select("*")
+      .single();
+
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+    return NextResponse.json({ ok: true, address: data });
   } catch (e: any) {
     return NextResponse.json({ error: e?.message || "Server error" }, { status: 500 });
   }
