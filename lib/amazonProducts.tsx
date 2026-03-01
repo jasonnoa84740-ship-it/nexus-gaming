@@ -31,12 +31,12 @@ export const amazonProducts: AmazonProduct[] = [
   {
     id: "bureau-gaming",
     title: "Bureau gaming",
-    subtitle: "120–160 cm • passe-câbles • stable",
+    subtitle: "140X60 cm • passe-câbles • stable",
     category: "Bureau",
     badge: "Setup",
     image: "/products/bureau.jpg",
     query: "bureau gaming 140 cm passe cables stable",
-    amazonUrl: "",
+    amazonUrl:"https://amzn.eu/d/0ifzectw",
   },
   {
     id: "chaise-gaming",
