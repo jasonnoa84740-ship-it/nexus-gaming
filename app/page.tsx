@@ -1,5 +1,6 @@
 "use client";
 
+import { PRODUCTS, CATEGORIES, type Cat } from "@/lib/products";
 import ModalPortal from "@/components/ModalPortal";
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
@@ -27,19 +28,7 @@ type Cat =
 
 const year = new Date().getFullYear();
 
-const PRODUCTS: Product[] = [
-  {
-    id: "gpu-rtx-5070",
-    brand: "NVIDIA",
-    name: "GeForce RTX 5070 Twin RGB",
-    category: "GPU",
-    price: 379,
-    oldPrice: 429,
-    badge: "Nouveau 2026",
-    desc:
-      "GPU perf/€ ultra solide pour 1440p. Refroidissement silencieux, backplate, RGB sobre.",
-    ship: "Livraison 48h • Point Relais 2,99€",
-    image: "/products/gpu/rtx-5070.jpg",
+
   },
   {
     id: "gpu-rx-8800",
@@ -351,21 +340,6 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-const CATEGORIES: Cat[] = [
-  "GPU",
-  "PC",
-  "Console",
-  "Écran",
-  "Clavier",
-  "Souris",
-  "Casque",
-  "Manette",
-  "VR",
-  "Streaming",
-  "Stockage",
-  "Réseau",
-  "Chaise",
-  "Accessoires",
 ];
 
 function Chip({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
