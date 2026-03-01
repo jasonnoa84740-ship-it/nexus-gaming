@@ -29,22 +29,19 @@ export async function GET(req: Request) {
 
     const userId = userData.user.id;
 
+    // ✅ on prend la dernière créée (pas besoin de updated_at)
     const { data, error } = await admin
       .from("addresses")
       .select("*")
       .eq("user_id", userId)
-      .order("updated_at", { ascending: false })
+      .order("created_at", { ascending: false }) // 👈 IMPORTANT
       .limit(1)
       .maybeSingle();
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-
     return NextResponse.json({ address: data ?? null });
   } catch (e: any) {
-    return NextResponse.json(
-      { error: e?.message || "Server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: e?.message || "Server error" }, { status: 500 });
   }
 }
 
@@ -64,7 +61,7 @@ export async function POST(req: Request) {
 
     const payload = {
       user_id: userId,
-      label: "Principale", // 👈 AJOUT IMPORTANT
+      label: "Maison",
       full_name: String(body.full_name || "").trim(),
       phone: String(body.phone || "").trim() || null,
       line1: String(body.line1 || "").trim(),
@@ -75,32 +72,42 @@ export async function POST(req: Request) {
       is_default: true,
     };
 
-    if (
-      !payload.full_name ||
-      !payload.line1 ||
-      !payload.city ||
-      !payload.postal_code ||
-      !payload.country
-    ) {
-      return NextResponse.json(
-        { error: "Champs obligatoires manquants" },
-        { status: 400 }
-      );
+    if (!payload.full_name || !payload.line1 || !payload.city || !payload.postal_code || !payload.country) {
+      return NextResponse.json({ error: "Champs obligatoires manquants" }, { status: 400 });
     }
 
-    const { data, error } = await admin
+    // ✅ au lieu d'insérer 100 lignes : on update la dernière adresse si elle existe
+    const { data: existing, error: exErr } = await admin
       .from("addresses")
-      .select("*")
+      .select("id")
       .eq("user_id", userId)
+      .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    return NextResponse.json({ ok: true, address: data });
+    if (exErr) return NextResponse.json({ error: exErr.message }, { status: 500 });
+
+    if (existing?.id) {
+      const { data, error } = await admin
+        .from("addresses")
+        .update(payload)
+        .eq("id", existing.id)
+        .select("*")
+        .single();
+
+      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ ok: true, address: data });
+    } else {
+      const { data, error } = await admin
+        .from("addresses")
+        .insert(payload)
+        .select("*")
+        .single();
+
+      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ ok: true, address: data });
+    }
   } catch (e: any) {
-    return NextResponse.json(
-      { error: e?.message || "Server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: e?.message || "Server error" }, { status: 500 });
   }
 }
