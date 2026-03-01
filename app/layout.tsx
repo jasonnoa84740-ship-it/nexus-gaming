@@ -1,16 +1,11 @@
 import "./globals.css";
-import Providers from "./providers";
-
-export const metadata = {
-  title: "Nexus Gaming",
-  description: "Shop gaming Nexus",
-};
+import { CartProvider } from "@/lib/cart";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
       <body>
-        <Providers>{children}</Providers>
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );

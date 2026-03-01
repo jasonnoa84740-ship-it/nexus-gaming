@@ -7,16 +7,16 @@ export type Product = {
   brand: string;
   name: string;
 
-  // utile pour le filtre catégories
+  // shop
   category: string;
-
   price: number;
   oldPrice?: number;
 
-  // chips UI
+  // UI
   badge?: string;
   desc?: string;
 
+  // logistic
   ship: string;
   image: string;
 };
@@ -83,7 +83,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [cart]
   );
 
-  // livraison offerte dès 99€
+  // livraison: offerte dès 99€, sinon 4.99€ (si panier non vide)
   const shipping = subtotal >= 99 ? 0 : cart.length ? 4.99 : 0;
   const total = subtotal + shipping;
   const count = cart.reduce((s, it) => s + it.qty, 0);
