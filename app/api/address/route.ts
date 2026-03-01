@@ -17,7 +17,16 @@ function getToken(req: Request) {
 }
 
 export async function GET(req: Request) {
-  try {
+ export async function GET(req: Request) {
+  return NextResponse.json(
+    { debug: "ADDR_ROUTE_V2_OK", error: "No token (debug)" },
+    { status: 401 }
+  );
+
+  // le reste ne s’exécutera pas tant que le return est là
+  // try { ... }
+} 
+try {
     const admin = supabaseAdmin();
     const token = getToken(req);
     if (!token) return NextResponse.json({ error: "No token" }, { status: 401 });
