@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import UserMenu from "./UserMenu";
-import { useCart } from "../lib/cart";
 
 function cn(...xs: Array<string | false | null | undefined>) {
   return xs.filter(Boolean).join(" ");
@@ -13,13 +12,7 @@ function cn(...xs: Array<string | false | null | undefined>) {
 export default function NexusHeader() {
   const pathname = usePathname();
   const router = useRouter();
-  const { cart } = useCart();
   const [q, setQ] = useState("");
-
-  const count = useMemo(
-    () => cart.reduce((sum: number, it: any) => sum + (it.qty ?? 0), 0),
-    [cart]
-  );
 
   function goSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -46,7 +39,7 @@ export default function NexusHeader() {
                 NEXUS <span className="text-white/80">GAMING</span>
               </div>
               <div className="text-xs text-white/60">
-                Boutique 100% gaming • 2026
+                Bons plans gaming • Amazon
               </div>
             </div>
           </Link>
@@ -63,7 +56,6 @@ export default function NexusHeader() {
               Accueil
             </Link>
 
-            {/* ✅ AJOUT */}
             <Link
               href="/bons-plans"
               className={cn(
@@ -75,20 +67,13 @@ export default function NexusHeader() {
             </Link>
 
             <Link
-              href="/#produits"
+              href="/#catalogue"
               className={cn(
                 "px-3 py-2 rounded-xl text-sm transition",
                 "hover:bg-white/5"
               )}
             >
-              Produits
-            </Link>
-
-            <Link
-              href="/#livraison"
-              className="px-3 py-2 rounded-xl text-sm hover:bg-white/5 transition"
-            >
-              Livraison
+              Sélection
             </Link>
 
             <Link
@@ -109,7 +94,7 @@ export default function NexusHeader() {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 className="nx-input w-full pl-10"
-                placeholder="Rechercher GPU, console, périphériques..."
+                placeholder="Rechercher clavier, souris, GPU..."
               />
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-white/55">
                 🔎
@@ -119,13 +104,8 @@ export default function NexusHeader() {
 
           {/* Right actions */}
           <div className="ml-auto flex items-center gap-2">
-            <Link href="/cart" className="nx-btn nx-btn-ghost relative">
-              🛒 <span className="hidden sm:inline">Panier</span>
-              {count > 0 && (
-                <span className="absolute -top-2 -right-2 text-xs px-2 py-1 rounded-full bg-purple-500 text-white font-black shadow">
-                  {count}
-                </span>
-              )}
+            <Link href="/bons-plans" className="nx-btn nx-btn-ghost">
+              🔥 <span className="hidden sm:inline">Bons plans</span>
             </Link>
 
             <UserMenu />
