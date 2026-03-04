@@ -1,11 +1,14 @@
+// app/layout.tsx
 import type { Metadata } from "next";
-import "./globals.css";
 import Script from "next/script";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Nexus Gaming",
-  description: "Sélection gaming Nexus avec liens Amazon",
+  description: "Bons plans gaming",
 };
+
+const GA_ID = "G-F3BLLTBHYK";
 
 export default function RootLayout({
   children,
@@ -14,26 +17,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body>
-
-        {children}
-
-        {/* Google Analytics */}
+      <head>
+        {/* GA4 */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-F3BLLTBHYK"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
         />
-
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="ga4-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            window.gtag = window.gtag || gtag;
             gtag('js', new Date());
-            gtag('config', 'G-F3BLLTBHYK');
+            gtag('config', '${GA_ID}', {
+              anonymize_ip: true
+            });
           `}
         </Script>
-
-      </body>
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

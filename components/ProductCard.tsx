@@ -1,73 +1,78 @@
 // components/ProductCard.tsx
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import type { AmazonProduct } from "@/lib/amazonProducts";
+import { trackAmazonClick, trackOpenDetails } from "@/lib/analytics";
 
 export default function ProductCard({ product }: { product: AmazonProduct }) {
   const hasAmazonUrl = Boolean((product.amazonUrl || "").trim());
 
-  // URL de recherche Amazon (fallback safe)
   const amazonSearchUrl = `https://www.amazon.fr/s?k=${encodeURIComponent(
     product.query || product.title
   )}`;
 
+  const goUrl = hasAmazonUrl ? `/go/${product.id}` : amazonSearchUrl;
+
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
-      {/* ✅ IMAGE (pas de fill -> évite l’écrasement) */}
-      <div className="overflow-hidden rounded-xl bg-black/20">
+      {/* ✅ hauteur fixe + object-contain => plus d'image écrasée */}
+      <div className="relative h-44 overflow-hidden rounded-xl bg-black/20 border border-white/10">
         <Image
           src={product.image}
           alt={product.title}
-          width={800}
-          height={600}
-          className="h-48 w-full object-contain p-2"
-          priority={false}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-contain p-2"
         />
       </div>
 
       <div className="mt-4">
-        {product.badge && (
+        {product.badge ? (
           <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs">
             {product.badge}
           </span>
-        )}
+        ) : null}
 
         <h3 className="mt-2 text-lg font-semibold">{product.title}</h3>
-
         {product.subtitle ? (
           <p className="mt-1 opacity-80">{product.subtitle}</p>
         ) : null}
 
         <div className="mt-4 flex gap-3">
-          {/* ✅ Bouton principal : si lien prêt -> /go/id, sinon -> recherche Amazon */}
+          {/* Bouton principal */}
           <a
-            href={hasAmazonUrl ? `/go/${product.id}` : amazonSearchUrl}
+            href={goUrl}
             target={hasAmazonUrl ? undefined : "_blank"}
             rel="nofollow sponsored noopener"
+            onClick={() =>
+              trackAmazonClick({
+                id: product.id,
+                title: product.title,
+                category: product.category,
+              })
+            }
             className="inline-flex flex-1 items-center justify-center rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold hover:bg-white/15"
           >
             {hasAmazonUrl ? "Acheter sur Amazon" : "🔎 Rechercher sur Amazon"}
           </a>
 
-          {/* ✅ Bouton secondaire : toujours utile */}
+          {/* Bouton détails (si tu as une page détails) */}
           <Link
-            href={hasAmazonUrl ? (product.amazonUrl as string) : amazonSearchUrl}
-            target="_blank"
-            rel="nofollow sponsored noopener"
+            href={`/products/${product.id}`}
+            onClick={() =>
+              trackOpenDetails({
+                id: product.id,
+                title: product.title,
+                category: product.category,
+              })
+            }
             className="inline-flex items-center justify-center rounded-xl border border-white/10 px-4 py-2 text-sm opacity-80 hover:opacity-100"
           >
-            Amazon
+            Détails
           </Link>
         </div>
-
-        {!hasAmazonUrl ? (
-          <p className="mt-3 text-xs text-white/60">
-            Astuce : clique sur “Rechercher sur Amazon”, trouve le produit exact,
-            puis colle ton lien affilié dans{" "}
-            <code className="text-white/80">amazonUrl</code>.
-          </p>
-        ) : null}
       </div>
     </div>
   );

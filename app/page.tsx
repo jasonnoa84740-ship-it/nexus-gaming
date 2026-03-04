@@ -1,3 +1,4 @@
+// app/page.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -8,11 +9,10 @@ import AuthGate from "@/components/AuthGate";
 import NexusShell from "@/components/NexusShell";
 import ModalPortal from "@/components/ModalPortal";
 
-import { amazonProducts, type AmazonProduct, type Category } from "@/lib/amazonProducts";
+import { amazonProducts, type AmazonProduct } from "@/lib/amazonProducts";
+import { trackAmazonClick, trackOpenDetails } from "@/lib/analytics";
 
 const year = new Date().getFullYear();
-
-type CatFilter = "Tous" | Category;
 
 function Chip({
   active,
@@ -62,7 +62,6 @@ function Stars({ value }: { value: number }) {
   );
 }
 
-/** Bandeau promo sticky */
 function PromoBar() {
   return (
     <div className="sticky top-0 z-[60] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
@@ -86,21 +85,9 @@ function PromoBar() {
 }
 
 const REVIEWS = [
-  {
-    name: "Lucas M.",
-    text: "Sélection solide, j’ai trouvé un bon deal sur mon setup.",
-    stars: 5,
-  },
-  {
-    name: "Sarah T.",
-    text: "Le filtre par catégorie est clean, ça fait gagner du temps.",
-    stars: 5,
-  },
-  {
-    name: "Mehdi K.",
-    text: "Simple et efficace : je clique et j’achète direct sur Amazon.",
-    stars: 5,
-  },
+  { name: "Lucas M.", text: "Sélection solide, j’ai trouvé un bon deal sur mon setup.", stars: 5 },
+  { name: "Sarah T.", text: "Le filtre par catégorie est clean, ça fait gagner du temps.", stars: 5 },
+  { name: "Mehdi K.", text: "Simple et efficace : je clique et j’achète direct sur Amazon.", stars: 5 },
 ];
 
 const BENEFITS = [
@@ -110,26 +97,24 @@ const BENEFITS = [
   { icon: "🔗", title: "Liens affiliés", desc: "Ça nous aide à financer Nexus (sans surcoût pour toi)" },
 ];
 
-function getCategories(products: AmazonProduct[]): CatFilter[] {
-  const set = new Set<Category>();
-  products.forEach((p) => set.add(p.category));
-  return ["Tous", ...Array.from(set)];
+function getCategories(products: AmazonProduct[]) {
+  const set = new Set<string>();
+  for (const p of products) set.add(p.category);
+  return ["Tous", ...Array.from(set)] as const;
 }
 
 export default function Page() {
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState<CatFilter>("Tous");
+  const cats = useMemo(() => getCategories(amazonProducts), []);
+  const [cat, setCat] = useState<(typeof cats)[number]>("Tous");
   const [active, setActive] = useState<AmazonProduct | null>(null);
 
   // parallax souris
   const [mx, setMx] = useState(0);
   const [my, setMy] = useState(0);
 
-  const cats = useMemo(() => getCategories(amazonProducts), []);
-
   useEffect(() => {
     let raf = 0;
-
     const onMove = (e: MouseEvent) => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
@@ -139,9 +124,7 @@ export default function Page() {
         setMy((e.clientY - cy) / cy);
       });
     };
-
     window.addEventListener("mousemove", onMove, { passive: true });
-
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);
@@ -160,26 +143,22 @@ export default function Page() {
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
-
     return amazonProducts.filter((p) => {
       const inCat = cat === "Tous" ? true : p.category === cat;
-
       const inSearch =
         !s ||
         p.title.toLowerCase().includes(s) ||
         (p.subtitle || "").toLowerCase().includes(s) ||
         (p.badge || "").toLowerCase().includes(s);
-
       return inCat && inSearch;
     });
   }, [q, cat]);
 
-  /** Best sellers: on prend les premiers (ou tu peux scorer avec badge) */
   const bestSellers = useMemo(() => {
     return amazonProducts.slice(0, 4).map((p, idx) => ({
       ...p,
-      sold: 18 + idx * 11, // démo preuve sociale
-      rating: 4.6 + (3 - idx) * 0.1, // démo
+      sold: 18 + idx * 11,
+      rating: 4.6 + (3 - idx) * 0.1,
       tag: p.badge || "Top vente",
     }));
   }, []);
@@ -208,12 +187,10 @@ export default function Page() {
             <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
               <div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-                  Les bons plans{" "}
-                  <span className="text-white/90">Nexus {year}</span>
+                  Les bons plans <span className="text-white/90">Nexus {year}</span>
                 </h1>
                 <p className="mt-3 text-white/70 max-w-xl">
-                  On sélectionne du matos gaming utile, puis tu achètes directement
-                  sur Amazon.
+                  On sélectionne du matos gaming utile, puis tu achètes directement sur Amazon.
                 </p>
 
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -222,44 +199,33 @@ export default function Page() {
                       value={q}
                       onChange={(e) => setQ(e.target.value)}
                       className="nx-input w-full"
-                      placeholder="Rechercher écran, clavier, souris..."
+                      placeholder="Rechercher écran, casque, clavier..."
                     />
                   </div>
 
-                  <Link
-                    href="/bons-plans"
-                    className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2"
-                  >
-                    🔥 Voir tous les bons plans
-                  </Link>
+                  <a href="#catalogue" className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2">
+                    🔥 Voir le catalogue
+                  </a>
                 </div>
 
-                {/* ✅ Catégories */}
+                {/* ✅ CATEGORIES */}
                 <div className="mt-3 flex flex-wrap gap-2">
                   {cats.map((c) => (
-                    <Chip
-                      key={c}
-                      active={cat === c}
-                      label={c}
-                      onClick={() => setCat(c)}
-                    />
+                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
                   ))}
                 </div>
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">
-                  Transparence
-                </div>
+                <div className="text-sm font-semibold text-white/80">Transparence</div>
                 <div className="text-sm text-white/70 mt-2 leading-relaxed">
-                  Les boutons redirigent vers Amazon. Certains liens sont affiliés :
-                  ça nous aide à financer Nexus, sans coût en plus pour toi.
+                  Les boutons redirigent vers Amazon. Certains liens sont affiliés : ça nous aide
+                  à financer Nexus, sans coût en plus pour toi.
                 </div>
-
                 <div className="mt-4">
-                  <Link href="/bons-plans" className="nx-btn nx-btn-ghost w-full text-center">
+                  <a href="#catalogue" className="nx-btn nx-btn-ghost w-full text-center">
                     Découvrir la sélection
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
@@ -274,9 +240,7 @@ export default function Page() {
           <div className="nx-card p-6">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold">
-                  ⭐ Sélection Nexus (Top)
-                </h2>
+                <h2 className="text-2xl sm:text-3xl font-extrabold">⭐ Sélection Nexus (Top)</h2>
                 <p className="text-white/70 mt-1">
                   Quelques recommandations rapides — clique et achète sur Amazon.
                 </p>
@@ -302,18 +266,19 @@ export default function Page() {
                     <span className="text-[11px] text-white/60">+{p.sold} vus</span>
                   </div>
 
-                  <div className="mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10 relative">
+                  {/* ✅ image pas écrasée */}
+                  <div className="mt-3 h-36 w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10 relative">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.image}
                       alt={p.title}
-                      className="h-full w-full object-contain bg-black/30 p-2 opacity-95"
+                      className="h-full w-full object-contain p-2 opacity-95"
                       loading="lazy"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                   </div>
 
-                  <div className="mt-3 text-xs text-white/60">{p.category} • Nexus</div>
+                  <div className="mt-3 text-xs text-white/60">{p.category}</div>
                   <div className="mt-1 font-semibold leading-snug">{p.title}</div>
 
                   <div className="mt-2">
@@ -324,6 +289,9 @@ export default function Page() {
                     className="nx-btn nx-btn-primary mt-4 w-full text-center"
                     href={`/go/${p.id}`}
                     rel="nofollow sponsored noopener"
+                    onClick={() =>
+                      trackAmazonClick({ id: p.id, title: p.title, category: p.category })
+                    }
                   >
                     Acheter sur Amazon
                   </a>
@@ -339,9 +307,7 @@ export default function Page() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold">💬 Avis</h2>
-                <p className="text-white/70 mt-1">
-                  L’objectif : rendre la recherche plus simple.
-                </p>
+                <p className="text-white/70 mt-1">L’objectif : rendre la recherche plus simple.</p>
               </div>
               <div className="hidden sm:block text-sm text-white/70">
                 Note moyenne <span className="font-semibold text-white">4.8/5</span>
@@ -368,9 +334,7 @@ export default function Page() {
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <div className="nx-card p-6">
             <h2 className="text-2xl sm:text-3xl font-extrabold">🏆 Pourquoi Nexus ?</h2>
-            <p className="text-white/70 mt-1">
-              On te met une sélection claire, et tu achètes sur Amazon.
-            </p>
+            <p className="text-white/70 mt-1">On te met une sélection claire, et tu achètes sur Amazon.</p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {BENEFITS.map((b) => (
@@ -405,39 +369,44 @@ export default function Page() {
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
                 <div className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    className="h-44 w-full object-contain bg-black/30 p-2 opacity-95"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  {/* ✅ image pas écrasée */}
+                  <div className="h-44 w-full bg-black/20 border-b border-white/10">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="h-full w-full object-contain p-2 opacity-95"
+                      loading="lazy"
+                    />
+                  </div>
+
                   <div className="absolute top-3 left-3 flex gap-2">
                     <Badge text={p.badge} />
-                  </div>
-                  <div className="absolute bottom-3 left-3 text-xs text-white/80">
-                    {p.category} • Amazon
+                    <Badge text={p.category} />
                   </div>
                 </div>
 
                 <div className="p-4">
                   <div className="text-sm text-white/60">Sélection Nexus</div>
                   <div className="font-black text-lg leading-snug">{p.title}</div>
-                  <div className="text-xs text-white/50 mt-1">{p.category}</div>
-
-                  {p.subtitle ? (
-                    <div className="mt-2 text-sm text-white/70">{p.subtitle}</div>
-                  ) : null}
+                  {p.subtitle ? <div className="mt-2 text-sm text-white/70">{p.subtitle}</div> : null}
 
                   <div className="mt-4 flex gap-2">
-                    <button onClick={() => setActive(p)} className="nx-btn nx-btn-ghost flex-1">
+                    <button
+                      onClick={() => {
+                        trackOpenDetails({ id: p.id, title: p.title, category: p.category });
+                        setActive(p);
+                      }}
+                      className="nx-btn nx-btn-ghost flex-1"
+                    >
                       Détails
                     </button>
+
                     <a
                       href={`/go/${p.id}`}
                       rel="nofollow sponsored noopener"
                       className="nx-btn nx-btn-primary flex-1 text-center"
+                      onClick={() => trackAmazonClick({ id: p.id, title: p.title, category: p.category })}
                     >
                       Amazon
                     </a>
@@ -468,25 +437,25 @@ export default function Page() {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="grid md:grid-cols-2">
-                    <div className="relative bg-black/30">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={active.image}
-                        alt={active.title}
-                        className="h-72 md:h-full w-full object-contain p-4"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                    <div className="relative bg-black/20">
+                      <div className="h-72 md:h-full w-full">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={active.image}
+                          alt={active.title}
+                          className="h-full w-full object-contain p-4"
+                        />
+                      </div>
                       <div className="absolute top-3 left-3 flex gap-2">
                         <Badge text={active.badge} />
                         <Badge text={active.category} />
+                        <Badge text="Amazon" />
                       </div>
                     </div>
 
                     <div className="p-5 md:p-6">
                       <div className="text-sm text-white/60">Sélection Nexus</div>
                       <div className="text-2xl font-black leading-tight">{active.title}</div>
-                      <div className="text-xs text-white/50 mt-2">{active.category}</div>
-
                       {active.subtitle ? <p className="mt-3 text-white/75">{active.subtitle}</p> : null}
 
                       <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">
@@ -501,25 +470,24 @@ export default function Page() {
                           href={`/go/${active.id}`}
                           className="nx-btn nx-btn-primary flex-1 text-center"
                           rel="nofollow sponsored noopener"
+                          onClick={() =>
+                            trackAmazonClick({
+                              id: active.id,
+                              title: active.title,
+                              category: active.category,
+                            })
+                          }
                         >
                           Acheter sur Amazon
                         </a>
 
-                        <Link
-                          href="/bons-plans"
+                        <button
                           className="nx-btn nx-btn-ghost flex-1 text-center"
                           onClick={() => setActive(null)}
                         >
-                          Voir la liste
-                        </Link>
+                          Fermer
+                        </button>
                       </div>
-
-                      <button
-                        className="mt-3 w-full text-sm text-white/60 hover:text-white/80 transition"
-                        onClick={() => setActive(null)}
-                      >
-                        Fermer
-                      </button>
                     </div>
                   </div>
                 </motion.div>
