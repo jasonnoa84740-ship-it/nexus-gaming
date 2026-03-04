@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  return NextResponse.json({ id: params.id });
+  const { id } = context.params;
+
+  return NextResponse.json({ id });
 }
