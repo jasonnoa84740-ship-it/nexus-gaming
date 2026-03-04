@@ -4,6 +4,5 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const { id } = params;
-  return NextResponse.json({ id });
+  return NextResponse.json({ id: params.id });
 }
