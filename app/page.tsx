@@ -8,9 +8,11 @@ import AuthGate from "@/components/AuthGate";
 import NexusShell from "@/components/NexusShell";
 import ModalPortal from "@/components/ModalPortal";
 
-import { amazonProducts, type AmazonProduct } from "@/lib/amazonProducts";
+import { amazonProducts, type AmazonProduct, type Category } from "@/lib/amazonProducts";
 
 const year = new Date().getFullYear();
+
+type CatFilter = "Tous" | Category;
 
 function Chip({
   active,
@@ -108,23 +110,22 @@ const BENEFITS = [
   { icon: "🔗", title: "Liens affiliés", desc: "Ça nous aide à financer Nexus (sans surcoût pour toi)" },
 ];
 
-function getCategories(products: AmazonProduct[]) {
-  // Pour rester compatible avec ton ancien UI, on simule des "catégories"
-  // Si tu veux, on peut ajouter un champ category dans amazonProducts
-  // Ici: on met tout dans "Tous" uniquement.
-  return ["Tous"] as const;
+function getCategories(products: AmazonProduct[]): CatFilter[] {
+  const set = new Set<Category>();
+  products.forEach((p) => set.add(p.category));
+  return ["Tous", ...Array.from(set)];
 }
 
 export default function Page() {
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState<(typeof cats)[number]>("Tous");
+  const [cat, setCat] = useState<CatFilter>("Tous");
   const [active, setActive] = useState<AmazonProduct | null>(null);
 
   // parallax souris
   const [mx, setMx] = useState(0);
   const [my, setMy] = useState(0);
 
-  const cats = getCategories(amazonProducts);
+  const cats = useMemo(() => getCategories(amazonProducts), []);
 
   useEffect(() => {
     let raf = 0;
@@ -159,13 +160,16 @@ export default function Page() {
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
+
     return amazonProducts.filter((p) => {
-      const inCat = cat === "Tous" ? true : true;
+      const inCat = cat === "Tous" ? true : p.category === cat;
+
       const inSearch =
         !s ||
         p.title.toLowerCase().includes(s) ||
         (p.subtitle || "").toLowerCase().includes(s) ||
         (p.badge || "").toLowerCase().includes(s);
+
       return inCat && inSearch;
     });
   }, [q, cat]);
@@ -218,7 +222,7 @@ export default function Page() {
                       value={q}
                       onChange={(e) => setQ(e.target.value)}
                       className="nx-input w-full"
-                      placeholder="Rechercher clavier, souris, GPU..."
+                      placeholder="Rechercher écran, clavier, souris..."
                     />
                   </div>
 
@@ -230,9 +234,15 @@ export default function Page() {
                   </Link>
                 </div>
 
+                {/* ✅ Catégories */}
                 <div className="mt-3 flex flex-wrap gap-2">
                   {cats.map((c) => (
-                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
+                    <Chip
+                      key={c}
+                      active={cat === c}
+                      label={c}
+                      onClick={() => setCat(c)}
+                    />
                   ))}
                 </div>
               </div>
@@ -297,13 +307,13 @@ export default function Page() {
                     <img
                       src={p.image}
                       alt={p.title}
-                      className="h-full w-full object-cover opacity-90"
+                      className="h-full w-full object-contain bg-black/30 p-2 opacity-95"
                       loading="lazy"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   </div>
 
-                  <div className="mt-3 text-xs text-white/60">Nexus selection</div>
+                  <div className="mt-3 text-xs text-white/60">{p.category} • Nexus</div>
                   <div className="mt-1 font-semibold leading-snug">{p.title}</div>
 
                   <div className="mt-2">
@@ -399,7 +409,7 @@ export default function Page() {
                   <img
                     src={p.image}
                     alt={p.title}
-                    className="h-44 w-full object-cover opacity-90"
+                    className="h-44 w-full object-contain bg-black/30 p-2 opacity-95"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
@@ -407,20 +417,21 @@ export default function Page() {
                     <Badge text={p.badge} />
                   </div>
                   <div className="absolute bottom-3 left-3 text-xs text-white/80">
-                    Nexus • Amazon
+                    {p.category} • Amazon
                   </div>
                 </div>
 
                 <div className="p-4">
                   <div className="text-sm text-white/60">Sélection Nexus</div>
                   <div className="font-black text-lg leading-snug">{p.title}</div>
-                  {p.subtitle ? <div className="mt-2 text-sm text-white/70">{p.subtitle}</div> : null}
+                  <div className="text-xs text-white/50 mt-1">{p.category}</div>
+
+                  {p.subtitle ? (
+                    <div className="mt-2 text-sm text-white/70">{p.subtitle}</div>
+                  ) : null}
 
                   <div className="mt-4 flex gap-2">
-                    <button
-                      onClick={() => setActive(p)}
-                      className="nx-btn nx-btn-ghost flex-1"
-                    >
+                    <button onClick={() => setActive(p)} className="nx-btn nx-btn-ghost flex-1">
                       Détails
                     </button>
                     <a
@@ -457,23 +468,25 @@ export default function Page() {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="grid md:grid-cols-2">
-                    <div className="relative">
+                    <div className="relative bg-black/30">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={active.image}
                         alt={active.title}
-                        className="h-72 md:h-full w-full object-cover"
+                        className="h-72 md:h-full w-full object-contain p-4"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                       <div className="absolute top-3 left-3 flex gap-2">
                         <Badge text={active.badge} />
-                        <Badge text="Amazon" />
+                        <Badge text={active.category} />
                       </div>
                     </div>
 
                     <div className="p-5 md:p-6">
                       <div className="text-sm text-white/60">Sélection Nexus</div>
                       <div className="text-2xl font-black leading-tight">{active.title}</div>
+                      <div className="text-xs text-white/50 mt-2">{active.category}</div>
+
                       {active.subtitle ? <p className="mt-3 text-white/75">{active.subtitle}</p> : null}
 
                       <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">
