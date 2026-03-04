@@ -10,15 +10,16 @@ function makeAmazonSearchUrl(query: string) {
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  // ✅ on laisse Next/Vercel décider si c'est Promise ou pas
+  context: { params: any }
 ) {
-  const product = amazonProducts.find((p) => p.id === params.id);
+  const params = await Promise.resolve(context.params);
+  const id: string = params.id;
+
+  const product = amazonProducts.find((p) => p.id === id);
 
   if (!product) {
-    return NextResponse.json(
-      { error: "Produit introuvable", id: params.id },
-      { status: 404 }
-    );
+    return NextResponse.json({ error: "Produit introuvable", id }, { status: 404 });
   }
 
   const direct = (product.amazonUrl ?? "").trim();
