@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -9,8 +8,7 @@ import AuthGate from "@/components/AuthGate";
 import NexusShell from "@/components/NexusShell";
 import ModalPortal from "@/components/ModalPortal";
 
-import { amazonProducts, type AmazonProduct } from "@/lib/amazonProducts";
-import { trackAmazonClick, trackOpenDetails } from "@/lib/analytics";
+import { amazonProducts, type AmazonProduct, type Category } from "@/lib/amazonProducts";
 
 const year = new Date().getFullYear();
 
@@ -18,22 +16,29 @@ function Chip({
   active,
   label,
   onClick,
+  count,
 }: {
   active: boolean;
   label: string;
   onClick: () => void;
+  count?: number;
 }) {
   return (
     <button
       onClick={onClick}
       className={[
-        "px-3 py-1 rounded-full text-xs font-semibold border transition",
+        "px-3 py-1 rounded-full text-xs font-semibold border transition inline-flex items-center gap-2",
         active
           ? "bg-white/15 border-white/20"
           : "bg-white/5 border-white/10 hover:bg-white/10",
       ].join(" ")}
     >
-      {label}
+      <span>{label}</span>
+      {typeof count === "number" ? (
+        <span className="text-[11px] px-2 py-0.5 rounded-full bg-black/30 border border-white/10 text-white/70">
+          {count}
+        </span>
+      ) : null}
     </button>
   );
 }
@@ -62,6 +67,7 @@ function Stars({ value }: { value: number }) {
   );
 }
 
+/** Bandeau promo sticky */
 function PromoBar() {
   return (
     <div className="sticky top-0 z-[60] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
@@ -97,16 +103,33 @@ const BENEFITS = [
   { icon: "🔗", title: "Liens affiliés", desc: "Ça nous aide à financer Nexus (sans surcoût pour toi)" },
 ];
 
+type SortKey = "reco" | "az";
+
 function getCategories(products: AmazonProduct[]) {
-  const set = new Set<string>();
+  const set = new Set<Category>();
   for (const p of products) set.add(p.category);
-  return ["Tous", ...Array.from(set)] as const;
+  // ordre propre
+  const order: Category[] = ["Ecran", "Souris", "Clavier", "Casque", "Micro", "Webcam", "Chaise", "Bureau"];
+  const sorted = order.filter((c) => set.has(c));
+  return ["Tous", ...sorted] as const;
+}
+
+function countByCategory(products: AmazonProduct[]) {
+  const map = new Map<string, number>();
+  map.set("Tous", products.length);
+  for (const p of products) {
+    map.set(p.category, (map.get(p.category) || 0) + 1);
+  }
+  return map;
 }
 
 export default function Page() {
   const [q, setQ] = useState("");
   const cats = useMemo(() => getCategories(amazonProducts), []);
+  const counts = useMemo(() => countByCategory(amazonProducts), []);
+
   const [cat, setCat] = useState<(typeof cats)[number]>("Tous");
+  const [sort, setSort] = useState<SortKey>("reco");
   const [active, setActive] = useState<AmazonProduct | null>(null);
 
   // parallax souris
@@ -115,6 +138,7 @@ export default function Page() {
 
   useEffect(() => {
     let raf = 0;
+
     const onMove = (e: MouseEvent) => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
@@ -124,6 +148,7 @@ export default function Page() {
         setMy((e.clientY - cy) / cy);
       });
     };
+
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
@@ -143,7 +168,8 @@ export default function Page() {
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
-    return amazonProducts.filter((p) => {
+
+    let list = amazonProducts.filter((p) => {
       const inCat = cat === "Tous" ? true : p.category === cat;
       const inSearch =
         !s ||
@@ -152,8 +178,18 @@ export default function Page() {
         (p.badge || "").toLowerCase().includes(s);
       return inCat && inSearch;
     });
-  }, [q, cat]);
 
+    if (sort === "az") {
+      list = [...list].sort((a, b) => a.title.localeCompare(b.title, "fr"));
+    } else {
+      // reco = ordre original (ton ordre dans amazonProducts)
+      // donc on laisse comme ça
+    }
+
+    return list;
+  }, [q, cat, sort]);
+
+  /** Best sellers: on prend les premiers */
   const bestSellers = useMemo(() => {
     return amazonProducts.slice(0, 4).map((p, idx) => ({
       ...p,
@@ -187,10 +223,11 @@ export default function Page() {
             <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
               <div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-                  Les bons plans <span className="text-white/90">Nexus {year}</span>
+                  Les bons plans{" "}
+                  <span className="text-white/90">Nexus {year}</span>
                 </h1>
                 <p className="mt-3 text-white/70 max-w-xl">
-                  On sélectionne du matos gaming utile, puis tu achètes directement sur Amazon.
+                  Choisis une catégorie, cherche un produit, et tu achètes directement sur Amazon.
                 </p>
 
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -199,33 +236,72 @@ export default function Page() {
                       value={q}
                       onChange={(e) => setQ(e.target.value)}
                       className="nx-input w-full"
-                      placeholder="Rechercher écran, casque, clavier..."
+                      placeholder="Rechercher écran, clavier, souris..."
                     />
                   </div>
 
-                  <a href="#catalogue" className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2">
-                    🔥 Voir le catalogue
-                  </a>
+                  <Link
+                    href="/bons-plans"
+                    className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2"
+                  >
+                    🔥 Voir tous les bons plans
+                  </Link>
                 </div>
 
-                {/* ✅ CATEGORIES */}
-                <div className="mt-3 flex flex-wrap gap-2">
+                {/* CATEGORIES */}
+                <div className="mt-4 flex flex-wrap gap-2">
                   {cats.map((c) => (
-                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
+                    <Chip
+                      key={c}
+                      active={cat === c}
+                      label={c}
+                      count={counts.get(c) || 0}
+                      onClick={() => setCat(c)}
+                    />
                   ))}
+                </div>
+
+                {/* SORT */}
+                <div className="mt-4 flex items-center gap-2">
+                  <span className="text-xs text-white/60">Trier :</span>
+                  <button
+                    onClick={() => setSort("reco")}
+                    className={[
+                      "px-3 py-1 rounded-full text-xs font-semibold border transition",
+                      sort === "reco"
+                        ? "bg-white/15 border-white/20"
+                        : "bg-white/5 border-white/10 hover:bg-white/10",
+                    ].join(" ")}
+                  >
+                    Recommandés
+                  </button>
+                  <button
+                    onClick={() => setSort("az")}
+                    className={[
+                      "px-3 py-1 rounded-full text-xs font-semibold border transition",
+                      sort === "az"
+                        ? "bg-white/15 border-white/20"
+                        : "bg-white/5 border-white/10 hover:bg-white/10",
+                    ].join(" ")}
+                  >
+                    A → Z
+                  </button>
                 </div>
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">Transparence</div>
-                <div className="text-sm text-white/70 mt-2 leading-relaxed">
-                  Les boutons redirigent vers Amazon. Certains liens sont affiliés : ça nous aide
-                  à financer Nexus, sans coût en plus pour toi.
+                <div className="text-sm font-semibold text-white/80">
+                  Transparence
                 </div>
+                <div className="text-sm text-white/70 mt-2 leading-relaxed">
+                  Les boutons redirigent vers Amazon. Certains liens sont affiliés :
+                  ça nous aide à financer Nexus, sans coût en plus pour toi.
+                </div>
+
                 <div className="mt-4">
-                  <a href="#catalogue" className="nx-btn nx-btn-ghost w-full text-center">
+                  <Link href="/bons-plans" className="nx-btn nx-btn-ghost w-full text-center">
                     Découvrir la sélection
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -240,7 +316,9 @@ export default function Page() {
           <div className="nx-card p-6">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold">⭐ Sélection Nexus (Top)</h2>
+                <h2 className="text-2xl sm:text-3xl font-extrabold">
+                  ⭐ Sélection Nexus (Top)
+                </h2>
                 <p className="text-white/70 mt-1">
                   Quelques recommandations rapides — clique et achète sur Amazon.
                 </p>
@@ -266,16 +344,15 @@ export default function Page() {
                     <span className="text-[11px] text-white/60">+{p.sold} vus</span>
                   </div>
 
-                  {/* ✅ image pas écrasée */}
-                  <div className="mt-3 h-36 w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10 relative">
+                  {/* ✅ FIX IMAGE (ne déborde jamais) */}
+                  <div className="mt-3 relative h-36 w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.image}
                       alt={p.title}
-                      className="h-full w-full object-contain p-2 opacity-95"
+                      className="absolute inset-0 h-full w-full object-contain p-2 block"
                       loading="lazy"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                   </div>
 
                   <div className="mt-3 text-xs text-white/60">{p.category}</div>
@@ -289,9 +366,6 @@ export default function Page() {
                     className="nx-btn nx-btn-primary mt-4 w-full text-center"
                     href={`/go/${p.id}`}
                     rel="nofollow sponsored noopener"
-                    onClick={() =>
-                      trackAmazonClick({ id: p.id, title: p.title, category: p.category })
-                    }
                   >
                     Acheter sur Amazon
                   </a>
@@ -307,7 +381,9 @@ export default function Page() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold">💬 Avis</h2>
-                <p className="text-white/70 mt-1">L’objectif : rendre la recherche plus simple.</p>
+                <p className="text-white/70 mt-1">
+                  L’objectif : rendre la recherche plus simple.
+                </p>
               </div>
               <div className="hidden sm:block text-sm text-white/70">
                 Note moyenne <span className="font-semibold text-white">4.8/5</span>
@@ -334,7 +410,9 @@ export default function Page() {
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <div className="nx-card p-6">
             <h2 className="text-2xl sm:text-3xl font-extrabold">🏆 Pourquoi Nexus ?</h2>
-            <p className="text-white/70 mt-1">On te met une sélection claire, et tu achètes sur Amazon.</p>
+            <p className="text-white/70 mt-1">
+              On te met une sélection claire, et tu achètes sur Amazon.
+            </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {BENEFITS.map((b) => (
@@ -353,7 +431,12 @@ export default function Page() {
           <div className="flex items-end justify-between gap-3">
             <div>
               <div className="text-sm text-white/60">Résultats</div>
-              <div className="text-lg font-black">{filtered.length} article(s)</div>
+              <div className="text-lg font-black">
+                {filtered.length} article(s){" "}
+                <span className="text-white/50 font-semibold">
+                  {cat !== "Tous" ? `• ${cat}` : ""}
+                </span>
+              </div>
             </div>
             <Link href="/account" className="nx-btn nx-btn-ghost">
               👤 Mon compte
@@ -369,20 +452,23 @@ export default function Page() {
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
                 <div className="relative">
-                  {/* ✅ image pas écrasée */}
-                  <div className="h-44 w-full bg-black/20 border-b border-white/10">
+                  {/* ✅ FIX IMAGE (ne déborde jamais) */}
+                  <div className="relative h-44 w-full overflow-hidden bg-black/20 border-b border-white/10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.image}
                       alt={p.title}
-                      className="h-full w-full object-contain p-2 opacity-95"
+                      className="absolute inset-0 h-full w-full object-contain p-2 block"
                       loading="lazy"
                     />
                   </div>
 
                   <div className="absolute top-3 left-3 flex gap-2">
-                    <Badge text={p.badge} />
                     <Badge text={p.category} />
+                    <Badge text={p.badge} />
+                  </div>
+                  <div className="absolute bottom-3 left-3 text-xs text-white/80">
+                    Nexus • Amazon
                   </div>
                 </div>
 
@@ -393,20 +479,15 @@ export default function Page() {
 
                   <div className="mt-4 flex gap-2">
                     <button
-                      onClick={() => {
-                        trackOpenDetails({ id: p.id, title: p.title, category: p.category });
-                        setActive(p);
-                      }}
+                      onClick={() => setActive(p)}
                       className="nx-btn nx-btn-ghost flex-1"
                     >
                       Détails
                     </button>
-
                     <a
                       href={`/go/${p.id}`}
                       rel="nofollow sponsored noopener"
                       className="nx-btn nx-btn-primary flex-1 text-center"
-                      onClick={() => trackAmazonClick({ id: p.id, title: p.title, category: p.category })}
                     >
                       Amazon
                     </a>
@@ -437,18 +518,17 @@ export default function Page() {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="grid md:grid-cols-2">
-                    <div className="relative bg-black/20">
-                      <div className="h-72 md:h-full w-full">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={active.image}
-                          alt={active.title}
-                          className="h-full w-full object-contain p-4"
-                        />
-                      </div>
+                    {/* ✅ FIX IMAGE MODAL */}
+                    <div className="relative h-72 md:h-full w-full overflow-hidden bg-black/20">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={active.image}
+                        alt={active.title}
+                        className="absolute inset-0 h-full w-full object-contain p-4 block"
+                      />
                       <div className="absolute top-3 left-3 flex gap-2">
-                        <Badge text={active.badge} />
                         <Badge text={active.category} />
+                        <Badge text={active.badge} />
                         <Badge text="Amazon" />
                       </div>
                     </div>
@@ -470,24 +550,25 @@ export default function Page() {
                           href={`/go/${active.id}`}
                           className="nx-btn nx-btn-primary flex-1 text-center"
                           rel="nofollow sponsored noopener"
-                          onClick={() =>
-                            trackAmazonClick({
-                              id: active.id,
-                              title: active.title,
-                              category: active.category,
-                            })
-                          }
                         >
                           Acheter sur Amazon
                         </a>
 
-                        <button
+                        <Link
+                          href="#catalogue"
                           className="nx-btn nx-btn-ghost flex-1 text-center"
                           onClick={() => setActive(null)}
                         >
-                          Fermer
-                        </button>
+                          Retour liste
+                        </Link>
                       </div>
+
+                      <button
+                        className="mt-3 w-full text-sm text-white/60 hover:text-white/80 transition"
+                        onClick={() => setActive(null)}
+                      >
+                        Fermer
+                      </button>
                     </div>
                   </div>
                 </motion.div>
