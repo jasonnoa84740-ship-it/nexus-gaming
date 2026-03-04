@@ -42,10 +42,11 @@ export default function NexusShell({
   useEffect(() => {
     let mounted = true;
 
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then((res: any) => {
       if (!mounted) return;
-      setUser(data.user);
-      setPseudo(data.user?.user_metadata?.pseudo || "");
+      const user = res.data.user;
+      setUser(.user);
+      setPseudo(.user?.user_metadata?.pseudo || "");
     });
 
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
