@@ -26,7 +26,7 @@ export const amazonProducts: AmazonProduct[] = [
     badge: "Top",
     image: "/products/casque.jpg",
     query: "casque gaming sans fil pc ps5 micro",
-    amazonUrl: "", // <-- tu colleras ton lien affilié ici
+    amazonUrl: "https://www.amazon.fr/dp/B0CZX86R9F?tag=nexusgamingfr-21 ,
   },
   {
     id: "bureau-gaming",

@@ -1,0 +1,44 @@
+import Stripe from "stripe";
+
+export const runtime = "nodejs";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: "2024-06-20",
+});
+
+type Item = { id: string; name: string; price: number; qty: number };
+
+export async function POST(req: Request) {
+  try {
+    const { items } = (await req.json()) as { items: Item[] };
+
+    if (!items || items.length === 0) {
+      return new Response(JSON.stringify({ error: "Panier vide" }), {
+        status: 400,
+      });
+    }
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: items.map((it) => ({
+        quantity: it.qty,
+        price_data: {
+          currency: "eur",
+          unit_amount: Math.round(it.price * 100),
+          product_data: { name: it.name },
+        },
+      })),
+      success_url: `${siteUrl}/success`,
+      cancel_url: `${siteUrl}/?cancel=1`,
+    });
+
+    return new Response(JSON.stringify({ url: session.url }), { status: 200 });
+  } catch (e: any) {
+    return new Response(JSON.stringify({ error: e?.message ?? "Erreur" }), {
+      status: 500,
+    });
+  }
+}
