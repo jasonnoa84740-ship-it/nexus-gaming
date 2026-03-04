@@ -49,7 +49,7 @@ export default function NexusShell({
       setPseudo(user?.user_metadata?.pseudo || "");
     });
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
       setUser(session?.user ?? null);
       setPseudo(session?.user?.user_metadata?.pseudo || "");
     });
