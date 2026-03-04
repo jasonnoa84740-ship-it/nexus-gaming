@@ -14,16 +14,17 @@ export default function ProductCard({ product }: { product: AmazonProduct }) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
-      <div className="relative h-48 overflow-hidden rounded-xl bg-black/20">
-       <Image
-         src={product.image}
-         alt={product.title}
-         fill
-         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-         className="object-contain p-2"
-         priority={false}
-       />
-     </div>
+      {/* ✅ IMAGE (pas de fill -> évite l’écrasement) */}
+      <div className="overflow-hidden rounded-xl bg-black/20">
+        <Image
+          src={product.image}
+          alt={product.title}
+          width={800}
+          height={600}
+          className="h-48 w-full object-contain p-2"
+          priority={false}
+        />
+      </div>
 
       <div className="mt-4">
         {product.badge && (
@@ -33,6 +34,7 @@ export default function ProductCard({ product }: { product: AmazonProduct }) {
         )}
 
         <h3 className="mt-2 text-lg font-semibold">{product.title}</h3>
+
         {product.subtitle ? (
           <p className="mt-1 opacity-80">{product.subtitle}</p>
         ) : null}
@@ -62,7 +64,8 @@ export default function ProductCard({ product }: { product: AmazonProduct }) {
         {!hasAmazonUrl ? (
           <p className="mt-3 text-xs text-white/60">
             Astuce : clique sur “Rechercher sur Amazon”, trouve le produit exact,
-            puis colle ton lien affilié dans <code className="text-white/80">amazonUrl</code>.
+            puis colle ton lien affilié dans{" "}
+            <code className="text-white/80">amazonUrl</code>.
           </p>
         ) : null}
       </div>
