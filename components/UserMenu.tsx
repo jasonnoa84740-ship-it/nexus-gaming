@@ -1,116 +1,122 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { supabase } from "../lib/supabaseClient";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
+
+function cx(...a: Array<string | false | undefined | null>) {
+  return a.filter(Boolean).join(" ");
+}
 
 export default function UserMenu() {
-  const [user, setUser] = useState<any>(null);
-  const [open, setOpen] = useState(false);
-  const boxRef = useRef<HTMLDivElement | null>(null);
-  const pathname = usePathname();
   const router = useRouter();
 
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [pseudo, setPseudo] = useState<string>("");
+
   useEffect(() => {
+    let mounted = true;
+
     supabase.auth.getUser().then((res: any) => {
-      setUser(res.data.user));
+      if (!mounted) return;
+      const u = res.data.user;
+      setUser(u);
+      setPseudo(u?.user_metadata?.pseudo || "");
     });
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
-      setUser(session?.user ?? null);
-    });   
+      const u = session?.user ?? null;
+      setUser(u);
+      setPseudo(u?.user_metadata?.pseudo || "");
+    });
 
     return () => {
+      mounted = false;
       sub.subscription.unsubscribe();
     };
   }, []);
 
-  // close on route change
-  useEffect(() => setOpen(false), [pathname]);
-
-  // close on outside click
-  useEffect(() => {
-    function onDown(e: MouseEvent) {
-      if (!boxRef.current) return;
-      if (!boxRef.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, []);
+  const initials = useMemo(() => {
+    const s = (pseudo || user?.email || "U").trim();
+    return s.slice(0, 1).toUpperCase();
+  }, [pseudo, user?.email]);
 
   async function logout() {
     await supabase.auth.signOut();
     setOpen(false);
-    router.push("/");
+    router.replace("/auth");
   }
 
+  // Si pas connecté
   if (!user) {
     return (
-      <div className="flex items-center gap-2">
-        <Link href="/login" className="nx-btn nx-btn-ghost">
-          Se connecter
-        </Link>
-        <Link href="/signup" className="nx-btn nx-btn-primary">
-          S’inscrire
-        </Link>
-      </div>
+      <Link href="/auth" className="nx-btn nx-btn-primary">
+        Se connecter
+      </Link>
     );
   }
 
-  const pseudo =
-    user.user_metadata?.pseudo || user.email?.split("@")?.[0] || "Nexus";
-
   return (
-    <div className="relative" ref={boxRef}>
+    <div className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="nx-btn nx-btn-ghost flex items-center gap-2"
-        aria-haspopup="menu"
-        aria-expanded={open}
+        className="nx-btn nx-btn-ghost inline-flex items-center gap-2"
       >
-        <span className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center">
-          <span className="font-black">{pseudo[0]?.toUpperCase()}</span>
+        <span className="h-8 w-8 rounded-full bg-white/10 border border-white/10 grid place-items-center font-black">
+          {initials}
         </span>
-        <span className="hidden md:block max-w-[140px] truncate">{pseudo}</span>
-        <span className="opacity-70">▾</span>
+        <span className="hidden sm:block text-left">
+          <div className="text-xs text-white/60 leading-none">Connecté</div>
+          <div className="text-sm font-semibold leading-none">
+            {pseudo || user.email}
+          </div>
+        </span>
+        <span className="text-white/60">▾</span>
       </button>
 
-      {open && (
-        <div className="absolute right-0 mt-2 w-64 nx-card p-2 z-50">
-          <div className="px-3 py-2 text-xs text-white/60">
-            Connecté en tant que <span className="text-white/90">{user.email}</span>
+      {open ? (
+        <div
+          className={cx(
+            "absolute right-0 mt-2 w-64 nx-card p-2 border-white/10 bg-black/80"
+          )}
+          onMouseLeave={() => setOpen(false)}
+        >
+          <div className="px-2 py-2">
+            <div className="text-sm font-black">{pseudo || "Mon profil"}</div>
+            <div className="text-xs text-white/60">{user.email}</div>
           </div>
 
+          <div className="h-px bg-white/10 my-2" />
+
+          {/* ✅ On garde seulement Réglages + Codes promo */}
           <Link
-            className="block px-3 py-2 rounded-xl hover:bg-white/5 transition"
-            href="/account"
+            onClick={() => setOpen(false)}
+            href="/account?tab=settings"
+            className="block px-2 py-2 rounded-lg hover:bg-white/10 text-sm"
           >
-            👤 Profil
+            ⚙️ Mes réglages
           </Link>
+
           <Link
-            className="block px-3 py-2 rounded-xl hover:bg-white/5 transition"
-            href="/account#orders"
+            onClick={() => setOpen(false)}
+            href="/account?tab=promos"
+            className="block px-2 py-2 rounded-lg hover:bg-white/10 text-sm"
           >
-            📦 Mes commandes
-          </Link>
-          <Link
-            className="block px-3 py-2 rounded-xl hover:bg-white/5 transition"
-            href="/account#settings"
-          >
-            ⚙️ Réglages
+            🎟️ Mes codes promo
           </Link>
 
           <div className="h-px bg-white/10 my-2" />
 
           <button
             onClick={logout}
-            className="w-full text-left px-3 py-2 rounded-xl hover:bg-white/5 transition"
+            className="w-full text-left px-2 py-2 rounded-lg hover:bg-white/10 text-sm"
           >
             🚪 Déconnexion
           </button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
