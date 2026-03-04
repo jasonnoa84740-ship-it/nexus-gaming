@@ -1,26 +1,21 @@
-import { NextResponse } from "next/server";
+// app/go/[id]/route.ts
+import { NextRequest, NextResponse } from "next/server";
 import { amazonProducts } from "@/lib/amazonProducts";
 
-export function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
+export function GET(req: NextRequest, context: { params: { id: string } }) {
+  const { id } = context.params;
 
   const product = amazonProducts.find((p) => p.id === id);
 
-  // Si produit introuvable -> retour catalogue
   if (!product) {
-    return NextResponse.redirect(new URL("/bons-plans", request.url), 302);
+    return NextResponse.redirect(new URL("/bons-plans", req.url), 302);
   }
 
-  // ✅ si lien exact rempli -> fiche produit Amazon directe
   const url = (product.amazonUrl || "").trim();
   if (url) {
     return NextResponse.redirect(url, 302);
   }
 
-  // sinon -> recherche Amazon
   const q = encodeURIComponent(product.query || product.title);
   return NextResponse.redirect(`https://www.amazon.fr/s?k=${q}`, 302);
 }
