@@ -13,13 +13,17 @@ export default function UserMenu() {
   const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
-
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+    supabase.auth.getUser().then((res: any) => {
+      setUser(res.data.user));
     });
 
-    return () => sub.subscription.unsubscribe();
+    const { data: sub } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
+      setUser(session?.user ?? null);
+    });   
+
+    return () => {
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   // close on route change
