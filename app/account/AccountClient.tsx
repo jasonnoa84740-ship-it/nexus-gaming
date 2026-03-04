@@ -191,11 +191,12 @@ export default function AccountClient() {
   }
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-      setPseudo(data.user?.user_metadata?.pseudo || "");
-    });
-  }, []);
+   supabase.auth.getUser().then((res) => {
+    const user = res.data.user;
+    setUser(user);
+    setPseudo(user?.user_metadata?.pseudo || "");
+   });
+ }, []);
 
   useEffect(() => {
     if (tab !== "settings") return;
