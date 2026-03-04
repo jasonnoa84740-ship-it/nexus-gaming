@@ -12,35 +12,26 @@ import { amazonProducts, type AmazonProduct, type Category } from "@/lib/amazonP
 
 const year = new Date().getFullYear();
 
-type CatFilter = "Tous" | Category;
-
 function Chip({
   active,
   label,
   onClick,
-  count,
 }: {
   active: boolean;
   label: string;
   onClick: () => void;
-  count?: number;
 }) {
   return (
     <button
       onClick={onClick}
       className={[
-        "px-3 py-1 rounded-full text-xs font-semibold border transition inline-flex items-center gap-2",
+        "px-3 py-1 rounded-full text-xs font-semibold border transition",
         active
           ? "bg-white/15 border-white/20"
           : "bg-white/5 border-white/10 hover:bg-white/10",
       ].join(" ")}
     >
-      <span>{label}</span>
-      {typeof count === "number" ? (
-        <span className="text-[11px] px-2 py-0.5 rounded-full bg-black/30 border border-white/10 text-white/70">
-          {count}
-        </span>
-      ) : null}
+      {label}
     </button>
   );
 }
@@ -105,36 +96,37 @@ const BENEFITS = [
   { icon: "🔗", title: "Liens affiliés", desc: "Ça nous aide à financer Nexus (sans surcoût pour toi)" },
 ];
 
-function getCategories(products: AmazonProduct[]): CatFilter[] {
-  const set = new Set<Category>();
-  products.forEach((p) => set.add(p.category));
+// Ordre des catégories (comme tu veux les afficher)
+const CATEGORY_ORDER: Category[] = [
+  "Ecran",
+  "Souris",
+  "Clavier",
+  "Casque",
+  "Micro",
+  "Webcam",
+  "Chaise",
+  "Bureau",
+];
 
-  const order: Category[] = ["Ecran", "Souris", "Clavier", "Casque", "Micro", "Webcam", "Chaise", "Bureau"];
-  const sorted = order.filter((c) => set.has(c));
-
-  return ["Tous", ...sorted];
-}
-
-function countByCategory(products: AmazonProduct[]) {
-  const map = new Map<string, number>();
-  map.set("Tous", products.length);
-  for (const p of products) {
-    map.set(p.category, (map.get(p.category) || 0) + 1);
-  }
-  return map;
-}
+type CatOption = "Tous" | Category;
 
 export default function Page() {
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState<CatFilter>("Tous");
+  const [cat, setCat] = useState<CatOption>("Tous");
   const [active, setActive] = useState<AmazonProduct | null>(null);
-
-  const cats = useMemo(() => getCategories(amazonProducts), []);
-  const counts = useMemo(() => countByCategory(amazonProducts), []);
 
   // parallax souris
   const [mx, setMx] = useState(0);
   const [my, setMy] = useState(0);
+
+  const cats = useMemo<CatOption[]>(() => {
+    const present = new Set<Category>();
+    amazonProducts.forEach((p) => present.add(p.category));
+
+    // on garde l’ordre propre
+    const ordered = CATEGORY_ORDER.filter((c) => present.has(c));
+    return ["Tous", ...ordered];
+  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -177,7 +169,7 @@ export default function Page() {
     });
   }, [q, cat]);
 
-  /** Best sellers: on prend les premiers */
+  /** Best sellers: exemple simple */
   const bestSellers = useMemo(() => {
     return amazonProducts.slice(0, 4).map((p, idx) => ({
       ...p,
@@ -202,19 +194,21 @@ export default function Page() {
             style={{ transform: `translate3d(${mx * 6}px, ${my * 6}px, 0)` }}
           >
             <div className="flex flex-wrap items-center gap-2">
-              <Badge text="⚡ Nexus vibe • Fond animé • Parallax" />
-              <Badge text="🛒 Achat sur Amazon" />
+              <Badge text="🛒 Achat Amazon" />
               <Badge text="🔗 Liens affiliés" />
-              <Badge text="🎮 Sélection gaming" />
+              <Badge text="🎮 Sélection Nexus" />
+              <Badge text="⚡ Catégories + recherche" />
             </div>
 
             <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
               <div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-                  Les bons plans <span className="text-white/90">Nexus {year}</span>
+                  Les bons plans{" "}
+                  <span className="text-white/90">Nexus {year}</span>
                 </h1>
                 <p className="mt-3 text-white/70 max-w-xl">
-                  Choisis une catégorie, cherche un produit, et tu achètes directement sur Amazon.
+                  Choisis une catégorie, cherche un produit, ouvre les détails, puis
+                  achète sur Amazon.
                 </p>
 
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -227,19 +221,20 @@ export default function Page() {
                     />
                   </div>
 
-                  <a href="#catalogue" className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2">
-                    🔥 Voir le catalogue
-                  </a>
+                  <Link
+                    href="/bons-plans"
+                    className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2"
+                  >
+                    🔥 Voir tous les bons plans
+                  </Link>
                 </div>
 
-                {/* CATEGORIES */}
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-3 flex flex-wrap gap-2">
                   {cats.map((c) => (
                     <Chip
                       key={c}
                       active={cat === c}
                       label={c}
-                      count={counts.get(c) || 0}
                       onClick={() => setCat(c)}
                     />
                   ))}
@@ -247,14 +242,20 @@ export default function Page() {
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">Transparence</div>
-                <div className="text-sm text-white/70 mt-2 leading-relaxed">
-                  Les boutons redirigent vers Amazon. Certains liens sont affiliés : ça nous aide à financer Nexus,
-                  sans coût en plus pour toi.
+                <div className="text-sm font-semibold text-white/80">
+                  Transparence
                 </div>
+                <div className="text-sm text-white/70 mt-2 leading-relaxed">
+                  Les boutons redirigent vers Amazon. Certains liens sont affiliés :
+                  ça nous aide à financer Nexus, sans surcoût pour toi.
+                </div>
+
                 <div className="mt-4">
-                  <a href="#catalogue" className="nx-btn nx-btn-ghost w-full text-center">
-                    Découvrir la sélection
+                  <a
+                    href="#catalogue"
+                    className="nx-btn nx-btn-ghost w-full text-center"
+                  >
+                    Voir le catalogue ↓
                   </a>
                 </div>
               </div>
@@ -270,7 +271,9 @@ export default function Page() {
           <div className="nx-card p-6">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold">⭐ Sélection Nexus (Top)</h2>
+                <h2 className="text-2xl sm:text-3xl font-extrabold">
+                  ⭐ Sélection Nexus (Top)
+                </h2>
                 <p className="text-white/70 mt-1">
                   Quelques recommandations rapides — clique et achète sur Amazon.
                 </p>
@@ -296,19 +299,26 @@ export default function Page() {
                     <span className="text-[11px] text-white/60">+{p.sold} vus</span>
                   </div>
 
-                  {/* ✅ IMAGE CLEAN (pas coupée, pas déborde) */}
-                  <div className="mt-3 relative h-44 w-full overflow-hidden rounded-2xl bg-black/30 border border-white/10">
+                  {/* IMAGE (PROPRE) */}
+                  <div className="mt-3 relative h-48 w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10">
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/30" />
+                    <div className="pointer-events-none absolute -top-10 left-1/2 h-28 w-28 -translate-x-1/2 rounded-full bg-white/10 blur-2xl" />
+
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.image}
                       alt={p.title}
-                      className="absolute inset-0 h-full w-full object-contain p-3 block"
+                      className="absolute inset-0 h-full w-full object-contain p-2 scale-[1.08]"
                       loading="lazy"
                     />
+
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                    <div className="absolute top-3 left-3 flex gap-2">
+                      <Badge text={p.category} />
+                    </div>
                   </div>
 
-                  <div className="mt-3 text-xs text-white/60">{p.category}</div>
+                  <div className="mt-3 text-xs text-white/60">Sélection Nexus</div>
                   <div className="mt-1 font-semibold leading-snug">{p.title}</div>
 
                   <div className="mt-2">
@@ -334,7 +344,9 @@ export default function Page() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold">💬 Avis</h2>
-                <p className="text-white/70 mt-1">L’objectif : rendre la recherche plus simple.</p>
+                <p className="text-white/70 mt-1">
+                  L’objectif : rendre la recherche plus simple.
+                </p>
               </div>
               <div className="hidden sm:block text-sm text-white/70">
                 Note moyenne <span className="font-semibold text-white">4.8/5</span>
@@ -361,7 +373,9 @@ export default function Page() {
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <div className="nx-card p-6">
             <h2 className="text-2xl sm:text-3xl font-extrabold">🏆 Pourquoi Nexus ?</h2>
-            <p className="text-white/70 mt-1">On te met une sélection claire, et tu achètes sur Amazon.</p>
+            <p className="text-white/70 mt-1">
+              On te met une sélection claire, et tu achètes sur Amazon.
+            </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {BENEFITS.map((b) => (
@@ -380,9 +394,9 @@ export default function Page() {
           <div className="flex items-end justify-between gap-3">
             <div>
               <div className="text-sm text-white/60">Résultats</div>
-              <div className="text-lg font-black">
-                {filtered.length} article(s){" "}
-                <span className="text-white/50 font-semibold">{cat !== "Tous" ? `• ${cat}` : ""}</span>
+              <div className="text-lg font-black">{filtered.length} article(s)</div>
+              <div className="text-xs text-white/50 mt-1">
+                Catégorie : <span className="text-white/80">{cat}</span>
               </div>
             </div>
             <Link href="/account" className="nx-btn nx-btn-ghost">
@@ -398,27 +412,37 @@ export default function Page() {
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
-                {/* ✅ IMAGE CLEAN (plus grande + contain + pas déborde) */}
-                <div className="relative h-64 w-full overflow-hidden bg-black/30 border-b border-white/10 flex items-center justify-center">
+                {/* IMAGE (PROPRE + PAS DEBORD) */}
+                <div className="relative h-72 w-full overflow-hidden bg-black/25 border-b border-white/10">
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/30" />
+                  <div className="pointer-events-none absolute -top-16 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
+
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={p.image}
                     alt={p.title}
-                    className="max-h-full max-w-full object-contain p-4 block"
+                    className="absolute inset-0 h-full w-full object-contain p-2 scale-[1.08]"
                     loading="lazy"
                   />
+
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
                   <div className="absolute top-3 left-3 flex gap-2">
                     <Badge text={p.category} />
                     <Badge text={p.badge} />
+                  </div>
+
+                  <div className="absolute bottom-3 left-3 text-xs text-white/80">
+                    Nexus • Amazon
                   </div>
                 </div>
 
                 <div className="p-4">
                   <div className="text-sm text-white/60">Sélection Nexus</div>
-                  <div className="font-black text-lg leading-snug mt-1">{p.title}</div>
-
-                  {p.subtitle ? <div className="mt-2 text-sm text-white/70">{p.subtitle}</div> : null}
+                  <div className="font-black text-lg leading-snug">{p.title}</div>
+                  {p.subtitle ? (
+                    <div className="mt-2 text-sm text-white/70">{p.subtitle}</div>
+                  ) : null}
 
                   <div className="mt-4 flex gap-2">
                     <button onClick={() => setActive(p)} className="nx-btn nx-btn-ghost flex-1">
@@ -458,14 +482,18 @@ export default function Page() {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="grid md:grid-cols-2">
-                    {/* ✅ MODAL IMAGE CLEAN */}
-                    <div className="relative h-80 md:h-full w-full overflow-hidden bg-black/30 flex items-center justify-center">
+                    {/* IMAGE MODAL */}
+                    <div className="relative h-96 md:h-full w-full overflow-hidden bg-black/25">
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/40" />
+                      <div className="pointer-events-none absolute -top-20 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
+
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={active.image}
                         alt={active.title}
-                        className="max-h-full max-w-full object-contain p-5 block"
+                        className="absolute inset-0 h-full w-full object-contain p-3 scale-[1.08]"
                       />
+
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                       <div className="absolute top-3 left-3 flex gap-2">
                         <Badge text={active.category} />
@@ -502,6 +530,13 @@ export default function Page() {
                           Fermer
                         </button>
                       </div>
+
+                      <button
+                        className="mt-3 w-full text-sm text-white/60 hover:text-white/80 transition"
+                        onClick={() => setActive(null)}
+                      >
+                        Fermer la fenêtre
+                      </button>
                     </div>
                   </div>
                 </motion.div>
