@@ -45,8 +45,8 @@ export default function NexusShell({
     supabase.auth.getUser().then((res: any) => {
       if (!mounted) return;
       const user = res.data.user;
-      setUser(.user);
-      setPseudo(.user?.user_metadata?.pseudo || "");
+      setUser(user);
+      setPseudo(user?.user_metadata?.pseudo || "");
     });
 
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
