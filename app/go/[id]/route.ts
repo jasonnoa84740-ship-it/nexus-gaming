@@ -10,14 +10,15 @@ function makeAmazonSearchUrl(query: string) {
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = context.params;
-
-  const product = amazonProducts.find((p) => p.id === id);
+  const product = amazonProducts.find((p) => p.id === params.id);
 
   if (!product) {
-    return NextResponse.json({ error: "Produit introuvable" }, { status: 404 });
+    return NextResponse.json(
+      { error: "Produit introuvable", id: params.id },
+      { status: 404 }
+    );
   }
 
   const direct = (product.amazonUrl ?? "").trim();
