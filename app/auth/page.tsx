@@ -11,11 +11,11 @@ export default function AuthHome() {
   const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) router.replace("/"); // déjà connecté => site
-      else setLoading(false);
-    });
-  }, [router]);
+   supabase.auth.getSession().then((res: any) => {
+     if (res.data.session) router.replace("/");
+     else setLoading(false);
+   }); 
+ }, [router]);
 
   if (loading) return null;
 
