@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { amazonProducts } from "@/lib/amazonProducts";
 
-export async function GET(
+export function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
@@ -9,12 +9,12 @@ export async function GET(
 
   const product = amazonProducts.find((p) => p.id === id);
 
-  // si produit introuvable -> retour au catalogue
+  // Si produit introuvable -> retour catalogue
   if (!product) {
     return NextResponse.redirect(new URL("/bons-plans", request.url), 302);
   }
 
-  // ✅ si lien exact rempli -> fiche produit exacte Amazon
+  // ✅ si lien exact rempli -> fiche produit Amazon directe
   const url = (product.amazonUrl || "").trim();
   if (url) {
     return NextResponse.redirect(url, 302);
