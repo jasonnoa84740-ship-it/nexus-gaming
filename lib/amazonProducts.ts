@@ -85,246 +85,246 @@ function build(category: Category, items: Seed[]): AmazonProduct[] {
    30 ÉCRANS GAMING
 ========================= */
 const ECRANS_30: AmazonProduct[] = [
-{
-id: "aoc-24g4xe",
-title: "AOC 24G4XE 24\" 180Hz IPS",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "AOC 24G4XE gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0CWRWYCZ4?tag=nexusgamingfr-21"
-},
-{
-id: "aoc-c27g4zxe",
-title: "AOC C27G4ZXE 27\" incurvé",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "AOC C27G4ZXE gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0D58MQQ7S?tag=nexusgamingfr-21"
-},
-{
-id: "samsung-odyssey-g3",
-title: "Samsung Odyssey G3 24\"",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Samsung Odyssey G3 gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B09QZWYZT5?tag=nexusgamingfr-21"
-},
-{
-id: "samsung-odyssey-g5",
-title: "Samsung Odyssey G5 27\"",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Samsung Odyssey G5 gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0CP687WQK?tag=nexusgamingfr-21"
-},
-{
-id: "samsung-odyssey-g7",
-title: "Samsung Odyssey G7 27\"",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Samsung Odyssey G7 gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0BRL8T2G7?tag=nexusgamingfr-21"
-},
-{
-id: "lg-ultragear-24g411a",
-title: "LG UltraGear 24G411A-B",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "LG UltraGear 24G411A gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0FL32LSR5?tag=nexusgamingfr-21"
-},
-{
-id: "lg-ultragear-27gr75q",
-title: "LG UltraGear 27GR75Q-B",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "LG UltraGear 27GR75Q gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0BVWMSP1V?tag=nexusgamingfr-21"
-},
-{
-id: "lg-ultragear-oled",
-title: "LG UltraGear OLED 27\"",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "LG UltraGear OLED gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0FTPCP6S1?tag=nexusgamingfr-21"
-},
-{
-id: "asus-tuf-24",
-title: "ASUS TUF Gaming 24\"",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "ASUS TUF Gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0F9Z1SS65?tag=nexusgamingfr-21"
-},
-{
-id: "asus-tuf-vg27aq",
-title: "ASUS TUF VG27AQM1A",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "ASUS TUF VG27AQM1A monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0CQ5K4HG5?tag=nexusgamingfr-21"
-},
-{
-id: "asus-rog-oled",
-title: "ASUS ROG Strix OLED",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "ASUS ROG OLED gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0F13V37YH?tag=nexusgamingfr-21"
-},
-{
-id: "msi-g2412",
-title: "MSI G2412 24\"",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "MSI G2412 gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0B83MNB5H?tag=nexusgamingfr-21"
-},
-{
-id: "msi-mag-275qf",
-title: "MSI MAG 275QF",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "MSI MAG 275QF monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0D1R9TMX7?tag=nexusgamingfr-21"
-},
-{
-id: "msi-mag274qrf",
-title: "MSI MAG274QRF-QD",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "MSI MAG274QRF monitor",
-amazonUrl: "https://www.amazon.fr/dp/B08PKHV1R9?tag=nexusgamingfr-21"
-},
-{
-id: "benq-xl2411k",
-title: "BenQ ZOWIE XL2411K",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "BenQ XL2411K gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B08HJ2T1JK?tag=nexusgamingfr-21"
-},
-{
-id: "benq-xl2540k",
-title: "BenQ ZOWIE XL2540K",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "BenQ XL2540K gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B08M671TZX?tag=nexusgamingfr-21"
-},
-{
-id: "benq-ex2510s",
-title: "BenQ MOBIUZ EX2510S",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "BenQ EX2510S gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B096B51TMD?tag=nexusgamingfr-21"
-},
-{
-id: "gigabyte-g24f",
-title: "Gigabyte G24F",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Gigabyte G24F gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0BT897JXB?tag=nexusgamingfr-21"
-},
-{
-id: "gigabyte-m27q",
-title: "Gigabyte M27Q",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Gigabyte M27Q gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0FPXG8PGT?tag=nexusgamingfr-21"
-},
-{
-id: "dell-25-gaming",
-title: "Dell 25 Gaming Monitor",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Dell gaming monitor 25",
-amazonUrl: "https://www.amazon.fr/dp/B0GHQ2BPYJ?tag=nexusgamingfr-21"
-},
-{
-id: "alienware-aw2523hf",
-title: "Alienware AW2523HF",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Alienware AW2523HF monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0BF5SJFN8?tag=nexusgamingfr-21"
-},
-{
-id: "acer-kg272",
-title: "Acer KG272",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Acer KG272 gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0DN28QY5P?tag=nexusgamingfr-21"
-},
-{
-id: "acer-nitro",
-title: "Acer Nitro",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Acer Nitro gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0CCY6CQ21?tag=nexusgamingfr-21"
-},
-{
-id: "acer-predator",
-title: "Acer Predator",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Acer Predator gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0B8GWGLLS?tag=nexusgamingfr-21"
-},
-{
-id: "viewsonic-va24",
-title: "ViewSonic VA24G1-H",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "ViewSonic VA24 gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0FHK34X5L?tag=nexusgamingfr-21"
-},
-{
-id: "viewsonic-vx2479",
-title: "ViewSonic VX2479A",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "ViewSonic VX2479A gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0F1T7G19N?tag=nexusgamingfr-21"
-},
-{
-id: "koorui-24",
-title: "KOORUI 24\"",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "KOORUI gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0DPHDPWW1?tag=nexusgamingfr-21"
-},
-{
-id: "iiyama-gmaster",
-title: "iiyama G-Master",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "iiyama G Master gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0947BJM8S?tag=nexusgamingfr-21"
-},
-{
-id: "philips-evnia",
-title: "Philips Evnia",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "Philips Evnia gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0DF7LPJSR?tag=nexusgamingfr-21"
-},
-{
-id: "hp-omen",
-title: "HP Omen 27\"",
-category: "Ecran",
-image: "/products/ecran.jpg",
-query: "HP Omen gaming monitor",
-amazonUrl: "https://www.amazon.fr/dp/B0C4F3YP8F?tag=nexusgamingfr-21"
-}
+  {
+    id: "aoc-24g4xe",
+    title: 'AOC 24G4XE 24" 180Hz IPS',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "AOC 24G4XE gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0CWRWYCZ4?tag=nexusgamingfr-21",
+  },
+  {
+    id: "aoc-c27g4zxe",
+    title: 'AOC C27G4ZXE 27" incurvé',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "AOC C27G4ZXE gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0D58MQQ7S?tag=nexusgamingfr-21",
+  },
+  {
+    id: "samsung-odyssey-g3",
+    title: 'Samsung Odyssey G3 24"',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Samsung Odyssey G3 gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B09QZWYZT5?tag=nexusgamingfr-21",
+  },
+  {
+    id: "samsung-odyssey-g5",
+    title: 'Samsung Odyssey G5 27"',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Samsung Odyssey G5 gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0CP687WQK?tag=nexusgamingfr-21",
+  },
+  {
+    id: "samsung-odyssey-g7",
+    title: 'Samsung Odyssey G7 27"',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Samsung Odyssey G7 gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0BRL8T2G7?tag=nexusgamingfr-21",
+  },
+  {
+    id: "lg-ultragear-24g411a",
+    title: "LG UltraGear 24G411A-B",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "LG UltraGear 24G411A gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0FL32LSR5?tag=nexusgamingfr-21",
+  },
+  {
+    id: "lg-ultragear-27gr75q",
+    title: "LG UltraGear 27GR75Q-B",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "LG UltraGear 27GR75Q gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0BVWMSP1V?tag=nexusgamingfr-21",
+  },
+  {
+    id: "lg-ultragear-oled",
+    title: 'LG UltraGear OLED 27"',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "LG UltraGear OLED gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0FTPCP6S1?tag=nexusgamingfr-21",
+  },
+  {
+    id: "asus-tuf-24",
+    title: 'ASUS TUF Gaming 24"',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "ASUS TUF Gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0F9Z1SS65?tag=nexusgamingfr-21",
+  },
+  {
+    id: "asus-tuf-vg27aq",
+    title: "ASUS TUF VG27AQM1A",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "ASUS TUF VG27AQM1A monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0CQ5K4HG5?tag=nexusgamingfr-21",
+  },
+  {
+    id: "asus-rog-oled",
+    title: "ASUS ROG Strix OLED",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "ASUS ROG OLED gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0F13V37YH?tag=nexusgamingfr-21",
+  },
+  {
+    id: "msi-g2412",
+    title: 'MSI G2412 24"',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "MSI G2412 gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0B83MNB5H?tag=nexusgamingfr-21",
+  },
+  {
+    id: "msi-mag-275qf",
+    title: "MSI MAG 275QF",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "MSI MAG 275QF monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0D1R9TMX7?tag=nexusgamingfr-21",
+  },
+  {
+    id: "msi-mag274qrf",
+    title: "MSI MAG274QRF-QD",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "MSI MAG274QRF monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B08PKHV1R9?tag=nexusgamingfr-21",
+  },
+  {
+    id: "benq-xl2411k",
+    title: "BenQ ZOWIE XL2411K",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "BenQ XL2411K gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B08HJ2T1JK?tag=nexusgamingfr-21",
+  },
+  {
+    id: "benq-xl2540k",
+    title: "BenQ ZOWIE XL2540K",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "BenQ XL2540K gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B08M671TZX?tag=nexusgamingfr-21",
+  },
+  {
+    id: "benq-ex2510s",
+    title: "BenQ MOBIUZ EX2510S",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "BenQ EX2510S gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B096B51TMD?tag=nexusgamingfr-21",
+  },
+  {
+    id: "gigabyte-g24f",
+    title: "Gigabyte G24F",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Gigabyte G24F gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0BT897JXB?tag=nexusgamingfr-21",
+  },
+  {
+    id: "gigabyte-m27q",
+    title: "Gigabyte M27Q",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Gigabyte M27Q gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0FPXG8PGT?tag=nexusgamingfr-21",
+  },
+  {
+    id: "dell-25-gaming",
+    title: "Dell 25 Gaming Monitor",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Dell gaming monitor 25",
+    amazonUrl: "https://www.amazon.fr/dp/B0GHQ2BPYJ?tag=nexusgamingfr-21",
+  },
+  {
+    id: "alienware-aw2523hf",
+    title: "Alienware AW2523HF",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Alienware AW2523HF monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0BF5SJFN8?tag=nexusgamingfr-21",
+  },
+  {
+    id: "acer-kg272",
+    title: "Acer KG272",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Acer KG272 gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0DN28QY5P?tag=nexusgamingfr-21",
+  },
+  {
+    id: "acer-nitro",
+    title: "Acer Nitro",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Acer Nitro gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0CCY6CQ21?tag=nexusgamingfr-21",
+  },
+  {
+    id: "acer-predator",
+    title: "Acer Predator",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Acer Predator gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0B8GWGLLS?tag=nexusgamingfr-21",
+  },
+  {
+    id: "viewsonic-va24",
+    title: "ViewSonic VA24G1-H",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "ViewSonic VA24 gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0FHK34X5L?tag=nexusgamingfr-21",
+  },
+  {
+    id: "viewsonic-vx2479",
+    title: "ViewSonic VX2479A",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "ViewSonic VX2479A gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0F1T7G19N?tag=nexusgamingfr-21",
+  },
+  {
+    id: "koorui-24",
+    title: 'KOORUI 24"',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "KOORUI gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0DPHDPWW1?tag=nexusgamingfr-21",
+  },
+  {
+    id: "iiyama-gmaster",
+    title: "iiyama G-Master",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "iiyama G Master gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0947BJM8S?tag=nexusgamingfr-21",
+  },
+  {
+    id: "philips-evnia",
+    title: "Philips Evnia",
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "Philips Evnia gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0DF7LPJSR?tag=nexusgamingfr-21",
+  },
+  {
+    id: "hp-omen",
+    title: 'HP Omen 27"',
+    category: "Ecran",
+    image: "/products/ecran.jpg",
+    query: "HP Omen gaming monitor",
+    amazonUrl: "https://www.amazon.fr/dp/B0C4F3YP8F?tag=nexusgamingfr-21",
+  },
 ];
 
 /* =========================
@@ -580,8 +580,9 @@ const BUREAUX_30: Seed[] = [
 ];
 
 // ✅ Export final : tout le catalogue
+// IMPORTANT : on garde ECRANS_30 tel quel (avec tes liens) => PAS de build() dessus
 export const amazonProducts: AmazonProduct[] = [
-  ...build("Ecran", ECRANS_30),
+  ...ECRANS_30,
   ...build("Souris", SOURIS_30),
   ...build("Clavier", CLAVIERS_30),
   ...build("Casque", CASQUES_30),

@@ -17,11 +17,12 @@ export async function GET(
   const product = amazonProducts.find((p) => p.id === id);
 
   if (!product) {
-    return NextResponse.json({ error: "Produit introuvable", id }, { status: 404 });
+    return NextResponse.json({ error: "Produit introuvable" }, { status: 404 });
   }
 
   const direct = (product.amazonUrl ?? "").trim();
-  const target = direct !== "" ? direct : makeAmazonSearchUrl(product.query || product.title);
+  const target =
+    direct !== "" ? direct : makeAmazonSearchUrl(product.query || product.title);
 
   return NextResponse.redirect(target, 302);
 }
