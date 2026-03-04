@@ -96,7 +96,6 @@ const BENEFITS = [
   { icon: "🔗", title: "Liens affiliés", desc: "Ça nous aide à financer Nexus (sans surcoût pour toi)" },
 ];
 
-// Ordre des catégories (comme tu veux les afficher)
 const CATEGORY_ORDER: Category[] = [
   "Ecran",
   "Souris",
@@ -122,8 +121,6 @@ export default function Page() {
   const cats = useMemo<CatOption[]>(() => {
     const present = new Set<Category>();
     amazonProducts.forEach((p) => present.add(p.category));
-
-    // on garde l’ordre propre
     const ordered = CATEGORY_ORDER.filter((c) => present.has(c));
     return ["Tous", ...ordered];
   }, []);
@@ -146,7 +143,6 @@ export default function Page() {
     };
   }, []);
 
-  // scroll lock modal
   useEffect(() => {
     if (!active) return;
     const prev = document.body.style.overflow;
@@ -169,7 +165,6 @@ export default function Page() {
     });
   }, [q, cat]);
 
-  /** Best sellers: exemple simple */
   const bestSellers = useMemo(() => {
     return amazonProducts.slice(0, 4).map((p, idx) => ({
       ...p,
@@ -221,42 +216,32 @@ export default function Page() {
                     />
                   </div>
 
-                  <Link
-                    href="/bons-plans"
+                  <a
+                    href="#catalogue"
                     className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2"
                   >
-                    🔥 Voir tous les bons plans
-                  </Link>
+                    🔥 Voir le catalogue
+                  </a>
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
                   {cats.map((c) => (
-                    <Chip
-                      key={c}
-                      active={cat === c}
-                      label={c}
-                      onClick={() => setCat(c)}
-                    />
+                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
                   ))}
                 </div>
               </div>
 
               <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">
-                  Transparence
-                </div>
+                <div className="text-sm font-semibold text-white/80">Transparence</div>
                 <div className="text-sm text-white/70 mt-2 leading-relaxed">
                   Les boutons redirigent vers Amazon. Certains liens sont affiliés :
-                  ça nous aide à financer Nexus, sans surcoût pour toi.
+                  ça nous aide à financer Nexus, sans coût en plus pour toi.
                 </div>
 
                 <div className="mt-4">
-                  <a
-                    href="#catalogue"
-                    className="nx-btn nx-btn-ghost w-full text-center"
-                  >
-                    Voir le catalogue ↓
-                  </a>
+                  <Link href="/bons-plans" className="nx-btn nx-btn-ghost w-full text-center">
+                    Découvrir la sélection
+                  </Link>
                 </div>
               </div>
             </div>
@@ -299,26 +284,22 @@ export default function Page() {
                     <span className="text-[11px] text-white/60">+{p.sold} vus</span>
                   </div>
 
-                  {/* IMAGE (PROPRE) */}
-                  <div className="mt-3 relative h-48 w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10">
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/30" />
-                    <div className="pointer-events-none absolute -top-10 left-1/2 h-28 w-28 -translate-x-1/2 rounded-full bg-white/10 blur-2xl" />
-
+                  {/* ✅ IMAGE COMME AU DÉBUT : aspect + object-cover */}
+                  <div className="mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10 relative">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.image}
                       alt={p.title}
-                      className="absolute inset-0 h-full w-full object-contain p-2 scale-[1.08]"
+                      className="h-full w-full object-cover opacity-95"
                       loading="lazy"
                     />
-
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                     <div className="absolute top-3 left-3 flex gap-2">
                       <Badge text={p.category} />
                     </div>
                   </div>
 
-                  <div className="mt-3 text-xs text-white/60">Sélection Nexus</div>
+                  <div className="mt-3 text-xs text-white/60">Nexus selection</div>
                   <div className="mt-1 font-semibold leading-snug">{p.title}</div>
 
                   <div className="mt-2">
@@ -412,26 +393,20 @@ export default function Page() {
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
-                {/* IMAGE (PROPRE + PAS DEBORD) */}
-                <div className="relative h-72 w-full overflow-hidden bg-black/25 border-b border-white/10">
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/30" />
-                  <div className="pointer-events-none absolute -top-16 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
-
+                {/* ✅ IMAGE COMME AU DÉBUT : h fixe + object-cover */}
+                <div className="relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={p.image}
                     alt={p.title}
-                    className="absolute inset-0 h-full w-full object-contain p-2 scale-[1.08]"
+                    className="h-44 w-full object-cover opacity-95"
                     loading="lazy"
                   />
-
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                   <div className="absolute top-3 left-3 flex gap-2">
                     <Badge text={p.category} />
                     <Badge text={p.badge} />
                   </div>
-
                   <div className="absolute bottom-3 left-3 text-xs text-white/80">
                     Nexus • Amazon
                   </div>
@@ -482,19 +457,14 @@ export default function Page() {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="grid md:grid-cols-2">
-                    {/* IMAGE MODAL */}
-                    <div className="relative h-96 md:h-full w-full overflow-hidden bg-black/25">
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/40" />
-                      <div className="pointer-events-none absolute -top-20 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
-
+                    <div className="relative">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={active.image}
                         alt={active.title}
-                        className="absolute inset-0 h-full w-full object-contain p-3 scale-[1.08]"
+                        className="h-72 md:h-full w-full object-cover"
                       />
-
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                       <div className="absolute top-3 left-3 flex gap-2">
                         <Badge text={active.category} />
                         <Badge text={active.badge} />
