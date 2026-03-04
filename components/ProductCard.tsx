@@ -14,7 +14,7 @@ export default function ProductCard({ product }: { product: AmazonProduct }) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-black/20">
+      <div className="relative h-48 overflow-hidden rounded-xl bg-black/20">
        <Image
          src={product.image}
          alt={product.title}
