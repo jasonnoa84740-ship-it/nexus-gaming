@@ -9,8 +9,8 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) router.replace("/auth");
+    supabase.auth.getSession().then((res:any) => {
+      if (!res.data.session) router.replace("/auth");
       else setOk(true);
     });
   }, [router]);
