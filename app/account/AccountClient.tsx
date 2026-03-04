@@ -1,5 +1,6 @@
 "use client";
 
+import type { UserResponse } from "@supabase/supabase-js";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import NexusShell from "@/components/NexusShell";
@@ -191,7 +192,7 @@ export default function AccountClient() {
   }
 
   useEffect(() => {
-   supabase.auth.getUser().then((res) => {
+   supabase.auth.getUser().then((res: any) => {
     const user = res.data.user;
     setUser(user);
     setPseudo(user?.user_metadata?.pseudo || "");
