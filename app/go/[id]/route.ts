@@ -3,25 +3,24 @@ import { amazonProducts } from "@/lib/amazonProducts";
 
 export async function GET(
   request: Request,
-  context: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await context.params;
-  const origin = new URL(request.url).origin;
+  const id = params.id;
 
   const product = amazonProducts.find((p) => p.id === id);
+
+  // si produit introuvable -> retour au catalogue
   if (!product) {
-    return NextResponse.redirect(new URL("/bons-plans", origin), 302);
+    return NextResponse.redirect(new URL("/bons-plans", request.url), 302);
   }
 
+  // ✅ si lien exact rempli -> fiche produit exacte Amazon
   const url = (product.amazonUrl || "").trim();
   if (url) {
-    // ✅ redirection directe vers le produit Amazon (ton lien affilié)
     return NextResponse.redirect(url, 302);
   }
 
-  // ✅ fallback safe si lien pas encore rempli : recherche Amazon
-  const search = `https://www.amazon.fr/s?k=${encodeURIComponent(
-    product.query || product.title
-  )}`;
-  return NextResponse.redirect(search, 302);
+  // sinon -> recherche Amazon
+  const q = encodeURIComponent(product.query || product.title);
+  return NextResponse.redirect(`https://www.amazon.fr/s?k=${q}`, 302);
 }
