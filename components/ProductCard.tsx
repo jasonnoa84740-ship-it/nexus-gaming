@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { AmazonProduct } from "@/lib/amazonProducts";
 import { trackAmazonClick, trackOpenDetails } from "@/lib/analytics";
 
@@ -14,7 +15,7 @@ export default function ProductCard({ product }: { product: AmazonProduct }) {
   const goUrl = hasAmazonUrl ? `/go/${product.id}` : amazonSearchUrl;
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
+    <article className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
       <div className="relative h-44 overflow-hidden rounded-xl bg-black/20 border border-white/10">
         <Image
           src={product.image}
@@ -55,10 +56,8 @@ export default function ProductCard({ product }: { product: AmazonProduct }) {
             {hasAmazonUrl ? "Acheter sur Amazon" : "🔎 Rechercher sur Amazon"}
           </a>
 
-          <a
-            href={goUrl}
-            target={hasAmazonUrl ? undefined : "_blank"}
-            rel="nofollow sponsored noopener"
+          <Link
+            href={`/products/${product.id}`}
             onClick={() =>
               trackOpenDetails({
                 id: product.id,
@@ -69,9 +68,9 @@ export default function ProductCard({ product }: { product: AmazonProduct }) {
             className="inline-flex items-center justify-center rounded-xl border border-white/10 px-4 py-2 text-sm opacity-80 hover:opacity-100"
           >
             Détails
-          </a>
+          </Link>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
