@@ -5,7 +5,44 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://nexusgamingfr.com"),
   title: "Nexus Gaming FR",
-  description: "Nexus Gaming FR : bons plans gaming, actus et contenu pour les passionnés de jeux vidéo.",
+  description:
+    "Nexus Gaming FR : bons plans gaming, actus et contenu pour les passionnés de jeux vidéo.",
+  keywords: [
+    "nexus gaming",
+    "nexus gaming fr",
+    "gaming",
+    "jeux vidéo",
+    "bons plans gaming",
+    "actus gaming",
+  ],
+  openGraph: {
+    title: "Nexus Gaming FR",
+    description:
+      "Nexus Gaming FR : bons plans gaming, actus et contenu pour les passionnés de jeux vidéo.",
+    url: "https://nexusgamingfr.com",
+    siteName: "Nexus Gaming FR",
+    locale: "fr_FR",
+    type: "website",
+    images: [
+      {
+        url: "/ng-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Nexus Gaming FR",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nexus Gaming FR",
+    description:
+      "Nexus Gaming FR : bons plans gaming, actus et contenu pour les passionnés de jeux vidéo.",
+    images: ["/ng-logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 const GA_ID = "G-F3BLLTBHYK";
@@ -26,7 +63,6 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        {/* GA4 */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
@@ -43,7 +79,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* SEO / Google structured data */}
         <Script
           id="organization-jsonld"
           type="application/ld+json"
