@@ -1,11 +1,11 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nexus Gaming",
-  description: "Bons plans gaming",
+  metadataBase: new URL("https://nexusgamingfr.com"),
+  title: "Nexus Gaming FR",
+  description: "Nexus Gaming FR : bons plans gaming, actus et contenu pour les passionnés de jeux vidéo.",
 };
 
 const GA_ID = "G-F3BLLTBHYK";
@@ -15,6 +15,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Nexus Gaming FR",
+    url: "https://nexusgamingfr.com",
+    logo: "https://nexusgamingfr.com/ng-logo.png",
+  };
+
   return (
     <html lang="fr">
       <head>
@@ -34,6 +42,16 @@ export default function RootLayout({
             });
           `}
         </Script>
+
+        {/* SEO / Google structured data */}
+        <Script
+          id="organization-jsonld"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
