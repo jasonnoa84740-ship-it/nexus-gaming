@@ -4,7 +4,6 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nexusgamingfr.com"),
-  manifest:"/manifest.json",
   title: {
     default: "Nexus Gaming FR - Bons plans Amazon gaming",
     template: "%s | Nexus Gaming FR",
