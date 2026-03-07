@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Script from "next/script";
 import { motion, AnimatePresence } from "framer-motion";
 
 import AuthGate from "@/components/AuthGate";
@@ -174,8 +175,67 @@ export default function Page() {
     }));
   }, []);
 
+  const webPageJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "Nexus Gaming FR - Bons plans Amazon gaming",
+      url: "https://nexusgamingfr.com",
+      description:
+        "Découvrez les meilleurs bons plans Amazon gaming : écrans, souris, claviers, casques, micros, webcams, bureaux et accessoires gamer.",
+      inLanguage: "fr-FR",
+      isPartOf: {
+        "@type": "WebSite",
+        name: "Nexus Gaming FR",
+        url: "https://nexusgamingfr.com",
+      },
+      about: [
+        "bons plans Amazon gaming",
+        "accessoires gamer",
+        "setup gaming",
+        "promotions gaming",
+      ],
+    }),
+    []
+  );
+
+  const itemListJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Sélection Nexus Gaming FR",
+      url: "https://nexusgamingfr.com",
+      numberOfItems: bestSellers.length,
+      itemListElement: bestSellers.map((p, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://nexusgamingfr.com/go/${p.id}`,
+        name: p.title,
+      })),
+    }),
+    [bestSellers]
+  );
+
   return (
     <AuthGate>
+      <Script
+        id="homepage-webpage-jsonld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageJsonLd),
+        }}
+      />
+
+      <Script
+        id="homepage-itemlist-jsonld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(itemListJsonLd),
+        }}
+      />
+
       <PromoBar />
 
       <NexusShell
@@ -198,12 +258,14 @@ export default function Page() {
             <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
               <div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-                  Les bons plans{" "}
+                  Bons plans Amazon gaming : setup, accessoires et promos{" "}
                   <span className="text-white/90">Nexus {year}</span>
                 </h1>
-                <p className="mt-3 text-white/70 max-w-xl">
-                  Choisis une catégorie, cherche un produit, ouvre les détails, puis
-                  achète sur Amazon.
+
+                <p className="mt-3 text-white/70 max-w-2xl">
+                  Nexus Gaming FR sélectionne des bons plans Amazon gaming pour t’aider
+                  à trouver plus vite un écran, une souris, un clavier, un casque,
+                  un micro, une webcam, une chaise ou un bureau gamer au meilleur prix.
                 </p>
 
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -213,6 +275,7 @@ export default function Page() {
                       onChange={(e) => setQ(e.target.value)}
                       className="nx-input w-full"
                       placeholder="Rechercher écran, clavier, souris..."
+                      aria-label="Rechercher un bon plan Amazon gaming"
                     />
                   </div>
 
@@ -251,6 +314,21 @@ export default function Page() {
           </motion.div>
         </div>
 
+        {/* TEXTE SEO */}
+        <section className="mx-auto max-w-6xl px-4 pt-6">
+          <div className="nx-card p-6">
+            <h2 className="text-2xl sm:text-3xl font-extrabold">
+              Trouve les meilleurs bons plans gaming sur Amazon
+            </h2>
+            <p className="mt-3 text-white/70 leading-relaxed">
+              Sur Nexus Gaming FR, tu retrouves une sélection de produits gaming populaires
+              et utiles pour ton setup : écrans gamer, souris gaming, claviers mécaniques,
+              casques micro, webcams, bureaux et accessoires. Le but est simple : te faire
+              gagner du temps avec une sélection claire et des liens directs vers Amazon.
+            </p>
+          </div>
+        </section>
+
         {/* BEST SELLERS */}
         <div className="mx-auto max-w-6xl px-4 pt-6">
           <div className="nx-card p-6">
@@ -271,7 +349,7 @@ export default function Page() {
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {bestSellers.map((p) => (
-                <div
+                <article
                   key={p.id}
                   className="rounded-3xl border border-purple-500/25 bg-white/5 p-4 hover:bg-white/10 transition relative overflow-hidden"
                 >
@@ -284,7 +362,6 @@ export default function Page() {
                     <span className="text-[11px] text-white/60">+{p.sold} vus</span>
                   </div>
 
-                  {/* ✅ IMAGE COMME AU DÉBUT : aspect + object-cover */}
                   <div className="mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10 relative">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -300,7 +377,7 @@ export default function Page() {
                   </div>
 
                   <div className="mt-3 text-xs text-white/60">Nexus selection</div>
-                  <div className="mt-1 font-semibold leading-snug">{p.title}</div>
+                  <h3 className="mt-1 font-semibold leading-snug">{p.title}</h3>
 
                   <div className="mt-2">
                     <Stars value={p.rating} />
@@ -313,7 +390,7 @@ export default function Page() {
                   >
                     Acheter sur Amazon
                   </a>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -362,7 +439,7 @@ export default function Page() {
               {BENEFITS.map((b) => (
                 <div key={b.title} className="rounded-3xl border border-white/10 bg-white/5 p-5">
                   <div className="text-xl">{b.icon}</div>
-                  <div className="mt-2 font-semibold">{b.title}</div>
+                  <h3 className="mt-2 font-semibold">{b.title}</h3>
                   <div className="mt-1 text-sm text-white/65">{b.desc}</div>
                 </div>
               ))}
@@ -387,13 +464,12 @@ export default function Page() {
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((p) => (
-              <motion.div
+              <motion.article
                 key={p.id}
                 className="nx-card overflow-hidden"
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
-                {/* ✅ IMAGE COMME AU DÉBUT : h fixe + object-cover */}
                 <div className="relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -414,7 +490,7 @@ export default function Page() {
 
                 <div className="p-4">
                   <div className="text-sm text-white/60">Sélection Nexus</div>
-                  <div className="font-black text-lg leading-snug">{p.title}</div>
+                  <h3 className="font-black text-lg leading-snug">{p.title}</h3>
                   {p.subtitle ? (
                     <div className="mt-2 text-sm text-white/70">{p.subtitle}</div>
                   ) : null}
@@ -432,7 +508,7 @@ export default function Page() {
                     </a>
                   </div>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </div>
@@ -474,7 +550,7 @@ export default function Page() {
 
                     <div className="p-5 md:p-6">
                       <div className="text-sm text-white/60">Sélection Nexus</div>
-                      <div className="text-2xl font-black leading-tight">{active.title}</div>
+                      <h2 className="text-2xl font-black leading-tight">{active.title}</h2>
                       {active.subtitle ? <p className="mt-3 text-white/75">{active.subtitle}</p> : null}
 
                       <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">

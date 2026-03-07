@@ -4,21 +4,37 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nexusgamingfr.com"),
-  title: "Nexus Gaming FR",
+  manifest:"/manifest.json",
+  title: {
+    default: "Nexus Gaming FR - Bons plans Amazon gaming",
+    template: "%s | Nexus Gaming FR",
+  },
   description:
-    "Nexus Gaming FR : bons plans gaming, actus et contenu pour les passionnés de jeux vidéo.",
+    "Nexus Gaming FR : les meilleurs bons plans Amazon gaming, accessoires gamer, setup, promos jeux vidéo et hardware au meilleur prix.",
   keywords: [
     "nexus gaming",
     "nexus gaming fr",
-    "gaming",
-    "jeux vidéo",
+    "bons plans amazon gaming",
     "bons plans gaming",
-    "actus gaming",
+    "promo gaming",
+    "amazon gaming",
+    "setup gamer",
+    "accessoires gamer",
+    "jeux vidéo",
+    "hardware gaming",
+    "pc gamer",
+    "clavier gaming",
+    "souris gaming",
+    "casque gaming",
   ],
+  alternates: {
+    canonical: "https://nexusgamingfr.com",
+  },
+  manifest: "/manifest.json",
   openGraph: {
-    title: "Nexus Gaming FR",
+    title: "Nexus Gaming FR - Bons plans Amazon gaming",
     description:
-      "Nexus Gaming FR : bons plans gaming, actus et contenu pour les passionnés de jeux vidéo.",
+      "Les meilleurs bons plans Amazon gaming : accessoires gamer, setup, hardware, jeux vidéo et promos du moment.",
     url: "https://nexusgamingfr.com",
     siteName: "Nexus Gaming FR",
     locale: "fr_FR",
@@ -34,14 +50,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nexus Gaming FR",
+    title: "Nexus Gaming FR - Bons plans Amazon gaming",
     description:
-      "Nexus Gaming FR : bons plans gaming, actus et contenu pour les passionnés de jeux vidéo.",
+      "Les meilleurs bons plans Amazon gaming : accessoires gamer, setup, hardware, jeux vidéo et promos du moment.",
     images: ["/ng-logo.png"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -58,6 +81,18 @@ export default function RootLayout({
     name: "Nexus Gaming FR",
     url: "https://nexusgamingfr.com",
     logo: "https://nexusgamingfr.com/ng-logo.png",
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Nexus Gaming FR",
+    url: "https://nexusgamingfr.com",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://nexusgamingfr.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
   };
 
   return (
@@ -85,6 +120,15 @@ export default function RootLayout({
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+
+        <Script
+          id="website-jsonld"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
           }}
         />
       </head>
