@@ -89,7 +89,7 @@ const ECRANS_30: AmazonProduct[] = [
     id: "aoc-24g4xe",
     title: 'AOC 24G4XE 24" 180Hz IPS',
     category: "Ecran",
-    image: "/bureau/bureau-odk-bureau-gaming.jpg",
+    image: "/ecran/aoc-24g4xe.jpg",
     query: "AOC 24G4XE gaming monitor",
     amazonUrl: "https://www.amazon.fr/dp/B0CWRWYCZ4?tag=nexusgamingfr-21",
   },
