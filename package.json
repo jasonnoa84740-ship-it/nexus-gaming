@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+
+    "seo:generate": "node scripts/generate-seo-pages.mjs",
+    "blog:generate": "node scripts/generate-blog-posts.mjs",
+    "content:generate": "npm run seo:generate && npm run blog:generate"
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.8.0",

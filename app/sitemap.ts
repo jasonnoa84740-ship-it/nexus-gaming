@@ -1,30 +1,39 @@
-import type { MetadataRoute } from "next";
-import { amazonProducts } from "@/lib/amazonProducts";
+import fs from "fs"
+import path from "path"
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://nexusgamingfr.com";
+export default function sitemap() {
+  const baseUrl = "https://www.nexusgamingfr.com"
+  const seoFilePath = path.join(process.cwd(), "data", "seo-pages.json")
+  const blogFilePath = path.join(process.cwd(), "data", "blog-posts.json")
 
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/bons-plans`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-  ];
+  const seoPages = fs.existsSync(seoFilePath)
+    ? JSON.parse(fs.readFileSync(seoFilePath, "utf8"))
+    : []
 
-  const productPages: MetadataRoute.Sitemap = amazonProducts.map((product) => ({
-    url: `${baseUrl}/products/${product.id}`,
+  const blogPosts = fs.existsSync(blogFilePath)
+    ? JSON.parse(fs.readFileSync(blogFilePath, "utf8"))
+    : []
+
+  const staticPages = ["", "/blog", "/a-propos", "/contact", "/mentions-legales"].map((route) => ({
+    url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+    priority: route === "" ? 1 : 0.8
+  }))
 
-  return [...staticPages, ...productPages];
+  const seoRoutes = seoPages.map((page: { slug: string }) => ({
+    url: `${baseUrl}/seo/${page.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.9
+  }))
+
+  const blogRoutes = blogPosts.map((post: { slug: string }) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.8
+  }))
+
+  return [...staticPages, ...seoRoutes, ...blogRoutes]
 }

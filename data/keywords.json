@@ -1,0 +1,55 @@
+[
+  { "keyword": "meilleur ecran gaming", "type": "money", "category": "screen" },
+  { "keyword": "ecran gaming 144hz pas cher", "type": "money", "category": "screen" },
+  { "keyword": "ecran gaming 165hz", "type": "money", "category": "screen" },
+  { "keyword": "ecran gaming 180hz", "type": "money", "category": "screen" },
+  { "keyword": "ecran gaming 240hz", "type": "money", "category": "screen" },
+  { "keyword": "ecran gaming ps5", "type": "money", "category": "screen" },
+  { "keyword": "ecran gaming xbox series x", "type": "money", "category": "screen" },
+  { "keyword": "ecran gaming 27 pouces", "type": "money", "category": "screen" },
+  { "keyword": "ecran gaming incurve", "type": "money", "category": "screen" },
+
+  { "keyword": "meilleure souris gaming", "type": "money", "category": "mouse" },
+  { "keyword": "souris gaming fps", "type": "money", "category": "mouse" },
+  { "keyword": "souris gaming pas cher", "type": "money", "category": "mouse" },
+  { "keyword": "souris gaming sans fil", "type": "money", "category": "mouse" },
+  { "keyword": "souris gaming légère", "type": "money", "category": "mouse" },
+  { "keyword": "souris gaming pour fortnite", "type": "money", "category": "mouse" },
+  { "keyword": "souris gaming pour valorant", "type": "money", "category": "mouse" },
+
+  { "keyword": "meilleur clavier gaming", "type": "money", "category": "keyboard" },
+  { "keyword": "clavier gaming mecanique", "type": "money", "category": "keyboard" },
+  { "keyword": "clavier gaming tkl", "type": "money", "category": "keyboard" },
+  { "keyword": "clavier gaming 60 pourcent", "type": "money", "category": "keyboard" },
+  { "keyword": "clavier gaming rgb", "type": "money", "category": "keyboard" },
+  { "keyword": "clavier gaming pas cher", "type": "money", "category": "keyboard" },
+
+  { "keyword": "meilleur casque gaming", "type": "money", "category": "headset" },
+  { "keyword": "meilleur casque gaming ps5", "type": "money", "category": "headset" },
+  { "keyword": "casque gaming xbox", "type": "money", "category": "headset" },
+  { "keyword": "casque gaming sans fil", "type": "money", "category": "headset" },
+  { "keyword": "casque gaming pas cher", "type": "money", "category": "headset" },
+  { "keyword": "casque gaming pour call of duty", "type": "money", "category": "headset" },
+
+  { "keyword": "bureau gaming pas cher", "type": "money", "category": "desk" },
+  { "keyword": "meilleur bureau gaming", "type": "money", "category": "desk" },
+  { "keyword": "bureau gaming led", "type": "money", "category": "desk" },
+  { "keyword": "bureau gaming angle", "type": "money", "category": "desk" },
+
+  { "keyword": "meilleur fauteuil gaming", "type": "money", "category": "chair" },
+  { "keyword": "fauteuil gaming pas cher", "type": "money", "category": "chair" },
+  { "keyword": "chaise gaming confortable", "type": "money", "category": "chair" },
+
+  { "keyword": "setup gaming pas cher", "type": "guide", "category": "setup" },
+  { "keyword": "setup gaming 500 euros", "type": "guide", "category": "setup" },
+  { "keyword": "setup gaming 1000 euros", "type": "guide", "category": "setup" },
+  { "keyword": "setup gaming blanc", "type": "guide", "category": "setup" },
+  { "keyword": "setup gaming noir", "type": "guide", "category": "setup" },
+  { "keyword": "setup gaming streamer", "type": "guide", "category": "setup" },
+
+  { "keyword": "accessoires gaming indispensables", "type": "blog", "category": "accessories" },
+  { "keyword": "meilleur micro streaming", "type": "money", "category": "streaming" },
+  { "keyword": "webcam streaming pas cher", "type": "money", "category": "streaming" },
+  { "keyword": "lumiere led setup gaming", "type": "money", "category": "accessories" },
+  { "keyword": "tapis de souris gaming xl", "type": "money", "category": "accessories" }
+]
