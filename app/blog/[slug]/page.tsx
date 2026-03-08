@@ -13,7 +13,11 @@ type BlogPost = {
 
 function getPosts(): BlogPost[] {
   const filePath = path.join(process.cwd(), "data", "blog-posts.json")
-  if (!fs.existsSync(filePath)) return []
+
+  if (!fs.existsSync(filePath)) {
+    return []
+  }
+
   return JSON.parse(fs.readFileSync(filePath, "utf8"))
 }
 
@@ -29,18 +33,22 @@ export async function generateStaticParams() {
   return getPosts().map((post) => ({ slug: post.slug }))
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params
   const post = getPostBySlug(slug)
 
-  if (!post) return { title: "Article introuvable | NexusGamingFR" }
+  if (!post) {
+    return { title: "Article introuvable | NexusGamingFR" }
+  }
 
   return {
     title: `${post.title} | NexusGamingFR`,
     description: post.description,
     alternates: {
-      canonical: `https://www.nexusgamingfr.com/blog/${post.slug}`
-    }
+      canonical: `https://www.nexusgamingfr.com/blog/${post.slug}`,
+    },
   }
 }
 
@@ -48,12 +56,15 @@ export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params
   const post = getPostBySlug(slug)
 
-  if (!post) notFound()
+  if (!post) {
+    notFound()
+  }
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
       <h1 className="mb-6 text-4xl font-bold">{post.title}</h1>
-      <p className="mb-10 text-lg leading-8">{post.intro}</p>
+      <p className="mb-10 text-lg leading-8 text-neutral-300">{post.intro}</p>
+
       <div className="space-y-10">
         {post.sections.map((section) => (
           <section key={section.title}>

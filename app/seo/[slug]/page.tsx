@@ -1,8 +1,10 @@
 import fs from "fs"
 import path from "path"
 import Link from "next/link"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
+import { amazonProducts, type Category } from "@/lib/amazonProducts"
 
 type FaqItem = {
   question: string
@@ -24,6 +26,7 @@ type SeoPage = {
   sections: Section[]
   faq: FaqItem[]
   relatedSlugs: string[]
+  category?: string
 }
 
 function getPages(): SeoPage[] {
@@ -39,6 +42,18 @@ function getPages(): SeoPage[] {
 
 function getPageBySlug(slug: string) {
   return getPages().find((page) => page.slug === slug)
+}
+
+const categoryMap: Record<string, Category[]> = {
+  screen: ["Ecran"],
+  mouse: ["Souris"],
+  keyboard: ["Clavier"],
+  headset: ["Casque"],
+  streaming: ["Micro", "Webcam"],
+  chair: ["Chaise"],
+  desk: ["Bureau"],
+  setup: ["Ecran", "Souris", "Clavier", "Casque", "Bureau", "Chaise"],
+  accessories: ["Bureau", "Micro", "Webcam"]
 }
 
 type PageProps = {
@@ -92,6 +107,12 @@ export default async function Page({ params }: PageProps) {
     page.relatedSlugs.includes(p.slug)
   )
 
+  const mappedCategories = categoryMap[page.category ?? ""] ?? []
+
+  const relatedProducts = amazonProducts
+    .filter((product) => mappedCategories.includes(product.category))
+    .slice(0, 12)
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -106,44 +127,95 @@ export default async function Page({ params }: PageProps) {
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-10">
-      <h1 className="mb-6 text-4xl font-bold">{page.h1}</h1>
+    <main className="mx-auto max-w-6xl px-6 py-10">
+      <article className="mx-auto max-w-4xl">
+        <h1 className="mb-6 text-4xl font-bold">{page.h1}</h1>
 
-      <p className="mb-10 text-lg leading-8">{page.intro}</p>
+        <p className="mb-10 text-lg leading-8 text-neutral-300">
+          {page.intro}
+        </p>
 
-      <div className="space-y-10">
-        {page.sections.map((section) => (
-          <section key={section.title}>
-            <h2 className="mb-3 text-2xl font-semibold">{section.title}</h2>
-            <p className="leading-8 text-neutral-300">{section.content}</p>
+        <div className="space-y-10">
+          {page.sections.map((section) => (
+            <section key={section.title}>
+              <h2 className="mb-3 text-2xl font-semibold">{section.title}</h2>
+              <p className="leading-8 text-neutral-300">{section.content}</p>
+            </section>
+          ))}
+        </div>
+
+        {relatedPages.length > 0 && (
+          <section className="mt-12">
+            <h2 className="mb-4 text-2xl font-semibold">Pages liées</h2>
+            <ul className="space-y-2">
+              {relatedPages.map((item) => (
+                <li key={item.slug}>
+                  <Link className="underline" href={`/seo/${item.slug}`}>
+                    {item.h1}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </section>
-        ))}
-      </div>
+        )}
 
-      {relatedPages.length > 0 && (
-        <section className="mt-12">
-          <h2 className="mb-4 text-2xl font-semibold">Pages liées</h2>
-          <ul className="space-y-2">
-            {relatedPages.map((item) => (
-              <li key={item.slug}>
-                <Link className="underline" href={`/seo/${item.slug}`}>
-                  {item.h1}
+        {page.faq.length > 0 && (
+          <section className="mt-12">
+            <h2 className="mb-4 text-2xl font-semibold">FAQ</h2>
+            <div className="space-y-4">
+              {page.faq.map((item) => (
+                <div key={item.question} className="rounded-2xl border p-4">
+                  <h3 className="mb-2 text-lg font-medium">{item.question}</h3>
+                  <p className="text-neutral-300">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </article>
+
+      {relatedProducts.length > 0 && (
+        <section className="mt-16">
+          <div className="mb-6">
+            <h2 className="text-3xl font-bold">Produits recommandés</h2>
+            <p className="mt-2 text-neutral-400">
+              Sélection liée à cette page.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {relatedProducts.map((product) => (
+              <article key={product.id} className="rounded-2xl border p-4">
+                <div className="relative mb-4 aspect-square overflow-hidden rounded-xl bg-neutral-900">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                <h3 className="text-lg font-semibold">{product.title}</h3>
+
+                {product.subtitle && (
+                  <p className="mt-1 text-sm text-neutral-400">
+                    {product.subtitle}
+                  </p>
+                )}
+
+                {product.badge && (
+                  <p className="mt-2 text-xs uppercase tracking-wide text-neutral-500">
+                    {product.badge}
+                  </p>
+                )}
+
+                <Link
+                  href={`/go/${product.id}`}
+                  className="mt-4 inline-block rounded-xl border px-4 py-2"
+                >
+                  Voir le produit
                 </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {page.faq.length > 0 && (
-        <section className="mt-12">
-          <h2 className="mb-4 text-2xl font-semibold">FAQ</h2>
-          <div className="space-y-4">
-            {page.faq.map((item) => (
-              <div key={item.question} className="rounded-2xl border p-4">
-                <h3 className="mb-2 text-lg font-medium">{item.question}</h3>
-                <p className="text-neutral-300">{item.answer}</p>
-              </div>
+              </article>
             ))}
           </div>
         </section>

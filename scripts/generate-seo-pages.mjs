@@ -50,7 +50,7 @@ function buildSections(keyword, type) {
     return [
       {
         title: `Comment réussir ${keyword} ?`,
-        content: `Pour réussir ${keyword}, il faut définir un budget clair, prioriser les composants ou accessoires les plus importants, puis chercher le meilleur compromis entre prix et qualité.`
+        content: `Pour réussir ${keyword}, il faut définir un budget clair, prioriser les éléments les plus importants, puis chercher le meilleur compromis entre prix et qualité.`
       },
       {
         title: "Les erreurs à éviter",
@@ -124,7 +124,7 @@ function buildInternalLinks(pages) {
     const related = pages
       .filter((p) => p.slug !== page.slug)
       .filter((p) => p.category === page.category || p.type === page.type)
-      .slice(0, 4)
+      .slice(0, 6)
       .map((p) => p.slug)
 
     return {

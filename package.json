@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run keywords:generate && npm run content:generate",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-
+    "keywords:generate": "node scripts/make-keywords.mjs",
     "seo:generate": "node scripts/generate-seo-pages.mjs",
     "blog:generate": "node scripts/generate-blog-posts.mjs",
     "content:generate": "npm run seo:generate && npm run blog:generate"

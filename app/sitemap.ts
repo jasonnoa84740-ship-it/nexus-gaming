@@ -14,25 +14,32 @@ export default function sitemap() {
     ? JSON.parse(fs.readFileSync(blogFilePath, "utf8"))
     : []
 
-  const staticPages = ["", "/blog", "/a-propos", "/contact", "/mentions-legales"].map((route) => ({
+  const staticPages = [
+    "",
+    "/seo",
+    "/blog",
+    "/a-propos",
+    "/contact",
+    "/mentions-legales",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: route === "" ? 1 : 0.8
+    priority: route === "" ? 1 : 0.8,
   }))
 
   const seoRoutes = seoPages.map((page: { slug: string }) => ({
     url: `${baseUrl}/seo/${page.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: 0.9
+    priority: 0.9,
   }))
 
   const blogRoutes = blogPosts.map((post: { slug: string }) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: 0.8
+    priority: 0.8,
   }))
 
   return [...staticPages, ...seoRoutes, ...blogRoutes]
