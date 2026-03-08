@@ -42,21 +42,49 @@ export default function NexusShell({
   useEffect(() => {
     let mounted = true;
 
-    supabase.auth.getUser().then((res: any) => {
-      if (!mounted) return;
-      const user = res.data.user;
-      setUser(user);
-      setPseudo(user?.user_metadata?.pseudo || "");
-    });
+    async function loadUser() {
+      try {
+        if (!supabase) {
+          if (!mounted) return;
+          setUser(null);
+          setPseudo("");
+          return;
+        }
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
-      setUser(session?.user ?? null);
-      setPseudo(session?.user?.user_metadata?.pseudo || "");
-    });
+        const res = await supabase.auth.getUser();
+
+        if (!mounted) return;
+
+        const currentUser = res?.data?.user ?? null;
+        setUser(currentUser);
+        setPseudo(currentUser?.user_metadata?.pseudo || "");
+      } catch (error) {
+        console.error("Erreur NexusShell loadUser:", error);
+        if (!mounted) return;
+        setUser(null);
+        setPseudo("");
+      }
+    }
+
+    loadUser();
+
+    if (!supabase) {
+      return () => {
+        mounted = false;
+      };
+    }
+
+    const { data: sub } = supabase.auth.onAuthStateChange(
+      (_event: any, session: any) => {
+        if (!mounted) return;
+        setUser(session?.user ?? null);
+        setPseudo(session?.user?.user_metadata?.pseudo || "");
+      }
+    );
 
     return () => {
       mounted = false;
-      sub.subscription.unsubscribe();
+      sub?.subscription?.unsubscribe?.();
     };
   }, []);
 
@@ -66,8 +94,17 @@ export default function NexusShell({
   }, [pseudo, user?.email]);
 
   async function logout() {
-    await supabase.auth.signOut();
+    try {
+      if (supabase) {
+        await supabase.auth.signOut();
+      }
+    } catch (error) {
+      console.error("Erreur logout:", error);
+    }
+
     setOpen(false);
+    setUser(null);
+    setPseudo("");
     router.replace("/auth");
   }
 
@@ -77,7 +114,6 @@ export default function NexusShell({
       <div className="nx-glow" />
       <div className="nx-watermark" />
 
-      {/* ✅ Background global : lourd sur PC, léger sur iOS */}
       {!isIOS ? (
         <>
           <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,#2b0a3d_0%,transparent_55%),radial-gradient(ellipse_at_bottom,#120019_0%,transparent_55%)]" />
@@ -97,7 +133,6 @@ export default function NexusShell({
         </>
       )}
 
-      {/* Top bar */}
       <header
         className={cx(
           "sticky top-0 z-50 border-b border-white/10",
@@ -109,7 +144,6 @@ export default function NexusShell({
             href="/"
             className="font-black tracking-tight text-lg inline-flex items-center gap-2"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/ng-logo.png"
               alt="Nexus Gaming"
@@ -119,7 +153,6 @@ export default function NexusShell({
           </Link>
 
           <div className="flex items-center gap-2">
-            {/* ✅ Remplace le panier par Bons plans */}
             <Link
               href="/bons-plans"
               className={cx(
@@ -164,7 +197,6 @@ export default function NexusShell({
 
                     <div className="h-px bg-white/10 my-2" />
 
-                    {/* ✅ Menu cohérent Amazon */}
                     <Link
                       onClick={() => setOpen(false)}
                       href="/bons-plans"
@@ -201,7 +233,6 @@ export default function NexusShell({
         </div>
       </header>
 
-      {/* Page header */}
       <div className="mx-auto max-w-6xl px-4 pt-6">
         <div className="nx-card p-6 md:p-8">
           <h1 className="text-2xl md:text-4xl font-black">{title}</h1>
@@ -209,7 +240,6 @@ export default function NexusShell({
         </div>
       </div>
 
-      {/* Content */}
       <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
 
       <footer className="mx-auto max-w-6xl px-4 pb-12 text-xs text-white/50">

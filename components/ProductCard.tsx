@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import type { AmazonProduct } from "@/lib/amazonProducts";
 import { trackAmazonClick, trackOpenDetails } from "@/lib/analytics";
 
@@ -14,15 +15,33 @@ export default function ProductCard({ product }: { product: AmazonProduct }) {
 
   const goUrl = hasAmazonUrl ? `/go/${product.id}` : amazonSearchUrl;
 
+  const fallbackByCategory: Record<string, string> = {
+    Ecran: "/products/ecran.jpg",
+    Souris: "/products/souris.jpg",
+    Clavier: "/products/clavier.jpg",
+    Casque: "/products/casque.jpg",
+    Micro: "/products/micro.jpg",
+    Webcam: "/products/webcam.jpg",
+    Chaise: "/products/chaise.jpg",
+    Bureau: "/products/bureau.jpg",
+  };
+
+  const [imgSrc, setImgSrc] = useState(
+    product.image || fallbackByCategory[product.category] || "/ng-logo.png"
+  );
+
   return (
     <article className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
       <div className="relative h-44 overflow-hidden rounded-xl bg-black/20 border border-white/10">
         <Image
-          src={product.image}
+          src={imgSrc}
           alt={product.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover"
+          onError={() =>
+            setImgSrc(fallbackByCategory[product.category] || "/ng-logo.png")
+          }
         />
       </div>
 
