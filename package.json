@@ -1,36 +1,33 @@
 {
   "name": "nexus-gaming",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run keywords:generate && npm run content:generate",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "extract:products": "node scripts/extract-products.mjs",
     "keywords:generate": "node scripts/make-keywords.mjs",
+    "collections:generate": "node scripts/generate-collection-pages.mjs",
+    "products:pages": "node scripts/generate-product-pages.mjs",
     "seo:generate": "node scripts/generate-seo-pages.mjs",
     "blog:generate": "node scripts/generate-blog-posts.mjs",
-    "content:generate": "npm run seo:generate && npm run blog:generate"
+    "seo:all": "node scripts/extract-products.mjs && node scripts/make-keywords.mjs && node scripts/generate-collection-pages.mjs && node scripts/generate-product-pages.mjs && node scripts/generate-blog-posts.mjs && node scripts/generate-seo-pages.mjs && node scripts/generate-blog-posts.mjs"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^8.8.0",
-    "@supabase/supabase-js": "^2.98.0",
-    "framer-motion": "^12.34.3",
-    "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "stripe": "^20.4.0"
+    "@supabase/supabase-js": "^2.99.0",
+    "framer-motion": "^12.35.2",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.6",
-    "playwright": "^1.58.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/node": "25.4.0",
+    "@types/react": "19.2.14",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1",
+    "typescript": "5.9.3"
   }
 }

@@ -1,197 +1,6230 @@
 [
   {
-    "keyword": "meilleur ecran gaming",
-    "type": "money",
-    "category": "screen"
+    "keyword": "akracing core series test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
   },
   {
-    "keyword": "meilleure souris gaming",
-    "type": "money",
-    "category": "mouse"
+    "keyword": "akracing masters series test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
   },
   {
-    "keyword": "meilleur clavier gaming",
-    "type": "money",
-    "category": "keyboard"
+    "keyword": "andaseat dark knight test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
   },
   {
-    "keyword": "meilleur casque gaming",
-    "type": "money",
-    "category": "headset"
+    "keyword": "andaseat kaiser test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
   },
   {
-    "keyword": "meilleur micro streaming",
-    "type": "money",
-    "category": "streaming"
+    "keyword": "autofull chaise gaming test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
   },
   {
-    "keyword": "webcam streaming pas cher",
-    "type": "money",
-    "category": "streaming"
+    "keyword": "avis akracing core series",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
   },
   {
-    "keyword": "meilleur fauteuil gaming",
+    "keyword": "avis akracing masters series",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis andaseat dark knight",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis andaseat kaiser",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis autofull chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis brazen chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair t3 rush",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair tc100 relaxed",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis cougar armor",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis cougar explore",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis dowinx chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis dxracer formula",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis dxracer racing",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis gtplayer chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis gtracing chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hbada chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis homall chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis nitro concepts s300",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis noblechairs epic",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis noblechairs hero",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer enki",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer iskur",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis respawn 110",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis respawn 205",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis secretlab titan evo",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis sihoo chaise ergonomique",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis songmics chaise bureau",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis vertagear pl4500",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis vertagear sl4000",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "avis x rocker chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "brazen chaise gaming test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair t3 rush test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair tc100 relaxed test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "cougar armor test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "cougar explore test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "dowinx chaise gaming test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "dxracer formula test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "dxracer racing test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "gtplayer chaise gaming test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "gtracing chaise gaming test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "hbada chaise gaming test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "homall chaise gaming test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "nitro concepts s300 test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "noblechairs epic test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "noblechairs hero test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "razer enki test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "razer iskur test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "respawn 110 test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "respawn 205 test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "secretlab titan evo test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "sihoo chaise ergonomique test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "songmics chaise bureau test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test akracing core series",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test akracing masters series",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test andaseat dark knight",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test andaseat kaiser",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test autofull chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test brazen chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair t3 rush",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair tc100 relaxed",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test cougar armor",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test cougar explore",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test dowinx chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test dxracer formula",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test dxracer racing",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test gtplayer chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test gtracing chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test hbada chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test homall chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test nitro concepts s300",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test noblechairs epic",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test noblechairs hero",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer enki",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer iskur",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test respawn 110",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test respawn 205",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test secretlab titan evo",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test sihoo chaise ergonomique",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test songmics chaise bureau",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test vertagear pl4500",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test vertagear sl4000",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "test x rocker chaise gaming",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "vertagear pl4500 test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "vertagear sl4000 test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "x rocker chaise gaming test",
+    "type": "blog",
+    "category": "chair",
+    "source": "product"
+  },
+  {
+    "keyword": "chaise gaming moins de 100 euros",
+    "type": "guide",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming moins de 200 euros",
+    "type": "guide",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming moins de 50 euros",
+    "type": "guide",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming ou fauteuil de bureau",
+    "type": "guide",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "comment choisir une chaise gaming",
+    "type": "guide",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "guide chaise gaming",
+    "type": "guide",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "quelle chaise gaming choisir",
+    "type": "guide",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming",
     "type": "money",
-    "category": "chair"
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming confortable",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming ergonomique",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming grand gabarit",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming pas cher",
+    "type": "money",
+    "category": "chair",
+    "source": "badge"
+  },
+  {
+    "keyword": "chaise gaming pc",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming pro",
+    "type": "money",
+    "category": "chair",
+    "source": "badge"
+  },
+  {
+    "keyword": "chaise gaming ps5",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "chaise gaming xbox",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming akracing",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming andaseat",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming autofull",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming brazen",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming confortable",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming corsair",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming cougar",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming dowinx",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming dxracer",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming ergonomique",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming grand gabarit",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming gtplayer",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming gtracing",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming hbada",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming homall",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming moins de 100 euros",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming moins de 200 euros",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming moins de 50 euros",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming nitro",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming noblechairs",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming pas cher",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming pc",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming ps5",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur chaise gaming razer",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming respawn",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming secretlab",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming sihoo",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming songmics",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming vertagear",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming x",
+    "type": "money",
+    "category": "chair",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur chaise gaming xbox",
+    "type": "money",
+    "category": "chair",
+    "source": "generated"
+  },
+  {
+    "keyword": "arozzi arena (grand tapis) test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "arozzi arena leggero test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "atlantic bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis arozzi arena (grand tapis)",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis arozzi arena leggero",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis atlantic bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis bras écran (monitor arm) gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis bureau assis-debout électrique",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis bureau gaming en l (angle)",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis coleshome bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis cubicubi bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis desino bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis eureka ergonomic bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis fezibo bureau assis-debout",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis flexispot bureau électrique",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis goulotte passe-câbles bureau",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis greenforest bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis homall bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis mars gaming bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis motpk bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis mr ironstone bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis need bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis odk bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis respawn bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis rolanstar bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis sanodesk bureau électrique",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis secretlab magnus",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis sedeta bureau gaming (rangements)",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis seven warrior bureau gaming rgb",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis support écran double",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis support écran simple",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis support pc tour sous bureau",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "avis vitesse bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "bras écran (monitor arm) gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "bureau assis-debout électrique test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "bureau gaming en l (angle) test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "coleshome bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "cubicubi bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "desino bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "eureka ergonomic bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "fezibo bureau assis-debout test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "flexispot bureau électrique test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "goulotte passe-câbles bureau test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "greenforest bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "homall bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "mars gaming bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "motpk bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "mr ironstone bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "need bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "odk bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "respawn bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "rolanstar bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "sanodesk bureau électrique test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "secretlab magnus test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "sedeta bureau gaming (rangements) test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "seven warrior bureau gaming rgb test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "support écran double test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "support écran simple test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "support pc tour sous bureau test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test arozzi arena (grand tapis)",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test arozzi arena leggero",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test atlantic bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test bras écran (monitor arm) gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test bureau assis-debout électrique",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test bureau gaming en l (angle)",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test coleshome bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test cubicubi bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test desino bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test eureka ergonomic bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test fezibo bureau assis-debout",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test flexispot bureau électrique",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test goulotte passe-câbles bureau",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test greenforest bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test homall bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test mars gaming bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test motpk bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test mr ironstone bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test need bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test odk bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test respawn bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test rolanstar bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test sanodesk bureau électrique",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test secretlab magnus",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test sedeta bureau gaming (rangements)",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test seven warrior bureau gaming rgb",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test support écran double",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test support écran simple",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test support pc tour sous bureau",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "test vitesse bureau gaming",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "vitesse bureau gaming test",
+    "type": "blog",
+    "category": "desk",
+    "source": "product"
+  },
+  {
+    "keyword": "bureau gaming moins de 100 euros",
+    "type": "guide",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming moins de 200 euros",
+    "type": "guide",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming moins de 50 euros",
+    "type": "guide",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming ou bureau classique",
+    "type": "guide",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "comment choisir un bureau gaming",
+    "type": "guide",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "guide bureau gaming",
+    "type": "guide",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "quel bureau gaming pour petit espace",
+    "type": "guide",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming angle",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming grand",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
   },
   {
     "keyword": "bureau gaming pas cher",
     "type": "money",
-    "category": "desk"
+    "category": "desk",
+    "source": "badge"
   },
   {
-    "keyword": "setup gaming pas cher",
-    "type": "guide",
-    "category": "setup"
+    "keyword": "bureau gaming pc",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
   },
   {
-    "keyword": "accessoires gaming indispensables",
+    "keyword": "bureau gaming petit espace",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming pro",
+    "type": "money",
+    "category": "desk",
+    "source": "badge"
+  },
+  {
+    "keyword": "bureau gaming ps5",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming streaming",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "bureau gaming xbox",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming angle",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming arozzi",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming atlantic",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming bras",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming bureau",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming coleshome",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming cubicubi",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming desino",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming eureka",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming fezibo",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming flexispot",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming goulotte",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming grand",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming greenforest",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming homall",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming mars",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming moins de 100 euros",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming moins de 200 euros",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming moins de 50 euros",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming motpk",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming mr",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming need",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming odk",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming pas cher",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming pc",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming petit espace",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming ps5",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming respawn",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming rolanstar",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming sanodesk",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming secretlab",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming sedeta",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming seven",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming streaming",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur bureau gaming support",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming vitesse",
+    "type": "money",
+    "category": "desk",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur bureau gaming xbox",
+    "type": "money",
+    "category": "desk",
+    "source": "generated"
+  },
+  {
+    "keyword": "asus rog delta test",
     "type": "blog",
-    "category": "accessories"
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "ecran gaming 144hz",
-    "type": "money",
-    "category": "screen"
+    "keyword": "asus tuf h3 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "ecran gaming 165hz",
-    "type": "money",
-    "category": "screen"
+    "keyword": "avis asus rog delta",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "ecran gaming 180hz",
-    "type": "money",
-    "category": "screen"
+    "keyword": "avis asus tuf h3",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "ecran gaming 240hz",
-    "type": "money",
-    "category": "screen"
+    "keyword": "avis corsair hs35",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "ecran gaming pas cher",
-    "type": "money",
-    "category": "screen"
+    "keyword": "avis corsair hs60",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "ecran gaming 27 pouces",
-    "type": "money",
-    "category": "screen"
+    "keyword": "avis corsair hs80",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "ecran gaming incurve",
-    "type": "money",
-    "category": "screen"
+    "keyword": "avis corsair virtuoso",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "ecran gaming ps5",
-    "type": "money",
-    "category": "screen"
+    "keyword": "avis corsair void elite",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "souris gaming fps",
-    "type": "money",
-    "category": "mouse"
+    "keyword": "avis hyperx cloud alpha",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "souris gaming pas cher",
-    "type": "money",
-    "category": "mouse"
+    "keyword": "avis hyperx cloud flight (sans fil)",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "souris gaming sans fil",
-    "type": "money",
-    "category": "mouse"
+    "keyword": "avis hyperx cloud ii",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "souris gaming légère",
-    "type": "money",
-    "category": "mouse"
+    "keyword": "avis hyperx cloud stinger",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "souris gaming fortnite",
-    "type": "money",
-    "category": "mouse"
+    "keyword": "avis jbl quantum 100",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "souris gaming valorant",
-    "type": "money",
-    "category": "mouse"
+    "keyword": "avis jbl quantum 810",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "clavier gaming mecanique",
-    "type": "money",
-    "category": "keyboard"
+    "keyword": "avis logitech g pro x",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "clavier gaming tkl",
-    "type": "money",
-    "category": "keyboard"
+    "keyword": "avis logitech g435",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "clavier gaming 60 pourcent",
-    "type": "money",
-    "category": "keyboard"
+    "keyword": "avis logitech g733",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "clavier gaming rgb",
-    "type": "money",
-    "category": "keyboard"
+    "keyword": "avis razer barracuda",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "clavier gaming pas cher",
-    "type": "money",
-    "category": "keyboard"
+    "keyword": "avis razer blackshark v2",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "casque gaming ps5",
-    "type": "money",
-    "category": "headset"
+    "keyword": "avis razer blackshark v2 pro",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "casque gaming xbox",
-    "type": "money",
-    "category": "headset"
+    "keyword": "avis razer kraken",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
   },
   {
-    "keyword": "casque gaming sans fil",
+    "keyword": "avis razer kraken x",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis sony inzone h7",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries arctis 7",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries arctis nova 1",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries arctis nova 7",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries arctis nova pro",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis turtle beach recon 200",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis turtle beach stealth 500",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis turtle beach stealth 600",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "avis turtle beach stealth 700",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair hs35 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair hs60 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair hs80 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair virtuoso test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair void elite test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx cloud alpha test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx cloud flight (sans fil) test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx cloud ii test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx cloud stinger test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "jbl quantum 100 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "jbl quantum 810 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g pro x test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g435 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g733 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "razer barracuda test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "razer blackshark v2 pro test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "razer blackshark v2 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "razer kraken test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "razer kraken x test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "sony inzone h7 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries arctis 7 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries arctis nova 1 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries arctis nova 7 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries arctis nova pro test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test asus rog delta",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test asus tuf h3",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair hs35",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair hs60",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair hs80",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair virtuoso",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair void elite",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx cloud alpha",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx cloud flight (sans fil)",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx cloud ii",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx cloud stinger",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test jbl quantum 100",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test jbl quantum 810",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g pro x",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g435",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g733",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer barracuda",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer blackshark v2",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer blackshark v2 pro",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer kraken",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer kraken x",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test sony inzone h7",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries arctis 7",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries arctis nova 1",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries arctis nova 7",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries arctis nova pro",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test turtle beach recon 200",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test turtle beach stealth 500",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test turtle beach stealth 600",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "test turtle beach stealth 700",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "turtle beach recon 200 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "turtle beach stealth 500 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "turtle beach stealth 600 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "turtle beach stealth 700 test",
+    "type": "blog",
+    "category": "headset",
+    "source": "product"
+  },
+  {
+    "keyword": "casque gaming filaire ou sans fil",
+    "type": "guide",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "casque gaming moins de 100 euros",
+    "type": "guide",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "casque gaming moins de 200 euros",
+    "type": "guide",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "casque gaming moins de 50 euros",
+    "type": "guide",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "comment choisir un casque gaming",
+    "type": "guide",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "guide casque gaming",
+    "type": "guide",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming pour ps5",
+    "type": "guide",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "casque gaming",
     "type": "money",
-    "category": "headset"
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "casque gaming fps",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "casque gaming micro",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
   },
   {
     "keyword": "casque gaming pas cher",
     "type": "money",
-    "category": "headset"
+    "category": "headset",
+    "source": "badge"
   },
   {
-    "keyword": "casque gaming call of duty",
+    "keyword": "casque gaming pc",
     "type": "money",
-    "category": "headset"
+    "category": "headset",
+    "source": "generated"
   },
   {
-    "keyword": "setup gaming 500 euros",
-    "type": "guide",
-    "category": "setup"
+    "keyword": "casque gaming pro",
+    "type": "money",
+    "category": "headset",
+    "source": "badge"
   },
   {
-    "keyword": "setup gaming 1000 euros",
-    "type": "guide",
-    "category": "setup"
+    "keyword": "casque gaming ps5",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
   },
   {
-    "keyword": "setup gaming blanc",
-    "type": "guide",
-    "category": "setup"
+    "keyword": "casque gaming sans fil",
+    "type": "money",
+    "category": "headset",
+    "source": "badge"
   },
   {
-    "keyword": "setup gaming noir",
-    "type": "guide",
-    "category": "setup"
+    "keyword": "casque gaming xbox",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
   },
   {
-    "keyword": "setup gaming streamer",
+    "keyword": "meilleur casque gaming",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming asus",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming corsair",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming fps",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming hyperx",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming jbl",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming logitech",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming micro",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming moins de 100 euros",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming moins de 200 euros",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming moins de 50 euros",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming pas cher",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming pc",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming ps5",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming razer",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming sans fil",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur casque gaming sony",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming steelseries",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming turtle",
+    "type": "money",
+    "category": "headset",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur casque gaming xbox",
+    "type": "money",
+    "category": "headset",
+    "source": "generated"
+  },
+  {
+    "keyword": "asus rog strix scope test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "asus tuf gaming k1 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis asus rog strix scope",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis asus tuf gaming k1",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis cooler master ck552",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair k55 rgb pro",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair k60 pro",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair k65 mini",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair k70 rgb",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair k95 platinum",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hyperx alloy core rgb",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hyperx alloy fps",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hyperx alloy origins",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis keychron k2 (wireless)",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis keychron k6 (compact)",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g pro x tkl",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g213 prodigy",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g413",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g915 tkl",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis msi vigor gk50",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer blackwidow v3",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer blackwidow v4",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer huntsman mini (60%)",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer huntsman v2",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer ornata v3",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis rk royal kludge (wireless)",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis roccat pyro",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis roccat vulcan 120",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries apex 3",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries apex 5",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries apex 7",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries apex pro",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "cooler master ck552 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair k55 rgb pro test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair k60 pro test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair k65 mini test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair k70 rgb test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair k95 platinum test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx alloy core rgb test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx alloy fps test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx alloy origins test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "keychron k2 (wireless) test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "keychron k6 (compact) test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g pro x tkl test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g213 prodigy test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g413 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g915 tkl test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "msi vigor gk50 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "razer blackwidow v3 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "razer blackwidow v4 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "razer huntsman mini (60%) test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "razer huntsman v2 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "razer ornata v3 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "rk royal kludge (wireless) test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "roccat pyro test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "roccat vulcan 120 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries apex 3 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries apex 5 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries apex 7 test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries apex pro test",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test asus rog strix scope",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test asus tuf gaming k1",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test cooler master ck552",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair k55 rgb pro",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair k60 pro",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair k65 mini",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair k70 rgb",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair k95 platinum",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx alloy core rgb",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx alloy fps",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx alloy origins",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test keychron k2 (wireless)",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test keychron k6 (compact)",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g pro x tkl",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g213 prodigy",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g413",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g915 tkl",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test msi vigor gk50",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer blackwidow v3",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer blackwidow v4",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer huntsman mini (60%)",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer huntsman v2",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer ornata v3",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test rk royal kludge (wireless)",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test roccat pyro",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test roccat vulcan 120",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries apex 3",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries apex 5",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries apex 7",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries apex pro",
+    "type": "blog",
+    "category": "keyboard",
+    "source": "product"
+  },
+  {
+    "keyword": "clavier gaming moins de 100 euros",
     "type": "guide",
-    "category": "setup"
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming moins de 200 euros",
+    "type": "guide",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming moins de 50 euros",
+    "type": "guide",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming tkl ou full size",
+    "type": "guide",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "comment choisir un clavier gaming",
+    "type": "guide",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "guide clavier gaming",
+    "type": "guide",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "quel switch choisir pour un clavier gaming",
+    "type": "guide",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming 60 pourcent",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming fps",
+    "type": "money",
+    "category": "keyboard",
+    "source": "badge"
+  },
+  {
+    "keyword": "clavier gaming mecanique",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming pas cher",
+    "type": "money",
+    "category": "keyboard",
+    "source": "badge"
+  },
+  {
+    "keyword": "clavier gaming pc",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming pro",
+    "type": "money",
+    "category": "keyboard",
+    "source": "badge"
+  },
+  {
+    "keyword": "clavier gaming ps5",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming rgb",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming sans fil",
+    "type": "money",
+    "category": "keyboard",
+    "source": "badge"
+  },
+  {
+    "keyword": "clavier gaming tkl",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "clavier gaming xbox",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming 60 pourcent",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming asus",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming cooler",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming corsair",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming hyperx",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming keychron",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming logitech",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming mecanique",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming moins de 100 euros",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming moins de 200 euros",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming moins de 50 euros",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming msi",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming pas cher",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming pc",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming ps5",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming razer",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming rgb",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming rk",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming roccat",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming sans fil",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming steelseries",
+    "type": "money",
+    "category": "keyboard",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur clavier gaming tkl",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur clavier gaming xbox",
+    "type": "money",
+    "category": "keyboard",
+    "source": "generated"
+  },
+  {
+    "keyword": "akg lyra test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "audio-technica at2020 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis akg lyra",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis audio-technica at2020",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis behringer c-1u",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis blue snowball ice",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis blue yeti",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis blue yeti nano",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis elgato wave dx",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis elgato wave:1",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis elgato wave:3",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis fifine am8",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis fifine k669b",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis fifine k690",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hyperx quadcast",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hyperx quadcast s",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hyperx solocast",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis maono au-a04",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis nzxt capsule",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer seiren mini",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer seiren x",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis røde nt-usb",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis røde nt-usb mini",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis røde podmic",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis røde wireless go (stream)",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis samson meteor mic",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis samson q2u",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis shure mv7",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis shure sm7b",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis tonor tc30",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis trust gxt 232",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "avis trust gxt 258",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "behringer c-1u test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "blue snowball ice test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "blue yeti nano test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "blue yeti test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "elgato wave dx test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "elgato wave:1 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "elgato wave:3 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "fifine am8 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "fifine k669b test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "fifine k690 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx quadcast s test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx quadcast test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx solocast test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "maono au-a04 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "nzxt capsule test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "razer seiren mini test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "razer seiren x test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "røde nt-usb mini test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "røde nt-usb test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "røde podmic test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "røde wireless go (stream) test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "samson meteor mic test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "samson q2u test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "shure mv7 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "shure sm7b test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test akg lyra",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test audio-technica at2020",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test behringer c-1u",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test blue snowball ice",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test blue yeti",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test blue yeti nano",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test elgato wave dx",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test elgato wave:1",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test elgato wave:3",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test fifine am8",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test fifine k669b",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test fifine k690",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx quadcast",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx quadcast s",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx solocast",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test maono au-a04",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test nzxt capsule",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer seiren mini",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer seiren x",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test røde nt-usb",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test røde nt-usb mini",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test røde podmic",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test røde wireless go (stream)",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test samson meteor mic",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test samson q2u",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test shure mv7",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test shure sm7b",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test tonor tc30",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test trust gxt 232",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "test trust gxt 258",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "tonor tc30 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "trust gxt 232 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "trust gxt 258 test",
+    "type": "blog",
+    "category": "micro",
+    "source": "product"
+  },
+  {
+    "keyword": "comment choisir un micro gaming",
+    "type": "guide",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "guide micro gaming",
+    "type": "guide",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming moins de 100 euros",
+    "type": "guide",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming moins de 200 euros",
+    "type": "guide",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming moins de 50 euros",
+    "type": "guide",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro usb ou xlr pour streaming",
+    "type": "guide",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "quel micro pour streamer",
+    "type": "guide",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming akg",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming audio-technica",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming behringer",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming blue",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming debutant",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming elgato",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming fifine",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming hyperx",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming maono",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming moins de 100 euros",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming moins de 200 euros",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming moins de 50 euros",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming nzxt",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming pas cher",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming pc",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming pro",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming ps5",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming razer",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming røde",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming samson",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming shure",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming streaming",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming tonor",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming trust",
+    "type": "money",
+    "category": "micro",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur micro gaming usb",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur micro gaming xbox",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming debutant",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming pas cher",
+    "type": "money",
+    "category": "micro",
+    "source": "badge"
+  },
+  {
+    "keyword": "micro gaming pc",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming pro",
+    "type": "money",
+    "category": "micro",
+    "source": "badge"
+  },
+  {
+    "keyword": "micro gaming ps5",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming streaming",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming usb",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "micro gaming xbox",
+    "type": "money",
+    "category": "micro",
+    "source": "generated"
+  },
+  {
+    "keyword": "asus rog keris test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis asus rog keris",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis cooler master mm710",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair dark core rgb",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair katar pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair m65 rgb",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis corsair sabre rgb pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis glorious model d",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis glorious model o",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hyperx pulsefire haste",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g pro x superlight",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g pro x superlight 2",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g203",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g305 lightspeed",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g502 hero",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech g703 lightspeed",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer basilisk ultimate",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer basilisk v3",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer deathadder essential",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer deathadder v3",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer naga (mmo)",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer orochi v2",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer viper mini",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer viper v2 pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer viper v3 hyperspeed",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis roccat burst pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis roccat kone pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries aerox 3",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries aerox 5",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries prime",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "avis steelseries rival 3",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "cooler master mm710 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair dark core rgb test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair katar pro test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair m65 rgb test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "corsair sabre rgb pro test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "glorious model d test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "glorious model o test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "hyperx pulsefire haste test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g pro x superlight 2 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g pro x superlight test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g203 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g305 lightspeed test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g502 hero test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech g703 lightspeed test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer basilisk ultimate test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer basilisk v3 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer deathadder essential test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer deathadder v3 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer naga (mmo) test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer orochi v2 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer viper mini test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer viper v2 pro test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "razer viper v3 hyperspeed test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "roccat burst pro test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "roccat kone pro test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries aerox 3 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries aerox 5 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries prime test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "steelseries rival 3 test",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test asus rog keris",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test cooler master mm710",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair dark core rgb",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair katar pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair m65 rgb",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test corsair sabre rgb pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test glorious model d",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test glorious model o",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test hyperx pulsefire haste",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g pro x superlight",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g pro x superlight 2",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g203",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g305 lightspeed",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g502 hero",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech g703 lightspeed",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer basilisk ultimate",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer basilisk v3",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer deathadder essential",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer deathadder v3",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer naga (mmo)",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer orochi v2",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer viper mini",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer viper v2 pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer viper v3 hyperspeed",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test roccat burst pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test roccat kone pro",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries aerox 3",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries aerox 5",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries prime",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "test steelseries rival 3",
+    "type": "blog",
+    "category": "mouse",
+    "source": "product"
+  },
+  {
+    "keyword": "comment choisir une souris gaming",
+    "type": "guide",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "guide souris gaming",
+    "type": "guide",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "quelle souris gaming pour fps",
+    "type": "guide",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming legere ou ergonomique",
+    "type": "guide",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming moins de 100 euros",
+    "type": "guide",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming moins de 200 euros",
+    "type": "guide",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming moins de 50 euros",
+    "type": "guide",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming asus",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming cooler",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming corsair",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming ergonomique",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming fps",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming glorious",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming hyperx",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming legere",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming logitech",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming mmo",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming moins de 100 euros",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming moins de 200 euros",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming moins de 50 euros",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming pas cher",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming pc",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming ps5",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming razer",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming roccat",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming sans fil",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur souris gaming steelseries",
+    "type": "money",
+    "category": "mouse",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur souris gaming xbox",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming ergonomique",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming fps",
+    "type": "money",
+    "category": "mouse",
+    "source": "badge"
+  },
+  {
+    "keyword": "souris gaming legere",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming mmo",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming pas cher",
+    "type": "money",
+    "category": "mouse",
+    "source": "badge"
+  },
+  {
+    "keyword": "souris gaming pc",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming pro",
+    "type": "money",
+    "category": "mouse",
+    "source": "badge"
+  },
+  {
+    "keyword": "souris gaming ps5",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "souris gaming sans fil",
+    "type": "money",
+    "category": "mouse",
+    "source": "badge"
+  },
+  {
+    "keyword": "souris gaming xbox",
+    "type": "money",
+    "category": "mouse",
+    "source": "generated"
+  },
+  {
+    "keyword": "acer kg272 test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "acer nitro test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "acer predator test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "alienware aw2523hf test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "asus rog strix oled test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "asus tuf vg27aqm1a test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis acer kg272",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis acer nitro",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis acer predator",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis alienware aw2523hf",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis asus rog strix oled",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis asus tuf vg27aqm1a",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis benq mobiuz ex2510s",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis benq zowie xl2411k",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis benq zowie xl2540k",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis dell 25 gaming monitor",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis gigabyte g24f",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis gigabyte m27q",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis iiyama g-master",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis lg ultragear 24g411a-b",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis lg ultragear 27gr75q-b",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis msi mag 275qf",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis msi mag274qrf-qd",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis philips evnia",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis viewsonic va24g1-h",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "avis viewsonic vx2479a",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "benq mobiuz ex2510s test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "benq zowie xl2411k test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "benq zowie xl2540k test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "dell 25 gaming monitor test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "gigabyte g24f test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "gigabyte m27q test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "iiyama g-master test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "lg ultragear 24g411a-b test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "lg ultragear 27gr75q-b test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "msi mag 275qf test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "msi mag274qrf-qd test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "philips evnia test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test acer kg272",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test acer nitro",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test acer predator",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test alienware aw2523hf",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test asus rog strix oled",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test asus tuf vg27aqm1a",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test benq mobiuz ex2510s",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test benq zowie xl2411k",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test benq zowie xl2540k",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test dell 25 gaming monitor",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test gigabyte g24f",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test gigabyte m27q",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test iiyama g-master",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test lg ultragear 24g411a-b",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test lg ultragear 27gr75q-b",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test msi mag 275qf",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test msi mag274qrf-qd",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test philips evnia",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test viewsonic va24g1-h",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "test viewsonic vx2479a",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "viewsonic va24g1-h test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "viewsonic vx2479a test",
+    "type": "blog",
+    "category": "screen",
+    "source": "product"
+  },
+  {
+    "keyword": "comment choisir un ecran gaming",
+    "type": "guide",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming 144hz ou 240hz",
+    "type": "guide",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming moins de 100 euros",
+    "type": "guide",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming moins de 200 euros",
+    "type": "guide",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming moins de 50 euros",
+    "type": "guide",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "guide ecran gaming",
+    "type": "guide",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "quelle taille d ecran gaming choisir",
+    "type": "guide",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming 144hz",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming 240hz",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming 27 pouces",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming incurve",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming pas cher",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming pc",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming ps5",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "ecran gaming xbox",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming 144hz",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming 240hz",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming 27 pouces",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming acer",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming alienware",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming asus",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming benq",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming dell",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming gigabyte",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming iiyama",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming incurve",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming lg",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming moins de 100 euros",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming moins de 200 euros",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming moins de 50 euros",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming msi",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming pas cher",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming pc",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming philips",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming ps5",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur ecran gaming viewsonic",
+    "type": "money",
+    "category": "screen",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur ecran gaming xbox",
+    "type": "money",
+    "category": "screen",
+    "source": "generated"
+  },
+  {
+    "keyword": "anker powerconf c200 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "aukey webcam 1080p test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avermedia pw313 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avermedia pw513 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis anker powerconf c200",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis aukey webcam 1080p",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis avermedia pw313",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis avermedia pw513",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis creative live! cam sync 1080p",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis dell ultrasharp webcam",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis elgato facecam",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis elgato facecam pro",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis hp webcam 1080p",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis insta360 link",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis lenovo 300 fhd webcam",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech brio 4k",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech brio 500",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech c270",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech c505",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech c615",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech c920 hd pro",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech c922 pro stream",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech c930e",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis logitech streamcam",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis microsoft lifecam hd-3000",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis nexigo n930af",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis obsbot meet 4k",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis obsbot tiny 2",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer kiyo",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer kiyo pro",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer kiyo pro ultra",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis razer kiyo x",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis trust tyro",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "avis ugreen webcam 1080p",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "creative live! cam sync 1080p test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "dell ultrasharp webcam test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "elgato facecam pro test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "elgato facecam test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "hp webcam 1080p test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "insta360 link test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "lenovo 300 fhd webcam test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech brio 4k test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech brio 500 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech c270 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech c505 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech c615 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech c920 hd pro test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech c922 pro stream test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech c930e test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "logitech streamcam test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "microsoft lifecam hd-3000 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "nexigo n930af test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "obsbot meet 4k test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "obsbot tiny 2 test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "razer kiyo pro test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "razer kiyo pro ultra test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "razer kiyo test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "razer kiyo x test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test anker powerconf c200",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test aukey webcam 1080p",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test avermedia pw313",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test avermedia pw513",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test creative live! cam sync 1080p",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test dell ultrasharp webcam",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test elgato facecam",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test elgato facecam pro",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test hp webcam 1080p",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test insta360 link",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test lenovo 300 fhd webcam",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech brio 4k",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech brio 500",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech c270",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech c505",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech c615",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech c920 hd pro",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech c922 pro stream",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech c930e",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test logitech streamcam",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test microsoft lifecam hd-3000",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test nexigo n930af",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test obsbot meet 4k",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test obsbot tiny 2",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer kiyo",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer kiyo pro",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer kiyo pro ultra",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test razer kiyo x",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test trust tyro",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "test ugreen webcam 1080p",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "trust tyro test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "ugreen webcam 1080p test",
+    "type": "blog",
+    "category": "webcam",
+    "source": "product"
+  },
+  {
+    "keyword": "comment choisir une webcam streaming",
+    "type": "guide",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "guide webcam streaming",
+    "type": "guide",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "quelle webcam pour twitch",
+    "type": "guide",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam 1080p ou 4k pour streamer",
+    "type": "guide",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming moins de 100 euros",
+    "type": "guide",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming moins de 200 euros",
+    "type": "guide",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming moins de 50 euros",
+    "type": "guide",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming 1080p",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming 4k",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming anker",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming aukey",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming avermedia",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming creative",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming dell",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming elgato",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming hp",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming insta360",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming lenovo",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming logitech",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming microsoft",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming moins de 100 euros",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming moins de 200 euros",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming moins de 50 euros",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming nexigo",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming obsbot",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming pas cher",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming pc",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming pro",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming ps5",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming razer",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming streaming",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "meilleur webcam streaming trust",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming ugreen",
+    "type": "money",
+    "category": "webcam",
+    "source": "brand"
+  },
+  {
+    "keyword": "meilleur webcam streaming xbox",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming 1080p",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming 4k",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming pas cher",
+    "type": "money",
+    "category": "webcam",
+    "source": "badge"
+  },
+  {
+    "keyword": "webcam streaming pc",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming pro",
+    "type": "money",
+    "category": "webcam",
+    "source": "badge"
+  },
+  {
+    "keyword": "webcam streaming ps5",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming streaming",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
+  },
+  {
+    "keyword": "webcam streaming xbox",
+    "type": "money",
+    "category": "webcam",
+    "source": "generated"
   }
 ]
