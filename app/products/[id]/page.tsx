@@ -13,6 +13,8 @@ type Product = {
   category: "Ecran" | "Souris" | "Clavier" | "Casque" | "Micro" | "Webcam" | "Chaise" | "Bureau";
   amazonUrl?: string;
   query?: string;
+  recommendation?: string;
+  facts?: string[];
 };
 
 type PageProps = {
@@ -69,7 +71,7 @@ function getCategoryLabel(category?: string) {
   }
 }
 
-function getRecommendation(product: Product) {
+function getDefaultRecommendation(product: Product) {
   const title = product.title.toLowerCase();
 
   switch (product.category) {
@@ -126,7 +128,7 @@ function getRecommendation(product: Product) {
   }
 }
 
-function getProductFacts(product: Product) {
+function getDefaultFacts(product: Product) {
   const title = product.title.toLowerCase();
 
   switch (product.category) {
@@ -269,6 +271,9 @@ export default async function ProductPage({ params }: PageProps) {
   const description =
     product.subtitle || `${product.title} : sélection gaming recommandée par Nexus Gaming FR.`;
 
+  const recommendation = product.recommendation || getDefaultRecommendation(product);
+  const facts = product.facts?.length ? product.facts : getDefaultFacts(product);
+
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -360,7 +365,7 @@ export default async function ProductPage({ params }: PageProps) {
                 Pourquoi on le recommande
               </h2>
               <p className="mt-3 text-sm leading-7 text-white/70">
-                {getRecommendation(product)}
+                {recommendation}
               </p>
             </div>
 
@@ -369,7 +374,7 @@ export default async function ProductPage({ params }: PageProps) {
                 À savoir
               </h2>
               <ul className="mt-3 space-y-2 text-sm leading-7 text-white/70">
-                {getProductFacts(product).map((fact) => (
+                {facts.map((fact) => (
                   <li key={fact}>• {fact}</li>
                 ))}
               </ul>

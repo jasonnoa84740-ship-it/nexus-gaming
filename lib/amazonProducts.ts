@@ -27,6 +27,10 @@ export type AmazonProduct = {
 
   // lien produit affilié exact (tu colles ici plus tard)
   amazonUrl?: string;
+
+  // contenu personnalisé
+  recommendation?: string;
+  facts?: string[];
 };
 
 // Ton tag (utile si tu veux générer tes liens propres plus tard)
@@ -47,7 +51,6 @@ function makeId(category: Category, title: string) {
 }
 
 function makeQuery(title: string) {
-  // On force "gaming" pour améliorer les résultats Amazon
   return `${title} gaming`;
 }
 
@@ -77,7 +80,7 @@ function build(category: Category, items: Seed[]): AmazonProduct[] {
     category,
     image: IMG[category],
     query: makeQuery(it.title),
-    amazonUrl: "https://www.amazon.fr/dp/B0CYZBLFGC?tag=nexusgamingfr-21", // ✅ tu colles ton lien affilié ici plus tard
+    amazonUrl: "https://www.amazon.fr/dp/B0CYZBLFGC?tag=nexusgamingfr-21",
   }));
 }
 
@@ -121,7 +124,6 @@ const ECRANS_30: AmazonProduct[] = [
     id: "samsung-odyssey-g7",
     title: 'Samsung Odyssey G7 27"',
     category: "Ecran",
-    // ⚠️ Mets bien une image qui s'appelle exactement "samsung-g7.jpg" dans /public/ecran
     image: "/ecran/samsung-g7.jpg",
     query: "Samsung Odyssey G7 gaming monitor",
     amazonUrl: "https://www.amazon.fr/dp/B0BRL8T2G7?tag=nexusgamingfr-21",
@@ -326,7 +328,7 @@ const ECRANS_30: AmazonProduct[] = [
     query: "HP Omen gaming monitor",
     amazonUrl: "https://www.amazon.fr/dp/B0C4F3YP8F?tag=nexusgamingfr-21",
   },
-]; 
+];
 
 /* =========================
    30 SOURIS GAMER
@@ -602,7 +604,7 @@ const SOURIS_30: AmazonProduct[] = [
     amazonUrl: "https://www.amazon.fr/dp/B09X1V67CJ?tag=nexusgamingfr-21",
     badge: "Light",
   },
-]; 
+];
 
 /* =========================
    30 CLAVIERS GAMER
@@ -820,8 +822,271 @@ const BUREAUX_30: AmazonProduct[] = [
   { id: "bureau-bras-ecran-monitor-arm-gaming", title: "Bras écran (monitor arm) gaming", category: "Bureau", image: "/products/bureau.jpg", query: "Bras ecran monitor arm gaming", amazonUrl: "", badge: "Access" },
 ];
 
-// ✅ Export final : tout le catalogue
-// IMPORTANT : on garde ECRANS_30 tel quel (avec tes liens) => PAS de build() dessus
+const PRODUCT_RECOMMENDATIONS: Partial<Record<string, string>> = {
+  "aoc-24g4xe":
+    "On recommande cet écran pour sa fréquence de 180Hz très fluide, idéale pour les jeux FPS et compétitifs.",
+  "aoc-c27g4zxe":
+    "Cet écran incurvé est intéressant pour les joueurs qui cherchent plus d’immersion dans leur setup gaming.",
+  "samsung-odyssey-g3":
+    "On recommande cet écran pour son bon rapport qualité/prix et sa fluidité adaptée au gaming.",
+  "samsung-odyssey-g5":
+    "Cet écran Odyssey est intéressant pour les joueurs qui veulent une dalle immersive et performante.",
+  "samsung-odyssey-g7":
+    "On recommande cet écran pour les joueurs exigeants qui veulent une fluidité et une immersion élevées.",
+  "lg-ultragear-24g411a":
+    "Cet écran UltraGear est un choix solide pour améliorer la fluidité et la réactivité dans un setup gaming.",
+  "lg-ultragear-27gr75q":
+    "On recommande cet écran pour son bon équilibre entre confort visuel, fluidité et polyvalence gaming.",
+  "lg-ultragear-oled":
+    "Cet écran OLED est particulièrement intéressant pour ceux qui veulent un rendu visuel plus premium et réactif.",
+  "asus-tuf-24":
+    "On recommande cet écran ASUS TUF pour sa simplicité, sa fluidité et son bon positionnement pour le gaming.",
+  "asus-tuf-vg27aq":
+    "Cet écran est un bon choix pour les joueurs qui veulent monter en gamme sur un setup gaming plus sérieux.",
+  "asus-rog-oled":
+    "On recommande cet écran ROG OLED pour un setup haut de gamme orienté performances et qualité d’image.",
+  "msi-g2412":
+    "Cet écran MSI est intéressant pour les joueurs qui cherchent un modèle accessible et efficace au quotidien.",
+  "msi-mag-275qf":
+    "On recommande cet écran pour son bon potentiel dans un setup gaming moderne et polyvalent.",
+  "msi-mag274qrf":
+    "Cet écran MSI est un très bon choix pour les joueurs qui veulent une image plus propre et réactive.",
+  "benq-xl2411k":
+    "On recommande cet écran ZOWIE pour les joueurs compétitifs qui privilégient la réactivité avant tout.",
+  "benq-xl2540k":
+    "Cet écran est particulièrement intéressant pour les FPS et les joueurs qui veulent un affichage ultra fluide.",
+  "benq-ex2510s":
+    "On recommande cet écran pour son bon compromis entre fluidité, confort et usage gaming quotidien.",
+  "gigabyte-g24f":
+    "Cet écran est un choix solide pour améliorer la fluidité de jeu sans viser un budget trop élevé.",
+  "gigabyte-m27q":
+    "On recommande cet écran pour les setups plus ambitieux qui veulent plus d’espace et de confort visuel.",
+  "alienware-aw2523hf":
+    "Cet écran Alienware est pensé pour les joueurs qui veulent une expérience rapide et clairement orientée e-sport.",
+
+  "logitech-g-pro-x-superlight":
+    "Cette souris est très appréciée des joueurs FPS pour sa précision, sa légèreté et sa fiabilité.",
+  "logitech-g-pro-x-superlight-2":
+    "On recommande cette version pour ceux qui veulent une souris gaming premium orientée performance.",
+  "logitech-g502-hero":
+    "Cette souris reste une référence pour les joueurs qui veulent beaucoup de contrôle et une excellente prise en main.",
+  "logitech-g305-lightspeed":
+    "On recommande cette souris pour son format simple, sans fil, efficace et accessible.",
+  "logitech-g703-lightspeed":
+    "Cette souris est intéressante pour les joueurs qui veulent du confort avec la liberté du sans-fil.",
+  "logitech-g203":
+    "On recommande cette souris pour les petits budgets qui veulent tout de même une vraie souris gaming.",
+  "razer-deathadder-essential":
+    "Cette souris est un bon point d’entrée pour les joueurs qui veulent une forme confortable et une bonne précision.",
+  "razer-deathadder-v3":
+    "On recommande cette souris pour les joueurs exigeants qui veulent un modèle taillé pour la performance.",
+  "razer-viper-mini":
+    "Cette souris est très intéressante pour les joueurs qui aiment les modèles compacts et rapides.",
+  "razer-viper-v2-pro":
+    "On recommande cette souris pour son orientation compétitive et sa réactivité très convaincante.",
+  "razer-viper-v3-hyperspeed":
+    "Cette souris est un bon choix pour les joueurs qui veulent vitesse, mobilité et très bonne réactivité.",
+  "razer-basilisk-v3":
+    "On recommande cette souris pour sa polyvalence et son confort sur de longues sessions.",
+  "razer-basilisk-ultimate":
+    "Cette souris est intéressante pour ceux qui veulent un modèle gaming premium plus complet.",
+  "razer-orochi-v2":
+    "On recommande cette souris pour son format compact, pratique et agréable à utiliser.",
+  "razer-naga-mmo":
+    "Cette souris est particulièrement adaptée aux joueurs MMO qui ont besoin de nombreux boutons.",
+
+  "clavier-razer-huntsman-mini-60":
+    "On recommande ce clavier compact pour les joueurs FPS qui veulent libérer de la place sur le bureau.",
+  "clavier-razer-huntsman-v2":
+    "Ce clavier est intéressant pour ceux qui veulent une frappe rapide et une vraie sensation premium.",
+  "clavier-razer-blackwidow-v3":
+    "On recommande ce clavier pour son bon équilibre entre style, confort et efficacité en jeu.",
+  "clavier-razer-blackwidow-v4":
+    "Ce clavier est un très bon choix pour les joueurs qui veulent monter en gamme sur leur setup.",
+  "clavier-razer-ornata-v3":
+    "On recommande ce clavier pour les joueurs qui cherchent une solution plus accessible et agréable au quotidien.",
+  "clavier-logitech-g-pro-x-tkl":
+    "Ce clavier est particulièrement adapté aux setups orientés performance et e-sport.",
+  "clavier-logitech-g915-tkl":
+    "On recommande ce clavier pour ceux qui veulent un modèle sans fil, propre et haut de gamme.",
+  "clavier-logitech-g213-prodigy":
+    "Ce clavier est intéressant pour débuter avec un setup gaming plus confortable sans trop dépenser.",
+  "clavier-logitech-g413":
+    "On recommande ce clavier pour sa simplicité, sa fiabilité et sa bonne expérience de frappe.",
+  "clavier-corsair-k70-rgb":
+    "Ce clavier reste une valeur sûre pour les joueurs qui veulent un modèle gaming reconnu et efficace.",
+
+  "casque-hyperx-cloud-ii":
+    "On recommande ce casque pour son confort, sa réputation solide et son usage très agréable en jeu.",
+  "casque-hyperx-cloud-alpha":
+    "Ce casque est un très bon choix pour les joueurs qui veulent un son convaincant et un bon confort.",
+  "casque-hyperx-cloud-stinger":
+    "On recommande ce casque pour les petits budgets qui veulent une expérience gaming correcte et simple.",
+  "casque-hyperx-cloud-flight-sans-fil":
+    "Ce casque est intéressant pour ceux qui veulent jouer sans câble et garder un bon confort.",
+  "casque-steelseries-arctis-nova-1":
+    "On recommande ce casque pour son bon équilibre entre confort, son et utilisation gaming.",
+  "casque-steelseries-arctis-nova-7":
+    "Ce casque est un excellent choix pour ceux qui veulent une solution sans fil polyvalente.",
+  "casque-steelseries-arctis-nova-pro":
+    "On recommande ce casque pour les setups gaming haut de gamme orientés confort et qualité audio.",
+  "casque-logitech-g-pro-x":
+    "Ce casque est intéressant pour les joueurs qui veulent un modèle gaming connu, sérieux et efficace.",
+  "casque-logitech-g733":
+    "On recommande ce casque pour sa liberté sans fil et son côté pratique sur de longues sessions.",
+  "casque-logitech-g435":
+    "Ce casque est un bon choix pour ceux qui veulent quelque chose de léger et simple à utiliser.",
+
+  "micro-hyperx-quadcast":
+    "On recommande ce micro pour les joueurs et créateurs qui veulent une voix plus propre et plus nette.",
+  "micro-hyperx-quadcast-s":
+    "Ce micro est particulièrement intéressant pour un setup stream plus travaillé et plus esthétique.",
+  "micro-hyperx-solocast":
+    "On recommande ce micro pour ceux qui veulent un modèle simple, pratique et accessible.",
+  "micro-elgato-wave-1":
+    "Ce micro est un bon choix pour démarrer un setup stream ou gaming vocal proprement.",
+  "micro-elgato-wave-3":
+    "On recommande ce micro pour ceux qui veulent une solution sérieuse pour le stream et la voix.",
+  "micro-shure-mv7":
+    "Ce micro est très intéressant pour les créateurs qui veulent une voix plus propre et plus professionnelle.",
+  "micro-shure-sm7b":
+    "On recommande ce micro pour les setups premium orientés création de contenu et streaming avancé.",
+
+  "webcam-logitech-c270":
+    "On recommande cette webcam pour les petits budgets qui veulent une image simple mais suffisante.",
+  "webcam-logitech-c920-hd-pro":
+    "Cette webcam reste une référence pour ceux qui veulent une image fiable et propre en stream ou visio.",
+  "webcam-logitech-c922-pro-stream":
+    "On recommande cette webcam pour les créateurs et joueurs qui veulent une solution pensée pour le stream.",
+  "webcam-logitech-streamcam":
+    "Cette webcam est intéressante pour améliorer clairement la qualité vidéo d’un setup gaming ou créateur.",
+  "webcam-logitech-brio-4k":
+    "On recommande cette webcam pour ceux qui veulent une image plus premium et plus détaillée.",
+  "webcam-razer-kiyo-pro":
+    "Cette webcam est un bon choix pour les joueurs qui veulent une image propre avec une vraie orientation créateur.",
+  "webcam-elgato-facecam":
+    "On recommande cette webcam pour les setups stream plus sérieux et plus propres visuellement.",
+  "webcam-elgato-facecam-pro":
+    "Cette webcam est particulièrement intéressante pour ceux qui veulent pousser la qualité vidéo plus loin.",
+
+  "chaise-dxracer-formula":
+    "On recommande cette chaise pour son positionnement gaming classique et son maintien adapté aux longues sessions.",
+  "chaise-noblechairs-hero":
+    "Cette chaise est un très bon choix pour ceux qui veulent plus de confort et une finition premium.",
+  "chaise-noblechairs-epic":
+    "On recommande cette chaise pour son design gaming affirmé et son bon maintien global.",
+  "chaise-secretlab-titan-evo":
+    "Cette chaise est une référence pour les joueurs qui veulent un siège très confortable et plus haut de gamme.",
+  "chaise-andaseat-kaiser":
+    "On recommande cette chaise pour les setups ambitieux qui veulent un siège imposant et confortable.",
+  "chaise-corsair-t3-rush":
+    "Cette chaise est intéressante pour les joueurs qui veulent un bon confort sans viser l’ultra premium.",
+  "chaise-corsair-tc100-relaxed":
+    "On recommande cette chaise pour son positionnement accessible et agréable sur de longues sessions.",
+  "chaise-cougar-armor":
+    "Cette chaise est un bon choix pour renforcer le confort et l’identité gaming du setup.",
+
+  "bureau-arozzi-arena-grand-tapis":
+    "On recommande ce bureau pour les setups gaming qui veulent beaucoup d’espace et une surface pensée pour jouer.",
+  "bureau-arozzi-arena-leggero":
+    "Ce bureau est intéressant pour ceux qui veulent un format gaming plus compact mais toujours efficace.",
+  "bureau-secretlab-magnus":
+    "On recommande ce bureau pour un setup propre, premium et très bien organisé.",
+  "bureau-eureka-ergonomic-bureau-gaming":
+    "Ce bureau est un très bon choix pour améliorer l’ergonomie et la présentation générale du setup.",
+  "bureau-vitesse-bureau-gaming":
+    "On recommande ce bureau pour les joueurs qui veulent une solution simple, gaming et fonctionnelle.",
+  "bureau-greenforest-bureau-gaming":
+    "Ce bureau est intéressant pour les petits budgets qui veulent tout de même une base propre pour leur setup.",
+  "bureau-atlantic-bureau-gaming":
+    "On recommande ce bureau pour son côté pratique et sa bonne intégration dans un espace gaming.",
+  "bureau-odk-bureau-gaming":
+    "Ce bureau est un bon choix pour créer un setup gaming bien rangé et plus agréable au quotidien.",
+};
+
+const PRODUCT_FACTS: Partial<Record<string, string[]>> = {
+  "aoc-24g4xe": [
+    "Catégorie : écran gaming",
+    "Dalle IPS pour une image plus propre",
+    "180Hz intéressant pour les jeux rapides",
+  ],
+  "samsung-odyssey-g7": [
+    "Catégorie : écran gaming premium",
+    "Pensé pour une expérience plus haut de gamme",
+    "Très intéressant pour les joueurs exigeants",
+  ],
+  "logitech-g-pro-x-superlight": [
+    "Catégorie : souris gaming",
+    "Format très léger",
+    "Très populaire en FPS compétitif",
+  ],
+  "razer-basilisk-v3": [
+    "Catégorie : souris gaming",
+    "Souris polyvalente et confortable",
+    "Bonne option pour un usage gaming varié",
+  ],
+  "clavier-logitech-g915-tkl": [
+    "Catégorie : clavier gaming",
+    "Format TKL plus compact",
+    "Version sans fil pensée pour les setups propres",
+  ],
+  "clavier-razer-huntsman-mini-60": [
+    "Catégorie : clavier gaming",
+    "Format compact 60%",
+    "Très intéressant pour libérer de l’espace souris",
+  ],
+  "casque-steelseries-arctis-nova-7": [
+    "Catégorie : casque gaming",
+    "Version sans fil polyvalente",
+    "Bon compromis entre confort et usage quotidien",
+  ],
+  "casque-hyperx-cloud-ii": [
+    "Catégorie : casque gaming",
+    "Référence connue chez beaucoup de joueurs",
+    "Confort adapté aux longues sessions",
+  ],
+  "micro-hyperx-quadcast": [
+    "Catégorie : micro gaming",
+    "Très apprécié pour le stream",
+    "Améliore nettement la qualité de voix",
+  ],
+  "micro-shure-sm7b": [
+    "Catégorie : micro premium",
+    "Pensé pour les setups plus avancés",
+    "Très intéressant pour création de contenu",
+  ],
+  "webcam-logitech-c920-hd-pro": [
+    "Catégorie : webcam",
+    "Référence connue pour stream et visio",
+    "Bon compromis entre simplicité et qualité",
+  ],
+  "webcam-elgato-facecam": [
+    "Catégorie : webcam",
+    "Pensée pour les créateurs et streamers",
+    "Très bonne intégration dans un setup moderne",
+  ],
+  "chaise-secretlab-titan-evo": [
+    "Catégorie : chaise gaming",
+    "Modèle premium très connu",
+    "Très bon maintien pour longues sessions",
+  ],
+  "chaise-corsair-t3-rush": [
+    "Catégorie : chaise gaming",
+    "Confort intéressant pour un usage prolongé",
+    "Bonne option pour renforcer le setup",
+  ],
+  "bureau-secretlab-magnus": [
+    "Catégorie : bureau gamer",
+    "Très propre pour organiser le setup",
+    "Pensé pour une installation premium",
+  ],
+  "bureau-arozzi-arena-grand-tapis": [
+    "Catégorie : bureau gamer",
+    "Grande surface utile pour le setup",
+    "Très intéressant pour plusieurs périphériques",
+  ],
+};
+
 export const amazonProducts: AmazonProduct[] = [
   ...ECRANS_30,
   ...SOURIS_30,
@@ -831,4 +1096,8 @@ export const amazonProducts: AmazonProduct[] = [
   ...WEBCAMS_30,
   ...CHAISES_30,
   ...BUREAUX_30,
-];
+].map((product) => ({
+  ...product,
+  recommendation: PRODUCT_RECOMMENDATIONS[product.id],
+  facts: PRODUCT_FACTS[product.id],
+}));
