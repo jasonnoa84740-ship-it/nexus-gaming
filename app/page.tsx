@@ -12,8 +12,9 @@ type Category = {
 };
 
 type Product = {
+  id: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   href: string;
   badge?: string;
   priceLabel?: string;
@@ -30,64 +31,67 @@ const categories: Category[] = [
   {
     title: "Souris Gaming",
     description: "Précision, légèreté et réactivité pour FPS, MMO et jeux compétitifs.",
-    href: "/products",
+    href: "/products?category=souris",
     emoji: "🖱️",
   },
   {
     title: "Claviers Gaming",
     description: "Claviers mécaniques performants pour améliorer ton confort et ta vitesse.",
-    href: "/products",
+    href: "/products?category=claviers",
     emoji: "⌨️",
   },
   {
     title: "Casques Gaming",
     description: "Immersion, bon micro et confort pour jouer longtemps sans compromis.",
-    href: "/products",
+    href: "/products?category=casques",
     emoji: "🎧",
   },
   {
     title: "Écrans Gaming",
     description: "144Hz, 240Hz et dalles rapides pour un gameplay fluide et net.",
-    href: "/products",
+    href: "/products?category=ecrans",
     emoji: "🖥️",
   },
   {
     title: "Bureaux Gamer",
     description: "Des bureaux solides et pratiques pour un setup propre et efficace.",
-    href: "/products",
+    href: "/products?category=bureaux",
     emoji: "🪑",
   },
   {
     title: "Chaises Gaming",
     description: "Confort et maintien pour les longues sessions de jeu ou de stream.",
-    href: "/products",
+    href: "/products?category=chaises",
     emoji: "💺",
   },
 ];
 
 const featuredProducts: Product[] = [
   {
-    title: "Logitech G Pro X Superlight",
-    subtitle: "Une souris gaming ultra légère très appréciée pour les jeux compétitifs.",
-    href: "/products",
-    badge: "Top FPS",
-    priceLabel: "Voir le prix",
+    id: "souris",
+    title: "Top souris gaming",
+    subtitle: "Découvre notre sélection de souris gaming pour FPS, MMO et usage polyvalent.",
+    href: "/products?category=souris",
+    badge: "Top catégorie",
+    priceLabel: "Voir les souris",
     rating: 4.8,
   },
   {
-    title: "SteelSeries Arctis Nova 7",
-    subtitle: "Casque gaming confortable avec bon son, bon micro et excellente polyvalence.",
-    href: "/products",
-    badge: "Très recommandé",
-    priceLabel: "Voir le prix",
+    id: "casques",
+    title: "Top casques gaming",
+    subtitle: "Trouve un casque gaming confortable avec bon son et bon micro.",
+    href: "/products?category=casques",
+    badge: "Très demandé",
+    priceLabel: "Voir les casques",
     rating: 4.7,
   },
   {
-    title: "ASUS TUF Gaming 144Hz",
-    subtitle: "Un écran gaming fluide et efficace pour booster ton setup sans te ruiner.",
-    href: "/products",
-    badge: "Bon rapport qualité/prix",
-    priceLabel: "Voir le prix",
+    id: "ecrans",
+    title: "Top écrans gaming",
+    subtitle: "Compare les meilleurs écrans gaming pour un setup plus fluide.",
+    href: "/products?category=ecrans",
+    badge: "Bon setup",
+    priceLabel: "Voir les écrans",
     rating: 4.6,
   },
 ];
@@ -332,7 +336,7 @@ export default function HomePage() {
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {featuredProducts.map((product, index) => (
               <motion.article
-                key={product.title}
+                key={product.id}
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -349,14 +353,13 @@ export default function HomePage() {
                 <p className="mt-3 text-sm leading-6 text-white/70">{product.subtitle}</p>
 
                 <div className="mt-4">
-                  <Stars value={product.rating} />
+                  <Stars value={product.rating ?? 4.6} />
                 </div>
 
                 <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 p-4">
                   <h4 className="text-sm font-semibold text-white">Pourquoi on le recommande</h4>
                   <p className="mt-2 text-sm leading-6 text-white/65">
-                    Ce produit fait partie de notre sélection pour son bon rapport
-                    qualité/prix, sa popularité et sa pertinence pour améliorer un setup gamer.
+                    Cette sélection fait partie des catégories les plus utiles pour améliorer rapidement un setup gaming.
                   </p>
                 </div>
 

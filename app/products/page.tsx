@@ -1,37 +1,87 @@
 import Link from "next/link";
-
-// Adapte ce chemin si besoin selon ton projet
-import { amazonProducts } from "@/data/amazonProducts";
+import { amazonProducts } from "@/lib/amazonProducts";
 
 type Product = {
   id: string;
   title: string;
   subtitle?: string;
   image?: string;
-  rating?: number;
   badge?: string;
-  category?: string;
+  category: "Ecran" | "Souris" | "Clavier" | "Casque" | "Micro" | "Webcam" | "Chaise" | "Bureau";
 };
 
-function Stars({ value = 4.6 }: { value?: number }) {
-  const rounded = Math.round(value);
+type ProductsPageProps = {
+  searchParams?: Promise<{
+    category?: string;
+  }>;
+};
 
-  return (
-    <div className="flex items-center gap-1" aria-label={`Note ${value} sur 5`}>
-      <div className="flex">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <span key={i} className={i < rounded ? "text-yellow-400" : "text-white/20"}>
-            ★
-          </span>
-        ))}
-      </div>
-      <span className="text-sm text-white/60">{value.toFixed(1)}/5</span>
-    </div>
-  );
+function normalize(value?: string) {
+  return (value || "").toLowerCase().trim();
 }
 
-export default function ProductsPage() {
-  const products = amazonProducts as Product[];
+function mapCategoryParam(param?: string): Product["category"] | null {
+  switch (normalize(param)) {
+    case "souris":
+      return "Souris";
+    case "claviers":
+    case "clavier":
+      return "Clavier";
+    case "casques":
+    case "casque":
+      return "Casque";
+    case "ecrans":
+    case "ecran":
+      return "Ecran";
+    case "bureaux":
+    case "bureau":
+      return "Bureau";
+    case "chaises":
+    case "chaise":
+      return "Chaise";
+    case "micros":
+    case "micro":
+      return "Micro";
+    case "webcams":
+    case "webcam":
+      return "Webcam";
+    default:
+      return null;
+  }
+}
+
+function getCategoryTitle(category: Product["category"] | null) {
+  switch (category) {
+    case "Souris":
+      return "Souris Gaming";
+    case "Clavier":
+      return "Claviers Gaming";
+    case "Casque":
+      return "Casques Gaming";
+    case "Ecran":
+      return "Écrans Gaming";
+    case "Bureau":
+      return "Bureaux Gamer";
+    case "Chaise":
+      return "Chaises Gaming";
+    case "Micro":
+      return "Micros Gaming";
+    case "Webcam":
+      return "Webcams Gaming";
+    default:
+      return "Tous les produits gaming";
+  }
+}
+
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+  const resolvedSearchParams = await searchParams;
+  const selectedCategory = mapCategoryParam(resolvedSearchParams?.category);
+
+  const products = selectedCategory
+    ? amazonProducts.filter((product) => product.category === selectedCategory)
+    : amazonProducts;
+
+  const pageTitle = getCategoryTitle(selectedCategory);
 
   return (
     <main className="min-h-screen bg-[#05060a] text-white">
@@ -42,20 +92,50 @@ export default function ProductsPage() {
           </p>
 
           <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
-            Tous les produits gaming
+            {pageTitle}
           </h1>
 
           <p className="mt-4 max-w-3xl text-white/70">
             Explore notre sélection de produits gaming pour améliorer ton setup :
             souris, claviers, casques, écrans, bureaux gamer, chaises et accessoires.
           </p>
+
+          <div className="mt-6 flex flex-wrap gap-3 text-sm">
+            <Link href="/products" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Tous
+            </Link>
+            <Link href="/products?category=souris" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Souris
+            </Link>
+            <Link href="/products?category=claviers" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Claviers
+            </Link>
+            <Link href="/products?category=casques" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Casques
+            </Link>
+            <Link href="/products?category=ecrans" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Écrans
+            </Link>
+            <Link href="/products?category=bureaux" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Bureaux
+            </Link>
+            <Link href="/products?category=chaises" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Chaises
+            </Link>
+            <Link href="/products?category=micros" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Micros
+            </Link>
+            <Link href="/products?category=webcams" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Webcams
+            </Link>
+          </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {products.length === 0 ? (
           <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-white/70">
-            Aucun produit disponible pour le moment.
+            Aucun produit trouvé dans cette catégorie.
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -71,11 +151,9 @@ export default function ProductsPage() {
                 ) : null}
 
                 <div className="mt-4">
-                  {product.category ? (
-                    <p className="text-xs uppercase tracking-wide text-white/40">
-                      {product.category}
-                    </p>
-                  ) : null}
+                  <p className="text-xs uppercase tracking-wide text-white/40">
+                    {product.category}
+                  </p>
 
                   <h2 className="mt-2 text-xl font-bold">{product.title}</h2>
 
@@ -86,18 +164,13 @@ export default function ProductsPage() {
                   ) : null}
                 </div>
 
-                <div className="mt-4">
-                  <Stars value={product.rating ?? 4.6} />
-                </div>
-
                 <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 p-4">
                   <h3 className="text-sm font-semibold text-white">
                     Pourquoi on le recommande
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-white/65">
                     Ce produit fait partie de notre sélection pour son intérêt
-                    dans un setup gaming, sa popularité et son bon équilibre
-                    entre utilité et rapport qualité/prix.
+                    dans un setup gaming et sa pertinence dans sa catégorie.
                   </p>
                 </div>
 
