@@ -1,596 +1,561 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Script from "next/script";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
-import AuthGate from "@/components/AuthGate";
-import NexusShell from "@/components/NexusShell";
-import ModalPortal from "@/components/ModalPortal";
+type Category = {
+  title: string;
+  description: string;
+  href: string;
+  emoji: string;
+};
 
-import { amazonProducts, type AmazonProduct, type Category } from "@/lib/amazonProducts";
+type Product = {
+  title: string;
+  subtitle: string;
+  href: string;
+  badge?: string;
+  price?: string;
+  rating?: number;
+};
 
-const year = new Date().getFullYear();
+type Guide = {
+  title: string;
+  description: string;
+  href: string;
+};
 
-function Chip({
-  active,
-  label,
-  onClick,
+const categories: Category[] = [
+  {
+    title: "Souris Gaming",
+    description: "Précision, légèreté et réactivité pour FPS, MMO et jeux compétitifs.",
+    href: "/categories/souris-gaming",
+    emoji: "🖱️",
+  },
+  {
+    title: "Claviers Gaming",
+    description: "Claviers mécaniques performants pour améliorer ton confort et ta vitesse.",
+    href: "/categories/claviers-gaming",
+    emoji: "⌨️",
+  },
+  {
+    title: "Casques Gaming",
+    description: "Immersion, bon micro et confort pour jouer longtemps sans compromis.",
+    href: "/categories/casques-gaming",
+    emoji: "🎧",
+  },
+  {
+    title: "Écrans Gaming",
+    description: "144Hz, 240Hz et dalles rapides pour un gameplay fluide et net.",
+    href: "/categories/ecrans-gaming",
+    emoji: "🖥️",
+  },
+  {
+    title: "Bureaux Gamer",
+    description: "Des bureaux solides et pratiques pour un setup propre et efficace.",
+    href: "/categories/bureaux-gamer",
+    emoji: "🪑",
+  },
+  {
+    title: "Chaises Gaming",
+    description: "Confort et maintien pour les longues sessions de jeu ou de stream.",
+    href: "/categories/chaises-gaming",
+    emoji: "💺",
+  },
+];
+
+const featuredProducts: Product[] = [
+  {
+    title: "Logitech G Pro X Superlight",
+    subtitle: "Une souris gaming ultra légère très appréciée pour les jeux compétitifs.",
+    href: "/go/logitech-g-pro-x-superlight",
+    badge: "Top FPS",
+    price: "Voir le prix",
+    rating: 4.8,
+  },
+  {
+    title: "SteelSeries Arctis Nova 7",
+    subtitle: "Casque gaming confortable avec bon son, bon micro et excellente polyvalence.",
+    href: "/go/steelseries-arctis-nova-7",
+    badge: "Très recommandé",
+    price: "Voir le prix",
+    rating: 4.7,
+  },
+  {
+    title: "ASUS TUF Gaming 144Hz",
+    subtitle: "Un écran gaming fluide et efficace pour booster ton setup sans te ruiner.",
+    href: "/go/asus-tuf-gaming-144hz",
+    badge: "Bon rapport qualité/prix",
+    price: "Voir le prix",
+    rating: 4.6,
+  },
+];
+
+const guides: Guide[] = [
+  {
+    title: "Meilleure souris gaming",
+    description: "Notre sélection des meilleures souris gaming selon ton budget et ton style de jeu.",
+    href: "/guides/meilleure-souris-gaming",
+  },
+  {
+    title: "Meilleur casque gaming",
+    description: "Compare les meilleurs casques gamer pour le confort, le son et le micro.",
+    href: "/guides/meilleur-casque-gaming",
+  },
+  {
+    title: "Meilleur clavier gaming",
+    description: "Les meilleurs claviers mécaniques gaming pour FPS, MMO et usage polyvalent.",
+    href: "/guides/meilleur-clavier-gaming",
+  },
+  {
+    title: "Meilleur écran gaming 144Hz",
+    description: "Notre guide pour choisir un écran gaming fluide, net et adapté à ton setup.",
+    href: "/guides/meilleur-ecran-gaming-144hz",
+  },
+  {
+    title: "Meilleure chaise gaming",
+    description: "Trouve une chaise gamer confortable et adaptée aux longues sessions.",
+    href: "/guides/meilleure-chaise-gaming",
+  },
+  {
+    title: "Meilleur bureau gamer",
+    description: "Les meilleurs bureaux pour construire un setup gaming propre et pratique.",
+    href: "/guides/meilleur-bureau-gamer",
+  },
+];
+
+const faq = [
+  {
+    q: "NexusGamingFR vend-il directement les produits ?",
+    a: "Non. NexusGamingFR sélectionne, compare et recommande des équipements gaming. Les achats se font ensuite sur Amazon via nos liens partenaires.",
+  },
+  {
+    q: "Comment choisissez-vous les produits ?",
+    a: "Nous mettons en avant des produits populaires, bien notés et pertinents pour améliorer un setup gaming selon différents budgets.",
+  },
+  {
+    q: "Pourquoi passer par vos guides d’achat ?",
+    a: "Parce qu’un bon guide permet de comparer rapidement les options, d’éviter les mauvais achats et de trouver le bon produit selon ses besoins.",
+  },
+];
+
+function Stars({ value = 4.8 }: { value?: number }) {
+  const rounded = Math.round(value);
+  return (
+    <div className="flex items-center gap-1" aria-label={`Note ${value} sur 5`}>
+      <div className="flex">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <span key={i} className={i < rounded ? "text-yellow-400" : "text-white/20"}>
+            ★
+          </span>
+        ))}
+      </div>
+      <span className="text-sm text-white/60">{value.toFixed(1)}/5</span>
+    </div>
+  );
+}
+
+function SectionTitle({
+  eyebrow,
+  title,
+  description,
 }: {
-  active: boolean;
-  label: string;
-  onClick: () => void;
+  eyebrow?: string;
+  title: string;
+  description?: string;
 }) {
   return (
-    <button
-      onClick={onClick}
-      className={[
-        "px-3 py-1 rounded-full text-xs font-semibold border transition",
-        active
-          ? "bg-white/15 border-white/20"
-          : "bg-white/5 border-white/10 hover:bg-white/10",
-      ].join(" ")}
-    >
-      {label}
-    </button>
-  );
-}
-
-function Badge({ text }: { text?: string }) {
-  if (!text) return null;
-  return (
-    <span className="inline-flex items-center gap-2 px-2 py-1 rounded-full text-[11px] bg-white/10 border border-white/10">
-      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-      {text}
-    </span>
-  );
-}
-
-function Stars({ value }: { value: number }) {
-  const full = Math.max(0, Math.min(5, Math.round(value)));
-  return (
-    <div className="flex items-center gap-1 text-white/90">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <span key={i} className={i < full ? "opacity-100" : "opacity-30"}>
-          ★
-        </span>
-      ))}
-      <span className="ml-2 text-xs text-white/60">{value.toFixed(1)}</span>
+    <div className="max-w-3xl">
+      {eyebrow ? (
+        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-fuchsia-300">
+          {eyebrow}
+        </p>
+      ) : null}
+      <h2 className="text-2xl font-extrabold text-white sm:text-3xl">{title}</h2>
+      {description ? <p className="mt-3 text-white/70">{description}</p> : null}
     </div>
   );
 }
 
-/** Bandeau promo sticky */
-function PromoBar() {
-  return (
-    <div className="sticky top-0 z-[60] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-      <div className="border-b border-white/10 bg-black/40 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm text-white/90">
-          <span className="inline-flex items-center gap-2">
-            <span className="animate-pulse">🔥</span>
-            <span className="font-semibold">Bons plans</span> sélection{" "}
-            <span className="font-semibold">Nexus</span>
-          </span>
-          <span className="text-white/40">•</span>
-          <span>
-            ✅ Achat sur <span className="font-semibold">Amazon</span>
-          </span>
-          <span className="text-white/40">•</span>
-          <span>🔗 Liens affiliés</span>
-        </div>
-      </div>
-    </div>
-  );
-}
+export default function HomePage() {
+  const year = new Date().getFullYear();
 
-const REVIEWS = [
-  { name: "Lucas M.", text: "Sélection solide, j’ai trouvé un bon deal sur mon setup.", stars: 5 },
-  { name: "Sarah T.", text: "Le filtre par catégorie est clean, ça fait gagner du temps.", stars: 5 },
-  { name: "Mehdi K.", text: "Simple et efficace : je clique et j’achète direct sur Amazon.", stars: 5 },
-];
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "NexusGamingFR",
+    url: "https://nexusgamingfr.com",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://nexusgamingfr.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
 
-const BENEFITS = [
-  { icon: "🛒", title: "Achat sur Amazon", desc: "Paiement, livraison, retours gérés par Amazon" },
-  { icon: "🔥", title: "Sélection Nexus", desc: "On choisit des produits gaming utiles et populaires" },
-  { icon: "🧠", title: "Gagne du temps", desc: "Recherche + catégories + sélection déjà filtrée" },
-  { icon: "🔗", title: "Liens affiliés", desc: "Ça nous aide à financer Nexus (sans surcoût pour toi)" },
-];
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "NexusGamingFR",
+    url: "https://nexusgamingfr.com",
+    logo: "https://nexusgamingfr.com/logo.png",
+  };
 
-const CATEGORY_ORDER: Category[] = [
-  "Ecran",
-  "Souris",
-  "Clavier",
-  "Casque",
-  "Micro",
-  "Webcam",
-  "Chaise",
-  "Bureau",
-];
-
-type CatOption = "Tous" | Category;
-
-export default function Page() {
-  const [q, setQ] = useState("");
-  const [cat, setCat] = useState<CatOption>("Tous");
-  const [active, setActive] = useState<AmazonProduct | null>(null);
-
-  // parallax souris
-  const [mx, setMx] = useState(0);
-  const [my, setMy] = useState(0);
-
-  const cats = useMemo<CatOption[]>(() => {
-    const present = new Set<Category>();
-    amazonProducts.forEach((p) => present.add(p.category));
-    const ordered = CATEGORY_ORDER.filter((c) => present.has(c));
-    return ["Tous", ...ordered];
-  }, []);
-
-  useEffect(() => {
-    let raf = 0;
-    const onMove = (e: MouseEvent) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const cx = window.innerWidth / 2;
-        const cy = window.innerHeight / 2;
-        setMx((e.clientX - cx) / cx);
-        setMy((e.clientY - cy) / cy);
-      });
-    };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("mousemove", onMove);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!active) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [active]);
-
-  const filtered = useMemo(() => {
-    const s = q.trim().toLowerCase();
-    return amazonProducts.filter((p) => {
-      const inCat = cat === "Tous" ? true : p.category === cat;
-      const inSearch =
-        !s ||
-        p.title.toLowerCase().includes(s) ||
-        (p.subtitle || "").toLowerCase().includes(s) ||
-        (p.badge || "").toLowerCase().includes(s);
-      return inCat && inSearch;
-    });
-  }, [q, cat]);
-
-  const bestSellers = useMemo(() => {
-    return amazonProducts.slice(0, 4).map((p, idx) => ({
-      ...p,
-      sold: 18 + idx * 11,
-      rating: 4.6 + (3 - idx) * 0.1,
-      tag: p.badge || "Top vente",
-    }));
-  }, []);
-
-  const webPageJsonLd = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Nexus Gaming FR - Bons plans Amazon gaming",
-      url: "https://nexusgamingfr.com",
-      description:
-        "Découvrez les meilleurs bons plans Amazon gaming : écrans, souris, claviers, casques, micros, webcams, bureaux et accessoires gamer.",
-      inLanguage: "fr-FR",
-      isPartOf: {
-        "@type": "WebSite",
-        name: "Nexus Gaming FR",
-        url: "https://nexusgamingfr.com",
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
       },
-      about: [
-        "bons plans Amazon gaming",
-        "accessoires gamer",
-        "setup gaming",
-        "promotions gaming",
-      ],
-    }),
-    []
-  );
-
-  const itemListJsonLd = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: "Sélection Nexus Gaming FR",
-      url: "https://nexusgamingfr.com",
-      numberOfItems: bestSellers.length,
-      itemListElement: bestSellers.map((p, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        url: `https://nexusgamingfr.com/go/${p.id}`,
-        name: p.title,
-      })),
-    }),
-    [bestSellers]
-  );
+    })),
+  };
 
   return (
-    <AuthGate>
+    <>
       <Script
-        id="homepage-webpage-jsonld"
+        id="schema-website"
         type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(webPageJsonLd),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <Script
+        id="schema-organization"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <Script
-        id="homepage-itemlist-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(itemListJsonLd),
-        }}
-      />
+      <main className="min-h-screen bg-[#0a0a0f] text-white">
+        <section className="relative overflow-hidden border-b border-white/10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.22),transparent_35%),radial-gradient(circle_at_right,rgba(59,130,246,0.16),transparent_30%)]" />
+          <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mx-auto max-w-4xl text-center"
+            >
+              <span className="inline-flex items-center rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-1 text-sm text-fuchsia-200">
+                🎮 Guides, comparatifs et sélections Amazon gaming
+              </span>
 
-      <PromoBar />
+              <h1 className="mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+                Les meilleurs équipements gaming sur Amazon en {year}
+              </h1>
 
-      <NexusShell
-        title={`Nexus Gaming • Bons plans Amazon ${year}`}
-        subtitle="Sélection gaming + filtres + détails en modal. Achat sur Amazon via liens affiliés."
-      >
-        {/* HERO */}
-        <div className="mx-auto max-w-6xl px-4 pt-6">
-          <motion.div
-            className="nx-card p-6 md:p-8 overflow-hidden relative"
-            style={{ transform: `translate3d(${mx * 6}px, ${my * 6}px, 0)` }}
-          >
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge text="🛒 Achat Amazon" />
-              <Badge text="🔗 Liens affiliés" />
-              <Badge text="🎮 Sélection Nexus" />
-              <Badge text="⚡ Catégories + recherche" />
-            </div>
+              <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
+                NexusGamingFR t’aide à comparer les meilleurs écrans gaming, souris,
+                claviers mécaniques, casques, bureaux gamer, chaises et accessoires
+                pour améliorer ton setup au meilleur prix.
+              </p>
 
-            <div className="mt-5 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-end">
-              <div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-                  Bons plans Amazon gaming : setup, accessoires et promos{" "}
-                  <span className="text-white/90">Nexus {year}</span>
-                </h1>
-
-                <p className="mt-3 text-white/70 max-w-2xl">
-                  Nexus Gaming FR sélectionne des bons plans Amazon gaming pour t’aider
-                  à trouver plus vite un écran, une souris, un clavier, un casque,
-                  un micro, une webcam, une chaise ou un bureau gamer au meilleur prix.
-                </p>
-
-                <div className="mt-5 flex flex-col sm:flex-row gap-3">
-                  <div className="flex-1">
-                    <input
-                      value={q}
-                      onChange={(e) => setQ(e.target.value)}
-                      className="nx-input w-full"
-                      placeholder="Rechercher écran, clavier, souris..."
-                      aria-label="Rechercher un bon plan Amazon gaming"
-                    />
-                  </div>
-
-                  <a
-                    href="#catalogue"
-                    className="nx-btn nx-btn-primary inline-flex items-center justify-center gap-2"
-                  >
-                    🔥 Voir le catalogue
-                  </a>
-                </div>
-
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {cats.map((c) => (
-                    <Chip key={c} active={cat === c} label={c} onClick={() => setCat(c)} />
-                  ))}
-                </div>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="#produits"
+                  className="rounded-2xl bg-fuchsia-600 px-6 py-3 font-semibold text-white transition hover:bg-fuchsia-500"
+                >
+                  Voir les produits recommandés
+                </Link>
+                <Link
+                  href="#guides"
+                  className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+                >
+                  Voir les guides d’achat
+                </Link>
               </div>
 
-              <div className="nx-card p-4 border-white/10 bg-white/5">
-                <div className="text-sm font-semibold text-white/80">Transparence</div>
-                <div className="text-sm text-white/70 mt-2 leading-relaxed">
-                  Les boutons redirigent vers Amazon. Certains liens sont affiliés :
-                  ça nous aide à financer Nexus, sans coût en plus pour toi.
+              <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-2xl font-black">Setup</p>
+                  <p className="mt-1 text-sm text-white/65">
+                    Sélections pour améliorer ton bureau gaming
+                  </p>
                 </div>
-
-                <div className="mt-4">
-                  <Link href="/bons-plans" className="nx-btn nx-btn-ghost w-full text-center">
-                    Découvrir la sélection
-                  </Link>
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-2xl font-black">Guides</p>
+                  <p className="mt-1 text-sm text-white/65">
+                    Comparatifs simples pour choisir plus vite
+                  </p>
+                </div>
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-2xl font-black">Amazon</p>
+                  <p className="mt-1 text-sm text-white/65">
+                    Liens pratiques pour consulter le prix rapidement
+                  </p>
                 </div>
               </div>
-            </div>
-
-            <div className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-          </motion.div>
-        </div>
-
-        {/* TEXTE SEO */}
-        <section className="mx-auto max-w-6xl px-4 pt-6">
-          <div className="nx-card p-6">
-            <h2 className="text-2xl sm:text-3xl font-extrabold">
-              Trouve les meilleurs bons plans gaming sur Amazon
-            </h2>
-            <p className="mt-3 text-white/70 leading-relaxed">
-              Sur Nexus Gaming FR, tu retrouves une sélection de produits gaming populaires
-              et utiles pour ton setup : écrans gamer, souris gaming, claviers mécaniques,
-              casques micro, webcams, bureaux et accessoires. Le but est simple : te faire
-              gagner du temps avec une sélection claire et des liens directs vers Amazon.
-            </p>
+            </motion.div>
           </div>
         </section>
 
-        {/* BEST SELLERS */}
-        <div className="mx-auto max-w-6xl px-4 pt-6">
-          <div className="nx-card p-6">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold">
-                  ⭐ Sélection Nexus (Top)
-                </h2>
-                <p className="text-white/70 mt-1">
-                  Quelques recommandations rapides — clique et achète sur Amazon.
-                </p>
-              </div>
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <SectionTitle
+            eyebrow="Catégories"
+            title="Trouve rapidement le bon équipement gaming"
+            description="Des catégories claires pour naviguer plus vite et aller directement vers le type de produit qui t’intéresse."
+          />
 
-              <a href="#catalogue" className="nx-btn nx-btn-primary self-start sm:self-auto">
-                Voir la sélection →
-              </a>
-            </div>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {bestSellers.map((p) => (
-                <article
-                  key={p.id}
-                  className="rounded-3xl border border-purple-500/25 bg-white/5 p-4 hover:bg-white/10 transition relative overflow-hidden"
-                >
-                  <div className="pointer-events-none absolute -top-10 -right-10 h-28 w-28 rounded-full bg-purple-500/20 blur-2xl" />
-
-                  <div className="flex items-center justify-between relative">
-                    <span className="rounded-full border border-white/10 bg-black/25 px-2 py-1 text-[11px] text-white/80">
-                      {p.tag}
-                    </span>
-                    <span className="text-[11px] text-white/60">+{p.sold} vus</span>
-                  </div>
-
-                  <div className="mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/25 border border-white/10 relative">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={p.image}
-                      alt={p.title}
-                      className="h-full w-full object-cover opacity-95"
-                      loading="lazy"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    <div className="absolute top-3 left-3 flex gap-2">
-                      <Badge text={p.category} />
-                    </div>
-                  </div>
-
-                  <div className="mt-3 text-xs text-white/60">Nexus selection</div>
-                  <h3 className="mt-1 font-semibold leading-snug">{p.title}</h3>
-
-                  <div className="mt-2">
-                    <Stars value={p.rating} />
-                  </div>
-
-                  <a
-                    className="nx-btn nx-btn-primary mt-4 w-full text-center"
-                    href={`/go/${p.id}`}
-                    rel="nofollow sponsored noopener"
-                  >
-                    Acheter sur Amazon
-                  </a>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* AVIS */}
-        <div className="mx-auto max-w-6xl px-4 pt-6">
-          <div className="nx-card p-6">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold">💬 Avis</h2>
-                <p className="text-white/70 mt-1">
-                  L’objectif : rendre la recherche plus simple.
-                </p>
-              </div>
-              <div className="hidden sm:block text-sm text-white/70">
-                Note moyenne <span className="font-semibold text-white">4.8/5</span>
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-4 lg:grid-cols-3">
-              {REVIEWS.map((r, idx) => (
-                <div key={idx} className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                  <div className="text-white/90">
-                    {Array.from({ length: r.stars }).map((_, i) => (
-                      <span key={i}>★</span>
-                    ))}
-                  </div>
-                  <p className="mt-3 text-white/75 leading-relaxed">“{r.text}”</p>
-                  <div className="mt-4 text-sm text-white/60">— {r.name}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* POURQUOI NEXUS */}
-        <div className="mx-auto max-w-6xl px-4 pt-6">
-          <div className="nx-card p-6">
-            <h2 className="text-2xl sm:text-3xl font-extrabold">🏆 Pourquoi Nexus ?</h2>
-            <p className="text-white/70 mt-1">
-              On te met une sélection claire, et tu achètes sur Amazon.
-            </p>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {BENEFITS.map((b) => (
-                <div key={b.title} className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                  <div className="text-xl">{b.icon}</div>
-                  <h3 className="mt-2 font-semibold">{b.title}</h3>
-                  <div className="mt-1 text-sm text-white/65">{b.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* GRID */}
-        <div id="catalogue" className="mx-auto max-w-6xl px-4 pb-14 pt-8">
-          <div className="flex items-end justify-between gap-3">
-            <div>
-              <div className="text-sm text-white/60">Résultats</div>
-              <div className="text-lg font-black">{filtered.length} article(s)</div>
-              <div className="text-xs text-white/50 mt-1">
-                Catégorie : <span className="text-white/80">{cat}</span>
-              </div>
-            </div>
-            <Link href="/account" className="nx-btn nx-btn-ghost">
-              👤 Mon compte
-            </Link>
-          </div>
-
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((p) => (
-              <motion.article
-                key={p.id}
-                className="nx-card overflow-hidden"
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {categories.map((category, index) => (
+              <motion.div
+                key={category.title}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.04 }}
               >
-                <div className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    className="h-44 w-full object-cover opacity-95"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    <Badge text={p.category} />
-                    <Badge text={p.badge} />
-                  </div>
-                  <div className="absolute bottom-3 left-3 text-xs text-white/80">
-                    Nexus • Amazon
-                  </div>
+                <Link
+                  href={category.href}
+                  className="block rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10"
+                >
+                  <div className="text-3xl">{category.emoji}</div>
+                  <h3 className="mt-4 text-xl font-bold">{category.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-white/65">{category.description}</p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-fuchsia-300">
+                    Explorer la catégorie →
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section id="produits" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <SectionTitle
+            eyebrow="Sélection"
+            title="Produits gaming recommandés"
+            description="Une sélection rapide de produits populaires pour ceux qui veulent aller droit au but."
+          />
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+            {featuredProducts.map((product, index) => (
+              <motion.article
+                key={product.title}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="rounded-3xl border border-white/10 bg-white/5 p-6"
+              >
+                {product.badge ? (
+                  <span className="inline-flex rounded-full border border-orange-400/30 bg-orange-400/10 px-3 py-1 text-xs font-semibold text-orange-200">
+                    {product.badge}
+                  </span>
+                ) : null}
+
+                <h3 className="mt-4 text-xl font-bold">{product.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-white/70">{product.subtitle}</p>
+
+                <div className="mt-4">
+                  <Stars value={product.rating} />
                 </div>
 
-                <div className="p-4">
-                  <div className="text-sm text-white/60">Sélection Nexus</div>
-                  <h3 className="font-black text-lg leading-snug">{p.title}</h3>
-                  {p.subtitle ? (
-                    <div className="mt-2 text-sm text-white/70">{p.subtitle}</div>
-                  ) : null}
-
-                  <div className="mt-4 flex gap-2">
-                    <button onClick={() => setActive(p)} className="nx-btn nx-btn-ghost flex-1">
-                      Détails
-                    </button>
-                    <a
-                      href={`/go/${p.id}`}
-                      rel="nofollow sponsored noopener"
-                      className="nx-btn nx-btn-primary flex-1 text-center"
-                    >
-                      Amazon
-                    </a>
-                  </div>
+                <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 p-4">
+                  <h4 className="text-sm font-semibold text-white">Pourquoi on le recommande</h4>
+                  <p className="mt-2 text-sm leading-6 text-white/65">
+                    Ce produit fait partie de notre sélection pour son bon rapport
+                    qualité/prix, sa popularité et sa pertinence pour améliorer un setup gamer.
+                  </p>
                 </div>
+
+                <Link
+                  href={product.href}
+                  className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-3 font-semibold text-white transition hover:bg-orange-400"
+                >
+                  {product.price ?? "Voir sur Amazon"}
+                </Link>
               </motion.article>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* MODAL DETAILS */}
-        <AnimatePresence>
-          {active ? (
-            <ModalPortal>
-              <motion.div
-                className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setActive(null)}
-              >
+        <section id="guides" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 sm:p-8">
+            <SectionTitle
+              eyebrow="SEO + Conversion"
+              title="Guides d’achat gaming"
+              description="C’est ici que ton site peut vraiment commencer à ramener du trafic Google et à convertir mieux qu’un simple catalogue."
+            />
+
+            <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {guides.map((guide, index) => (
                 <motion.div
-                  className="nx-card w-full max-w-3xl overflow-hidden"
-                  initial={{ y: 18, opacity: 0, scale: 0.98 }}
-                  animate={{ y: 0, opacity: 1, scale: 1 }}
-                  exit={{ y: 18, opacity: 0, scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                  onClick={(e) => e.stopPropagation()}
+                  key={guide.title}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.04 }}
                 >
-                  <div className="grid md:grid-cols-2">
-                    <div className="relative">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={active.image}
-                        alt={active.title}
-                        className="h-72 md:h-full w-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                      <div className="absolute top-3 left-3 flex gap-2">
-                        <Badge text={active.category} />
-                        <Badge text={active.badge} />
-                        <Badge text="Amazon" />
-                      </div>
-                    </div>
-
-                    <div className="p-5 md:p-6">
-                      <div className="text-sm text-white/60">Sélection Nexus</div>
-                      <h2 className="text-2xl font-black leading-tight">{active.title}</h2>
-                      {active.subtitle ? <p className="mt-3 text-white/75">{active.subtitle}</p> : null}
-
-                      <div className="mt-4 nx-card p-3 bg-white/5 border-white/10">
-                        <div className="text-sm font-semibold">Achat</div>
-                        <div className="mt-1 text-sm text-white/70">
-                          Tu seras redirigé vers Amazon pour payer et te faire livrer.
-                        </div>
-                      </div>
-
-                      <div className="mt-6 flex gap-2">
-                        <a
-                          href={`/go/${active.id}`}
-                          className="nx-btn nx-btn-primary flex-1 text-center"
-                          rel="nofollow sponsored noopener"
-                        >
-                          Acheter sur Amazon
-                        </a>
-
-                        <button
-                          className="nx-btn nx-btn-ghost flex-1 text-center"
-                          onClick={() => setActive(null)}
-                        >
-                          Fermer
-                        </button>
-                      </div>
-
-                      <button
-                        className="mt-3 w-full text-sm text-white/60 hover:text-white/80 transition"
-                        onClick={() => setActive(null)}
-                      >
-                        Fermer la fenêtre
-                      </button>
-                    </div>
-                  </div>
+                  <Link
+                    href={guide.href}
+                    className="block rounded-3xl border border-white/10 bg-black/20 p-5 transition hover:bg-white/10"
+                  >
+                    <h3 className="text-lg font-bold">{guide.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-white/65">{guide.description}</p>
+                    <span className="mt-4 inline-block text-sm font-semibold text-fuchsia-300">
+                      Lire le guide →
+                    </span>
+                  </Link>
                 </motion.div>
-              </motion.div>
-            </ModalPortal>
-          ) : null}
-        </AnimatePresence>
-      </NexusShell>
-    </AuthGate>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <SectionTitle
+            eyebrow="Pourquoi NexusGamingFR"
+            title="Un site pensé pour aider à choisir plus vite"
+            description="L’idée n’est pas de noyer le visiteur sous 200 produits, mais de l’aider à trouver le bon équipement selon son besoin."
+          />
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              "Sélections claires et utiles",
+              "Guides d’achat orientés setup gaming",
+              "Navigation simple par catégories",
+              "Liens rapides vers Amazon",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white/85"
+              >
+                <p className="font-semibold">{item}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <SectionTitle
+            eyebrow="FAQ"
+            title="Questions fréquentes"
+            description="Une section utile pour rassurer les visiteurs et enrichir la page sur le plan SEO."
+          />
+
+          <div className="mt-8 space-y-4">
+            {faq.map((item) => (
+              <details
+                key={item.q}
+                className="rounded-3xl border border-white/10 bg-white/5 p-5"
+              >
+                <summary className="cursor-pointer list-none font-semibold">
+                  {item.q}
+                </summary>
+                <p className="mt-3 text-sm leading-6 text-white/70">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+          <div className="rounded-[2rem] border border-fuchsia-400/20 bg-gradient-to-br from-fuchsia-500/10 to-blue-500/10 p-8 text-center">
+            <h2 className="text-2xl font-black sm:text-3xl">
+              Commence par les meilleurs guides du site
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-white/70">
+              Si ton objectif est d’avoir plus de trafic et plus de clics Amazon,
+              les comparatifs et guides d’achat sont le levier le plus rentable.
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/guides/meilleure-souris-gaming"
+                className="rounded-2xl bg-fuchsia-600 px-6 py-3 font-semibold text-white transition hover:bg-fuchsia-500"
+              >
+                Voir le guide souris gaming
+              </Link>
+              <Link
+                href="/guides/meilleur-casque-gaming"
+                className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+              >
+                Voir le guide casque gaming
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <footer className="border-t border-white/10">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <div className="grid gap-8 md:grid-cols-3">
+              <div>
+                <h3 className="text-lg font-bold">NexusGamingFR</h3>
+                <p className="mt-3 text-sm leading-6 text-white/65">
+                  Sélections, guides et comparatifs pour améliorer ton setup gaming
+                  avec des produits populaires disponibles sur Amazon.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">
+                  Navigation
+                </h3>
+                <ul className="mt-3 space-y-2 text-sm text-white/65">
+                  <li>
+                    <Link href="/a-propos" className="hover:text-white">
+                      À propos
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/contact" className="hover:text-white">
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/guides" className="hover:text-white">
+                      Guides
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/categories" className="hover:text-white">
+                      Catégories
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">
+                  Informations légales
+                </h3>
+                <ul className="mt-3 space-y-2 text-sm text-white/65">
+                  <li>
+                    <Link href="/mentions-legales" className="hover:text-white">
+                      Mentions légales
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/politique-de-confidentialite" className="hover:text-white">
+                      Politique de confidentialité
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/conditions-utilisation" className="hover:text-white">
+                      Conditions d’utilisation
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white/60">
+              En tant que Partenaire Amazon, NexusGamingFR réalise un bénéfice sur les
+              achats remplissant les conditions requises.
+            </div>
+
+            <div className="mt-6 text-xs text-white/40">
+              © {year} NexusGamingFR. Tous droits réservés.
+            </div>
+          </div>
+        </footer>
+      </main>
+    </>
   );
 }
