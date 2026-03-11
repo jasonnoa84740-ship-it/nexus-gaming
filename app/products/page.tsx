@@ -1,15 +1,8 @@
 import Link from "next/link";
 import { amazonProducts } from "@/lib/amazonProducts";
+import { getUniqueRecommendation } from "@/lib/productContent";
 
-type Product = {
-  id: string;
-  title: string;
-  subtitle?: string;
-  image?: string;
-  badge?: string;
-  category: "Ecran" | "Souris" | "Clavier" | "Casque" | "Micro" | "Webcam" | "Chaise" | "Bureau";
-  recommendation?: string;
-};
+type Product = (typeof amazonProducts)[number];
 
 type ProductsPageProps = {
   searchParams?: Promise<{
@@ -79,8 +72,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const selectedCategory = mapCategoryParam(resolvedSearchParams?.category);
 
   const products = selectedCategory
-    ? (amazonProducts as Product[]).filter((product) => product.category === selectedCategory)
-    : (amazonProducts as Product[]);
+    ? amazonProducts.filter((product) => product.category === selectedCategory)
+    : amazonProducts;
 
   const pageTitle = getCategoryTitle(selectedCategory);
 
@@ -88,55 +81,106 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     <main className="min-h-screen bg-[#05060a] text-white">
       <section className="border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-fuchsia-300">Produits</p>
-          <h1 className="text-4xl font-black tracking-tight sm:text-5xl">{pageTitle}</h1>
-          <p className="mt-4 max-w-3xl text-white/70">
-            Explore notre sélection de produits gaming pour améliorer ton setup : souris, claviers, casques, écrans, bureaux gamer, chaises et accessoires.
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-fuchsia-300">
+            Produits
           </p>
+
+          <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
+            {pageTitle}
+          </h1>
+
+          <p className="mt-4 max-w-3xl text-white/70">
+            Explore notre sélection de produits gaming pour améliorer ton setup :
+            souris, claviers, casques, écrans, bureaux gamer, chaises et accessoires.
+          </p>
+
           <div className="mt-6 flex flex-wrap gap-3 text-sm">
-            <Link href="/products" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Tous</Link>
-            <Link href="/products?category=souris" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Souris</Link>
-            <Link href="/products?category=claviers" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Claviers</Link>
-            <Link href="/products?category=casques" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Casques</Link>
-            <Link href="/products?category=ecrans" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Écrans</Link>
-            <Link href="/products?category=micros" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Micros</Link>
-            <Link href="/products?category=webcams" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Webcams</Link>
-            <Link href="/products?category=chaises" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Chaises</Link>
-            <Link href="/products?category=bureaux" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">Bureaux</Link>
+            <Link href="/products" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Tous
+            </Link>
+            <Link href="/products?category=souris" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Souris
+            </Link>
+            <Link href="/products?category=claviers" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Claviers
+            </Link>
+            <Link href="/products?category=casques" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Casques
+            </Link>
+            <Link href="/products?category=ecrans" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Écrans
+            </Link>
+            <Link href="/products?category=micros" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Micros
+            </Link>
+            <Link href="/products?category=webcams" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Webcams
+            </Link>
+            <Link href="/products?category=chaises" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Chaises
+            </Link>
+            <Link href="/products?category=bureaux" className="rounded-full border border-white/10 px-4 py-2 text-white/80 hover:bg-white/10">
+              Bureaux
+            </Link>
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {products.length === 0 ? (
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-white/70">Aucun produit trouvé dans cette catégorie.</div>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-white/70">
+            Aucun produit trouvé dans cette catégorie.
+          </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {products.map((product) => (
-              <article key={product.id} className="rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10">
+              <article
+                key={product.id}
+                className="rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10"
+              >
                 {product.badge ? (
                   <span className="inline-flex rounded-full border border-orange-400/30 bg-orange-400/10 px-3 py-1 text-xs font-semibold text-orange-200">
                     {product.badge}
                   </span>
                 ) : null}
+
                 <div className="mt-4">
-                  <p className="text-xs uppercase tracking-wide text-white/40">{product.category}</p>
+                  <p className="text-xs uppercase tracking-wide text-white/40">
+                    {product.category}
+                  </p>
+
                   <h2 className="mt-2 text-xl font-bold">{product.title}</h2>
-                  {product.subtitle ? <p className="mt-3 text-sm leading-6 text-white/70">{product.subtitle}</p> : null}
+
+                  {product.subtitle ? (
+                    <p className="mt-3 text-sm leading-6 text-white/70">
+                      {product.subtitle}
+                    </p>
+                  ) : null}
                 </div>
+
                 <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <h3 className="text-sm font-semibold text-white">Pourquoi on le recommande</h3>
+                  <h3 className="text-sm font-semibold text-white">
+                    Pourquoi on le recommande
+                  </h3>
                   <p className="mt-2 text-sm leading-6 text-white/65">
-                    {product.recommendation || "Ce produit fait partie de notre sélection pour son intérêt dans un setup gaming moderne."}
+                    {getUniqueRecommendation(product)}
                   </p>
                 </div>
+
                 <div className="mt-6 flex flex-wrap gap-2">
-                  <Link href={`/products/${product.id}`} className="inline-flex flex-1 items-center justify-center rounded-2xl bg-fuchsia-600 px-5 py-3 font-semibold text-white transition hover:bg-fuchsia-500">
+                  <Link
+                    href={`/products/${product.id}`}
+                    className="inline-flex flex-1 items-center justify-center rounded-2xl bg-fuchsia-600 px-5 py-3 font-semibold text-white transition hover:bg-fuchsia-500"
+                  >
                     Voir le produit
                   </Link>
-                  <Link href={`/compare/${product.id}-vs-${products[0].id}`} className="inline-flex items-center justify-center rounded-2xl border border-white/10 px-4 py-3 font-semibold text-white transition hover:bg-white/5">
-                    Comparer
-                  </Link>
+
+                  <a
+                    href={`/go/${product.id}`}
+                    className="inline-flex items-center justify-center rounded-2xl border border-white/10 px-4 py-3 font-semibold text-white transition hover:bg-white/5"
+                  >
+                    Amazon
+                  </a>
                 </div>
               </article>
             ))}

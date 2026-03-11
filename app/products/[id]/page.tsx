@@ -3,26 +3,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { amazonProducts } from "@/lib/amazonProducts";
+import { getUniqueFacts, getUniqueRecommendation } from "@/lib/productContent";
 
-type Product = {
-  id: string;
-  title: string;
-  subtitle?: string;
-  image: string;
-  badge?: string;
-  category: "Ecran" | "Souris" | "Clavier" | "Casque" | "Micro" | "Webcam" | "Chaise" | "Bureau";
-  amazonUrl?: string;
-  query?: string;
-  recommendation?: string;
-  facts?: string[];
-};
+type Product = (typeof amazonProducts)[number];
 
 type PageProps = {
   params: Promise<{ id: string }>;
 };
 
 function getProduct(id: string) {
-  return (amazonProducts as Product[]).find((p) => p.id === id);
+  return amazonProducts.find((p) => p.id === id);
 }
 
 function getCategoryHref(category?: string) {
@@ -71,144 +61,6 @@ function getCategoryLabel(category?: string) {
   }
 }
 
-function getDefaultRecommendation(product: Product) {
-  const title = product.title.toLowerCase();
-
-  switch (product.category) {
-    case "Ecran":
-      if (title.includes("180hz") || title.includes("240hz")) {
-        return "On recommande cet écran pour sa très bonne fluidité, particulièrement intéressante pour les jeux compétitifs et les sessions rapides.";
-      }
-      if (title.includes("incurvé")) {
-        return "Cet écran est intéressant pour les joueurs qui cherchent une expérience plus immersive et plus confortable au quotidien.";
-      }
-      if (title.includes("odyssey")) {
-        return "On recommande cet écran pour son orientation gaming, sa fluidité et son bon potentiel dans un setup moderne.";
-      }
-      return "On recommande cet écran pour améliorer la fluidité, le confort visuel et la qualité générale d’un setup gaming.";
-
-    case "Souris":
-      if (title.includes("logitech")) {
-        return "Cette souris est un excellent choix pour les joueurs qui veulent précision, fiabilité et très bonne prise en main.";
-      }
-      if (title.includes("razer")) {
-        return "On recommande cette souris pour sa réactivité et son intérêt dans les jeux rapides et compétitifs.";
-      }
-      return "Cette souris est intéressante pour améliorer la précision, le confort et la réactivité en jeu.";
-
-    case "Clavier":
-      if (title.includes("mecanique") || title.includes("mechanical")) {
-        return "Ce clavier est un bon choix pour ceux qui veulent une frappe plus nette, plus rapide et plus agréable en session gaming.";
-      }
-      if (title.includes("sans fil") || title.includes("wireless")) {
-        return "On recommande ce clavier pour les joueurs qui veulent plus de liberté sur le bureau sans sacrifier le confort.";
-      }
-      return "On recommande ce clavier pour améliorer le confort, la réactivité et l’expérience globale sur un setup gamer.";
-
-    case "Casque":
-      if (title.includes("wireless") || title.includes("sans fil")) {
-        return "Ce casque est intéressant pour les joueurs qui veulent plus de liberté de mouvement sans négliger le confort.";
-      }
-      return "On recommande ce casque pour son immersion, son confort et son utilité dans les jeux en ligne avec communication.";
-
-    case "Micro":
-      return "Ce micro est un bon choix pour améliorer la clarté de la voix en jeu, en stream ou pendant les discussions.";
-
-    case "Webcam":
-      return "On recommande cette webcam pour les joueurs et créateurs qui veulent une image plus propre en stream ou en visio.";
-
-    case "Chaise":
-      return "Cette chaise est intéressante pour améliorer le confort et le maintien pendant les longues sessions de jeu.";
-
-    case "Bureau":
-      return "On recommande ce bureau pour construire un setup gaming plus propre, plus stable et plus pratique au quotidien.";
-
-    default:
-      return "Ce produit fait partie de notre sélection pour son intérêt dans un setup gaming.";
-  }
-}
-
-function getDefaultFacts(product: Product) {
-  const title = product.title.toLowerCase();
-
-  switch (product.category) {
-    case "Ecran":
-      return [
-        "Catégorie : Écran gaming",
-        title.includes("incurvé")
-          ? "Format orienté immersion"
-          : "Pensé pour améliorer la fluidité visuelle",
-        title.includes("180hz") || title.includes("240hz")
-          ? "Très intéressant pour le jeu compétitif"
-          : "Peut convenir à un setup gaming polyvalent",
-      ];
-
-    case "Souris":
-      return [
-        "Catégorie : Souris gaming",
-        "Intéressante pour gagner en précision et en réactivité",
-        title.includes("logitech") || title.includes("razer")
-          ? "Modèle populaire chez beaucoup de joueurs"
-          : "Peut convenir à plusieurs styles de jeu",
-      ];
-
-    case "Clavier":
-      return [
-        "Catégorie : Clavier gaming",
-        title.includes("mecanique") || title.includes("mechanical")
-          ? "Frappe plus nette et plus réactive"
-          : "Peut améliorer le confort de jeu au quotidien",
-        title.includes("sans fil") || title.includes("wireless")
-          ? "Plus de liberté sur le bureau"
-          : "Bon ajout pour un setup gamer stable",
-      ];
-
-    case "Casque":
-      return [
-        "Catégorie : Casque gaming",
-        "Utile pour l’immersion et les communications en jeu",
-        title.includes("wireless") || title.includes("sans fil")
-          ? "Version pensée pour plus de liberté"
-          : "Peut convenir aux longues sessions gaming",
-      ];
-
-    case "Micro":
-      return [
-        "Catégorie : Micro gaming",
-        "Permet d’améliorer la clarté de la voix",
-        "Utile pour le jeu en ligne, le stream ou les appels",
-      ];
-
-    case "Webcam":
-      return [
-        "Catégorie : Webcam gaming",
-        "Intéressante pour le stream et la visio",
-        "Peut améliorer le rendu vidéo d’un setup",
-      ];
-
-    case "Chaise":
-      return [
-        "Catégorie : Chaise gaming",
-        "Pensée pour améliorer le confort d’assise",
-        "Utile pour les longues sessions de jeu ou de travail",
-      ];
-
-    case "Bureau":
-      return [
-        "Catégorie : Bureau gamer",
-        "Aide à construire un setup plus propre et mieux organisé",
-        "Intéressant pour le confort et la stabilité du poste",
-      ];
-
-    default:
-      return [
-        `Catégorie : ${product.category}`,
-        "Produit sélectionné pour setup gaming",
-        "Consultation du prix via Amazon",
-      ];
-  }
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
   const product = getProduct(id);
@@ -248,7 +100,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export function generateStaticParams() {
-  return (amazonProducts as Product[]).map((product) => ({
+  return amazonProducts.map((product) => ({
     id: product.id,
   }));
 }
@@ -271,10 +123,10 @@ export default async function ProductPage({ params }: PageProps) {
   const description =
     product.subtitle || `${product.title} : sélection gaming recommandée par Nexus Gaming FR.`;
 
-  const recommendation = product.recommendation || getDefaultRecommendation(product);
-  const facts = product.facts?.length ? product.facts : getDefaultFacts(product);
+  const recommendation = getUniqueRecommendation(product);
+  const facts = getUniqueFacts(product);
 
-  const similarProducts = (amazonProducts as Product[])
+  const similarProducts = amazonProducts
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
 
@@ -435,8 +287,7 @@ export default async function ProductPage({ params }: PageProps) {
                   <h3 className="mt-2 font-bold">{item.title}</h3>
 
                   <p className="mt-2 text-sm text-white/65">
-                    {item.recommendation ||
-                      "Une alternative intéressante dans la même catégorie."}
+                    {getUniqueRecommendation(item)}
                   </p>
 
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -447,12 +298,12 @@ export default async function ProductPage({ params }: PageProps) {
                       Voir la fiche
                     </Link>
 
-                    <Link
-                      href={`/compare/${product.id}-vs-${item.id}`}
+                    <a
+                      href={`/go/${item.id}`}
                       className="rounded-xl border border-white/10 px-3 py-2 text-sm font-semibold text-white hover:bg-white/5"
                     >
-                      Comparer
-                    </Link>
+                      Amazon
+                    </a>
                   </div>
                 </article>
               ))}
