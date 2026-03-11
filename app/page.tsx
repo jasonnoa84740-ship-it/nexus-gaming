@@ -16,7 +16,7 @@ type Product = {
   subtitle: string;
   href: string;
   badge?: string;
-  price?: string;
+  priceLabel?: string;
   rating?: number;
 };
 
@@ -30,37 +30,37 @@ const categories: Category[] = [
   {
     title: "Souris Gaming",
     description: "Précision, légèreté et réactivité pour FPS, MMO et jeux compétitifs.",
-    href: "/categories/souris-gaming",
+    href: "/products",
     emoji: "🖱️",
   },
   {
     title: "Claviers Gaming",
     description: "Claviers mécaniques performants pour améliorer ton confort et ta vitesse.",
-    href: "/categories/claviers-gaming",
+    href: "/products",
     emoji: "⌨️",
   },
   {
     title: "Casques Gaming",
     description: "Immersion, bon micro et confort pour jouer longtemps sans compromis.",
-    href: "/categories/casques-gaming",
+    href: "/products",
     emoji: "🎧",
   },
   {
     title: "Écrans Gaming",
     description: "144Hz, 240Hz et dalles rapides pour un gameplay fluide et net.",
-    href: "/categories/ecrans-gaming",
+    href: "/products",
     emoji: "🖥️",
   },
   {
     title: "Bureaux Gamer",
     description: "Des bureaux solides et pratiques pour un setup propre et efficace.",
-    href: "/categories/bureaux-gamer",
+    href: "/products",
     emoji: "🪑",
   },
   {
     title: "Chaises Gaming",
     description: "Confort et maintien pour les longues sessions de jeu ou de stream.",
-    href: "/categories/chaises-gaming",
+    href: "/products",
     emoji: "💺",
   },
 ];
@@ -69,25 +69,25 @@ const featuredProducts: Product[] = [
   {
     title: "Logitech G Pro X Superlight",
     subtitle: "Une souris gaming ultra légère très appréciée pour les jeux compétitifs.",
-    href: "/go/logitech-g-pro-x-superlight",
+    href: "/products",
     badge: "Top FPS",
-    price: "Voir le prix",
+    priceLabel: "Voir le prix",
     rating: 4.8,
   },
   {
     title: "SteelSeries Arctis Nova 7",
     subtitle: "Casque gaming confortable avec bon son, bon micro et excellente polyvalence.",
-    href: "/go/steelseries-arctis-nova-7",
+    href: "/products",
     badge: "Très recommandé",
-    price: "Voir le prix",
+    priceLabel: "Voir le prix",
     rating: 4.7,
   },
   {
     title: "ASUS TUF Gaming 144Hz",
     subtitle: "Un écran gaming fluide et efficace pour booster ton setup sans te ruiner.",
-    href: "/go/asus-tuf-gaming-144hz",
+    href: "/products",
     badge: "Bon rapport qualité/prix",
-    price: "Voir le prix",
+    priceLabel: "Voir le prix",
     rating: 4.6,
   },
 ];
@@ -96,52 +96,53 @@ const guides: Guide[] = [
   {
     title: "Meilleure souris gaming",
     description: "Notre sélection des meilleures souris gaming selon ton budget et ton style de jeu.",
-    href: "/guides/meilleure-souris-gaming",
+    href: "/blog/guide-souris-gaming",
   },
   {
     title: "Meilleur casque gaming",
     description: "Compare les meilleurs casques gamer pour le confort, le son et le micro.",
-    href: "/guides/meilleur-casque-gaming",
+    href: "/blog/guide-casque-gaming",
   },
   {
     title: "Meilleur clavier gaming",
     description: "Les meilleurs claviers mécaniques gaming pour FPS, MMO et usage polyvalent.",
-    href: "/guides/meilleur-clavier-gaming",
+    href: "/blog/guide-clavier-gaming",
   },
   {
     title: "Meilleur écran gaming 144Hz",
     description: "Notre guide pour choisir un écran gaming fluide, net et adapté à ton setup.",
-    href: "/guides/meilleur-ecran-gaming-144hz",
+    href: "/blog/comment-choisir-un-ecran-gaming",
   },
   {
     title: "Meilleure chaise gaming",
     description: "Trouve une chaise gamer confortable et adaptée aux longues sessions.",
-    href: "/guides/meilleure-chaise-gaming",
+    href: "/blog/comment-choisir-une-chaise-gaming",
   },
   {
     title: "Meilleur bureau gamer",
     description: "Les meilleurs bureaux pour construire un setup gaming propre et pratique.",
-    href: "/guides/meilleur-bureau-gamer",
+    href: "/blog/comment-choisir-un-bureau-gaming",
   },
 ];
 
 const faq = [
   {
     q: "NexusGamingFR vend-il directement les produits ?",
-    a: "Non. NexusGamingFR sélectionne, compare et recommande des équipements gaming. Les achats se font ensuite sur Amazon via nos liens partenaires.",
+    a: "Non. NexusGamingFR sélectionne, compare et recommande des équipements gaming. Les achats se font ensuite via les pages produits et les liens partenaires.",
   },
   {
     q: "Comment choisissez-vous les produits ?",
-    a: "Nous mettons en avant des produits populaires, bien notés et pertinents pour améliorer un setup gaming selon différents budgets.",
+    a: "Nous mettons en avant des produits populaires, utiles pour un setup gaming et pertinents selon différents budgets.",
   },
   {
-    q: "Pourquoi passer par vos guides d’achat ?",
-    a: "Parce qu’un bon guide permet de comparer rapidement les options, d’éviter les mauvais achats et de trouver le bon produit selon ses besoins.",
+    q: "Pourquoi consulter les guides d’achat ?",
+    a: "Les guides permettent de comparer rapidement les options, de mieux comprendre les critères importants et de choisir un produit plus facilement.",
   },
 ];
 
 function Stars({ value = 4.8 }: { value?: number }) {
   const rounded = Math.round(value);
+
   return (
     <div className="flex items-center gap-1" aria-label={`Note ${value} sur 5`}>
       <div className="flex">
@@ -186,11 +187,6 @@ export default function HomePage() {
     "@type": "WebSite",
     name: "NexusGamingFR",
     url: "https://nexusgamingfr.com",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://nexusgamingfr.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
   };
 
   const organizationSchema = {
@@ -198,7 +194,6 @@ export default function HomePage() {
     "@type": "Organization",
     name: "NexusGamingFR",
     url: "https://nexusgamingfr.com",
-    logo: "https://nexusgamingfr.com/logo.png",
   };
 
   const faqSchema = {
@@ -232,7 +227,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main className="min-h-screen bg-[#0a0a0f] text-white">
+      <main className="min-h-screen bg-[#05060a] text-white">
         <section className="relative overflow-hidden border-b border-white/10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.22),transparent_35%),radial-gradient(circle_at_right,rgba(59,130,246,0.16),transparent_30%)]" />
           <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
@@ -243,17 +238,17 @@ export default function HomePage() {
               className="mx-auto max-w-4xl text-center"
             >
               <span className="inline-flex items-center rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-1 text-sm text-fuchsia-200">
-                🎮 Guides, comparatifs et sélections Amazon gaming
+                🎮 Guides, comparatifs et sélections gaming
               </span>
 
               <h1 className="mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-                Les meilleurs équipements gaming sur Amazon en {year}
+                Les meilleurs équipements gaming en {year}
               </h1>
 
               <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
                 NexusGamingFR t’aide à comparer les meilleurs écrans gaming, souris,
                 claviers mécaniques, casques, bureaux gamer, chaises et accessoires
-                pour améliorer ton setup au meilleur prix.
+                pour améliorer ton setup plus facilement.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -275,19 +270,19 @@ export default function HomePage() {
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
                   <p className="text-2xl font-black">Setup</p>
                   <p className="mt-1 text-sm text-white/65">
-                    Sélections pour améliorer ton bureau gaming
+                    Des sélections utiles pour améliorer ton bureau gaming
                   </p>
                 </div>
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
                   <p className="text-2xl font-black">Guides</p>
                   <p className="mt-1 text-sm text-white/65">
-                    Comparatifs simples pour choisir plus vite
+                    Des articles pour choisir plus vite et éviter les mauvais achats
                   </p>
                 </div>
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-2xl font-black">Amazon</p>
+                  <p className="text-2xl font-black">Comparatifs</p>
                   <p className="mt-1 text-sm text-white/65">
-                    Liens pratiques pour consulter le prix rapidement
+                    Un site pensé pour aider avant de cliquer, pas juste lister des produits
                   </p>
                 </div>
               </div>
@@ -295,7 +290,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <section id="categories" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <SectionTitle
             eyebrow="Catégories"
             title="Trouve rapidement le bon équipement gaming"
@@ -369,7 +364,7 @@ export default function HomePage() {
                   href={product.href}
                   className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-3 font-semibold text-white transition hover:bg-orange-400"
                 >
-                  {product.price ?? "Voir sur Amazon"}
+                  {product.priceLabel ?? "Voir le prix"}
                 </Link>
               </motion.article>
             ))}
@@ -413,7 +408,7 @@ export default function HomePage() {
           <SectionTitle
             eyebrow="Pourquoi NexusGamingFR"
             title="Un site pensé pour aider à choisir plus vite"
-            description="L’idée n’est pas de noyer le visiteur sous 200 produits, mais de l’aider à trouver le bon équipement selon son besoin."
+            description="L’idée n’est pas de noyer le visiteur sous trop de produits, mais de l’aider à trouver le bon équipement selon son besoin."
           />
 
           <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -421,7 +416,7 @@ export default function HomePage() {
               "Sélections claires et utiles",
               "Guides d’achat orientés setup gaming",
               "Navigation simple par catégories",
-              "Liens rapides vers Amazon",
+              "Accès rapide aux produits",
             ].map((item) => (
               <div
                 key={item}
@@ -461,19 +456,19 @@ export default function HomePage() {
               Commence par les meilleurs guides du site
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-white/70">
-              Si ton objectif est d’avoir plus de trafic et plus de clics Amazon,
-              les comparatifs et guides d’achat sont le levier le plus rentable.
+              Si ton objectif est d’avoir plus de trafic et plus de clics, les comparatifs
+              et guides d’achat sont le levier le plus rentable.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/guides/meilleure-souris-gaming"
+                href="/blog/guide-souris-gaming"
                 className="rounded-2xl bg-fuchsia-600 px-6 py-3 font-semibold text-white transition hover:bg-fuchsia-500"
               >
                 Voir le guide souris gaming
               </Link>
               <Link
-                href="/guides/meilleur-casque-gaming"
+                href="/blog/guide-casque-gaming"
                 className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
               >
                 Voir le guide casque gaming
@@ -489,7 +484,7 @@ export default function HomePage() {
                 <h3 className="text-lg font-bold">NexusGamingFR</h3>
                 <p className="mt-3 text-sm leading-6 text-white/65">
                   Sélections, guides et comparatifs pour améliorer ton setup gaming
-                  avec des produits populaires disponibles sur Amazon.
+                  avec des produits populaires et des conseils simples à suivre.
                 </p>
               </div>
 
@@ -504,18 +499,13 @@ export default function HomePage() {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/contact" className="hover:text-white">
-                      Contact
+                    <Link href="/blog" className="hover:text-white">
+                      Blog
                     </Link>
                   </li>
                   <li>
-                    <Link href="/guides" className="hover:text-white">
-                      Guides
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/categories" className="hover:text-white">
-                      Catégories
+                    <Link href="/products" className="hover:text-white">
+                      Produits
                     </Link>
                   </li>
                 </ul>
@@ -523,21 +513,16 @@ export default function HomePage() {
 
               <div>
                 <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">
-                  Informations légales
+                  Informations
                 </h3>
                 <ul className="mt-3 space-y-2 text-sm text-white/65">
                   <li>
-                    <Link href="/mentions-legales" className="hover:text-white">
-                      Mentions légales
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/politique-de-confidentialite" className="hover:text-white">
+                    <Link href="/privacy" className="hover:text-white">
                       Politique de confidentialité
                     </Link>
                   </li>
                   <li>
-                    <Link href="/conditions-utilisation" className="hover:text-white">
+                    <Link href="/terms" className="hover:text-white">
                       Conditions d’utilisation
                     </Link>
                   </li>
