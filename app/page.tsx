@@ -171,7 +171,7 @@ export default function HomePage() {
               </span>
 
               <h1 className="mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-                Les meilleurs équipements gaming en {year}
+                Les meilleurs équipements gaming en {new Date().getFullYear()}
               </h1>
 
               <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
