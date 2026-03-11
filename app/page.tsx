@@ -250,9 +250,9 @@ export default function HomePage() {
 
         <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <SectionTitle
-            eyebrow="Fonctions"
-            title="Le site passe en mode gros setup gaming"
-            description="Toutes les pages qui peuvent t’aider à gagner du trafic, des clics Amazon et du temps utilisateur."
+            eyebrow="Explorer"
+            title="Tout pour trouver le bon setup gaming"
+            description="Compare, explore et découvre les meilleures pages du site pour choisir ton équipement plus facilement."
           />
 
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
