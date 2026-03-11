@@ -3,115 +3,132 @@
 import Link from "next/link";
 import Script from "next/script";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const categories = [
   {
     title: "Souris Gaming",
-    description: "Précision, légèreté et réactivité pour FPS, MMO et jeux compétitifs.",
+    description: "Précision, légèreté et réactivité pour FPS et jeux compétitifs.",
     href: "/products?category=souris",
     emoji: "🖱️",
   },
   {
     title: "Claviers Gaming",
-    description: "Claviers mécaniques performants pour améliorer ton confort et ta vitesse.",
+    description: "Claviers mécaniques performants pour améliorer ton confort.",
     href: "/products?category=claviers",
     emoji: "⌨️",
   },
   {
     title: "Casques Gaming",
-    description: "Immersion, bon micro et confort pour jouer longtemps sans compromis.",
+    description: "Immersion audio, micro clair et confort pour longues sessions.",
     href: "/products?category=casques",
     emoji: "🎧",
   },
   {
     title: "Écrans Gaming",
-    description: "144Hz, 240Hz et dalles rapides pour un gameplay fluide et net.",
+    description: "144Hz, 240Hz et dalles rapides pour un gameplay fluide.",
     href: "/products?category=ecrans",
     emoji: "🖥️",
   },
   {
     title: "Micros Gaming",
-    description: "Pour stream, Discord et améliorer la clarté de ta voix.",
+    description: "Améliore la qualité de ta voix pour Discord et stream.",
     href: "/products?category=micros",
     emoji: "🎙️",
   },
   {
     title: "Webcams Gaming",
-    description: "Idéales pour le stream, la visio et un setup créateur.",
+    description: "Streaming et visio plus propres pour ton setup.",
     href: "/products?category=webcams",
     emoji: "📷",
   },
   {
     title: "Chaises Gaming",
-    description: "Confort et maintien pour les longues sessions.",
+    description: "Confort et maintien pour jouer plus longtemps.",
     href: "/products?category=chaises",
     emoji: "💺",
   },
   {
     title: "Bureaux Gamer",
-    description: "Des bureaux propres et pratiques pour un setup bien organisé.",
+    description: "Des bureaux adaptés pour un setup propre et organisé.",
     href: "/products?category=bureaux",
     emoji: "🪑",
   },
 ];
 
-const sections = [
+const brands = [
+  { name: "Logitech", href: "/brands/logitech" },
+  { name: "Razer", href: "/brands/razer" },
+  { name: "HyperX", href: "/brands/hyperx" },
+  { name: "Corsair", href: "/brands/corsair" },
+  { name: "SteelSeries", href: "/brands/steelseries" },
+];
+
+const featuredSections = [
   {
     title: "Comparer 2 produits",
-    description: "Affronte deux périphériques en duel pour voir lequel colle le mieux à ton besoin.",
+    description: "Affronte deux périphériques gaming pour voir lequel te correspond le mieux.",
     href: "/compare/logitech-g-pro-x-superlight-vs-razer-viper-v2-pro",
-    cta: "Lancer un comparatif",
+    cta: "Voir le comparatif",
   },
   {
     title: "Build ton setup",
-    description: "Choisis un budget et récupère une sélection complète d’accessoires gaming.",
+    description: "Choisis ton budget et découvre une sélection d’équipements gaming.",
     href: "/build-my-setup",
     cta: "Construire mon setup",
   },
   {
     title: "Quiz setup gamer",
-    description: "Réponds à quelques questions et obtiens une reco adaptée à ton style de jeu.",
+    description: "Réponds à quelques questions et récupère une recommandation adaptée.",
     href: "/quiz",
     cta: "Faire le quiz",
   },
   {
-    title: "Top produits par catégorie",
-    description: "Découvre des tops dédiés pour souris, casques, écrans, claviers et plus.",
-    href: "/top/souris",
-    cta: "Voir les tops",
-  },
-  {
     title: "Deals gaming",
-    description: "Une page spéciale pour les produits à surveiller et les bons plans setup.",
+    description: "Découvre les bons plans setup et les produits à surveiller.",
     href: "/deals",
     cta: "Voir les deals",
   },
   {
     title: "Setups de pro gamers",
-    description: "Découvre des sélections inspirées des setups des joueurs compétitifs.",
+    description: "Explore des setups inspirés des joueurs compétitifs et streamers.",
     href: "/pro-gamer-setups",
     cta: "Voir les setups",
   },
+  {
+    title: "Setups par budget",
+    description: "500€, 1000€, 2000€ : trouve une base cohérente selon ton budget.",
+    href: "/gaming-pc-setup",
+    cta: "Voir les setups budget",
+  },
 ];
 
-const featured = [
+const quickLinks = [
+  { label: "Top souris gaming", href: "/top/souris" },
+  { label: "Top casques gaming", href: "/top/casques" },
+  { label: "Top claviers gaming", href: "/top/claviers" },
+  { label: "Top écrans gaming", href: "/top/ecrans" },
+  { label: "Produits Logitech", href: "/brands/logitech" },
+  { label: "Produits Razer", href: "/brands/razer" },
+  { label: "Produits HyperX", href: "/brands/hyperx" },
+  { label: "Tous les produits", href: "/products" },
+];
+
+const guides = [
   {
-    title: "Top souris gaming",
-    subtitle: "Découvre notre sélection de souris gaming pour FPS, MMO et usage polyvalent.",
-    href: "/products?category=souris",
-    badge: "Top catégorie",
+    title: "Trouver la meilleure souris gaming",
+    description: "Découvre les modèles les plus intéressants selon ton style de jeu.",
+    href: "/blog",
   },
   {
-    title: "Top casques gaming",
-    subtitle: "Trouve un casque gaming confortable avec bon son et bon micro.",
-    href: "/products?category=casques",
-    badge: "Très demandé",
+    title: "Bien choisir son casque gaming",
+    description: "Confort, son, micro : les vrais critères qui comptent.",
+    href: "/blog",
   },
   {
-    title: "Top écrans gaming",
-    subtitle: "Compare les meilleurs écrans gaming pour un setup plus fluide.",
-    href: "/products?category=ecrans",
-    badge: "Bon setup",
+    title: "Construire un setup gaming propre",
+    description: "Bureau, chaise, écran et accessoires pour un setup plus cohérent.",
+    href: "/blog",
   },
 ];
 
@@ -155,223 +172,318 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
 
-      <main className="min-h-screen bg-[#05060a] text-white">
-        <section className="relative overflow-hidden border-b border-white/10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.22),transparent_35%),radial-gradient(circle_at_right,rgba(59,130,246,0.16),transparent_30%)]" />
+      <main className="relative min-h-screen overflow-hidden bg-[#05060a] text-white">
+        {/* Fond global fluide fixe */}
+        <div className="pointer-events-none fixed inset-0 z-0">
+          {/* base gradient */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.18),transparent_28%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_25%),radial-gradient(circle_at_bottom_left,rgba(236,72,153,0.14),transparent_25%),linear-gradient(180deg,#05060a_0%,#070912_35%,#05060a_100%)]" />
 
-          <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mx-auto max-w-4xl text-center"
-            >
-              <span className="inline-flex items-center rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-1 text-sm text-fuchsia-200">
-                🎮 Comparatifs, tops, guides et setups gaming
-              </span>
+          {/* grid */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:44px_44px] opacity-30" />
 
-              <h1 className="mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-                Les meilleurs équipements gaming en {new Date().getFullYear()}
-              </h1>
+          {/* glow blobs */}
+          <div className="absolute -left-24 top-0 h-[420px] w-[420px] rounded-full bg-fuchsia-600/20 blur-3xl" />
+          <div className="absolute right-[-60px] top-[80px] h-[380px] w-[380px] rounded-full bg-cyan-500/20 blur-3xl" />
+          <div className="absolute left-[8%] top-[45%] h-[300px] w-[300px] rounded-full bg-violet-500/10 blur-3xl" />
+          <div className="absolute right-[10%] bottom-[18%] h-[320px] w-[320px] rounded-full bg-pink-500/10 blur-3xl" />
+          <div className="absolute bottom-[-80px] left-[35%] h-[360px] w-[360px] rounded-full bg-blue-500/10 blur-3xl" />
+        </div>
 
-              <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
-                NexusGamingFR t’aide à comparer les meilleurs écrans gaming, souris,
-                claviers, casques, micros, webcams, chaises et bureaux gamer pour
-                améliorer ton setup plus facilement.
-              </p>
+        {/* Logo fixe qui tourne */}
+        <div className="pointer-events-none fixed inset-0 z-[1] flex items-center justify-center">
+          <div className="relative h-[520px] w-[520px] opacity-[0.13] sm:h-[720px] sm:w-[720px]">
+            <div className="absolute inset-0 animate-[spin_45s_linear_infinite]">
+              <Image
+                src="/ng-logo.png"
+                alt="NexusGamingFR background logo"
+                fill
+                priority
+                className="object-contain blur-[1px]"
+              />
+            </div>
 
-              <form
-                action="/search"
-                className="mx-auto mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row"
-              >
-                <input
-                  type="text"
-                  name="q"
-                  placeholder="Recherche une souris, un casque, un guide ou une marque..."
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/35 outline-none"
-                />
-                <button className="rounded-2xl bg-fuchsia-600 px-6 py-4 font-semibold text-white hover:bg-fuchsia-500">
-                  Rechercher
-                </button>
-              </form>
-
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  href="/build-my-setup"
-                  className="rounded-2xl bg-fuchsia-600 px-6 py-3 font-semibold text-white transition hover:bg-fuchsia-500"
-                >
-                  Construire mon setup
-                </Link>
-
-                <Link
-                  href="/quiz"
-                  className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
-                >
-                  Faire le quiz gamer
-                </Link>
-              </div>
-            </motion.div>
+            {/* halo autour du logo */}
+            <div className="absolute inset-0 rounded-full bg-fuchsia-500/10 blur-3xl" />
+            <div className="absolute inset-[12%] rounded-full bg-cyan-500/10 blur-3xl" />
           </div>
-        </section>
+        </div>
 
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <SectionTitle
-            eyebrow="Catégories"
-            title="Trouve rapidement le bon équipement gaming"
-            description="Des catégories claires pour naviguer plus vite et aller directement vers ce qui t’intéresse."
-          />
+        {/* voile pour lisibilité */}
+        <div className="pointer-events-none fixed inset-0 z-[2] bg-[linear-gradient(180deg,rgba(5,6,10,0.30)_0%,rgba(5,6,10,0.12)_25%,rgba(5,6,10,0.12)_75%,rgba(5,6,10,0.30)_100%)]" />
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {categories.map((category, index) => (
+        {/* contenu */}
+        <div className="relative z-10">
+          <section className="px-4 pt-20 pb-16 sm:px-6 lg:px-8 lg:pt-28 lg:pb-24">
+            <div className="mx-auto max-w-7xl">
               <motion.div
-                key={category.title}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.03 }}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mx-auto max-w-4xl text-center"
               >
-                <Link
-                  href={category.href}
-                  className="block rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10"
+                <span className="inline-flex items-center rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-1 text-sm text-fuchsia-200 shadow-[0_0_30px_rgba(217,70,239,0.15)] backdrop-blur-md">
+                  🎮 Comparatifs, guides, tops et équipements gaming
+                </span>
+
+                <h1 className="mt-6 bg-gradient-to-r from-white via-fuchsia-100 to-cyan-100 bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+                  Les meilleurs équipements gaming pour ton setup
+                </h1>
+
+                <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
+                  NexusGamingFR t’aide à comparer les meilleurs écrans gaming, souris,
+                  claviers, casques, micros, webcams, chaises et bureaux gamer pour
+                  améliorer ton setup plus facilement.
+                </p>
+
+                <form
+                  action="/search"
+                  className="mx-auto mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row"
                 >
-                  <div className="text-3xl">{category.emoji}</div>
-                  <h3 className="mt-4 text-xl font-bold">{category.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/65">
-                    {category.description}
-                  </p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-fuchsia-300">
-                    Explorer la catégorie →
-                  </span>
-                </Link>
+                  <input
+                    type="text"
+                    name="q"
+                    placeholder="Recherche une souris, un casque, une marque ou un guide..."
+                    className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/35 outline-none backdrop-blur-md"
+                  />
+                  <button className="rounded-2xl bg-fuchsia-600 px-6 py-4 font-semibold text-white shadow-[0_0_30px_rgba(217,70,239,0.25)] transition hover:bg-fuchsia-500">
+                    Rechercher
+                  </button>
+                </form>
+
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                  <Link
+                    href="/build-my-setup"
+                    className="rounded-2xl bg-fuchsia-600 px-6 py-3 font-semibold text-white shadow-[0_0_30px_rgba(217,70,239,0.25)] transition hover:bg-fuchsia-500"
+                  >
+                    Construire mon setup
+                  </Link>
+
+                  <Link
+                    href="/products"
+                    className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur-md transition hover:bg-white/10"
+                  >
+                    Voir les produits
+                  </Link>
+                </div>
+
+                <div className="mt-10 flex flex-wrap justify-center gap-3 text-sm text-white/70">
+                  <Link href="/top/souris" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                    Top souris
+                  </Link>
+                  <Link href="/top/casques" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                    Top casques
+                  </Link>
+                  <Link href="/top/ecrans" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                    Top écrans
+                  </Link>
+                  <Link href="/brands/logitech" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                    Logitech
+                  </Link>
+                  <Link href="/brands/razer" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                    Razer
+                  </Link>
+                </div>
               </motion.div>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <SectionTitle
-            eyebrow="Explorer"
-            title="Tout pour trouver le bon setup gaming"
-            description="Compare, explore et découvre les meilleures pages du site pour choisir ton équipement plus facilement."
-          />
+          <section className="px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+              <SectionTitle
+                eyebrow="Catégories"
+                title="Trouve rapidement le bon équipement gaming"
+                description="Des catégories claires pour naviguer plus vite et aller directement vers ce qui t’intéresse."
+              />
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {sections.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10"
-              >
-                <h3 className="text-xl font-bold">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/65">
-                  {item.description}
-                </p>
-                <span className="mt-5 inline-block text-sm font-semibold text-fuchsia-300">
-                  {item.cta} →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <SectionTitle
-            eyebrow="Sélection"
-            title="Produits gaming recommandés"
-            description="Une sélection rapide de catégories populaires pour aller droit au but."
-          />
-
-          <div className="mt-8 grid gap-6 lg:grid-cols-3">
-            {featured.map((product) => (
-              <article
-                key={product.title}
-                className="rounded-3xl border border-white/10 bg-white/5 p-6"
-              >
-                <span className="inline-flex rounded-full border border-orange-400/30 bg-orange-400/10 px-3 py-1 text-xs font-semibold text-orange-200">
-                  {product.badge}
-                </span>
-
-                <h3 className="mt-4 text-xl font-bold">{product.title}</h3>
-
-                <p className="mt-3 text-sm leading-6 text-white/70">
-                  {product.subtitle}
-                </p>
-
-                <Link
-                  href={product.href}
-                  className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-3 font-semibold text-white transition hover:bg-orange-400"
-                >
-                  Voir la sélection
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <footer className="border-t border-white/10">
-          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-            <div className="grid gap-8 md:grid-cols-3">
-              <div>
-                <h3 className="text-lg font-bold">NexusGamingFR</h3>
-                <p className="mt-3 text-sm leading-6 text-white/65">
-                  Sélections, guides, comparatifs et setups pour améliorer ton
-                  setup gaming avec des produits populaires et des conseils simples
-                  à suivre.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">
-                  Navigation
-                </h3>
-                <ul className="mt-3 space-y-2 text-sm text-white/65">
-                  <li>
-                    <Link href="/a-propos" className="hover:text-white">
-                      À propos
+              <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {categories.map((category, index) => (
+                  <motion.div
+                    key={category.title}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.03 }}
+                  >
+                    <Link
+                      href={category.href}
+                      className="block rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/10"
+                    >
+                      <div className="text-3xl">{category.emoji}</div>
+                      <h3 className="mt-4 text-xl font-bold">{category.title}</h3>
+                      <p className="mt-2 text-sm leading-6 text-white/65">
+                        {category.description}
+                      </p>
+                      <span className="mt-4 inline-block text-sm font-semibold text-fuchsia-300">
+                        Explorer la catégorie →
+                      </span>
                     </Link>
-                  </li>
-                  <li>
-                    <Link href="/blog" className="hover:text-white">
-                      Blog
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/products" className="hover:text-white">
-                      Produits
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">
-                  Informations
-                </h3>
-                <ul className="mt-3 space-y-2 text-sm text-white/65">
-                  <li>
-                    <Link href="/privacy" className="hover:text-white">
-                      Politique de confidentialité
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/terms" className="hover:text-white">
-                      Conditions d’utilisation
-                    </Link>
-                  </li>
-                </ul>
+                  </motion.div>
+                ))}
               </div>
             </div>
+          </section>
 
-            <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white/60">
-              En tant que Partenaire Amazon, NexusGamingFR réalise un bénéfice sur
-              les achats remplissant les conditions requises.
-            </div>
+          <section className="px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+              <SectionTitle
+                eyebrow="Marques"
+                title="Marques gaming populaires"
+                description="Explore rapidement les produits des marques les plus recherchées."
+              />
 
-            <div className="mt-6 text-xs text-white/40">
-              © {year} NexusGamingFR. Tous droits réservés.
+              <div className="mt-8 flex flex-wrap gap-4">
+                {brands.map((brand) => (
+                  <Link
+                    key={brand.name}
+                    href={brand.href}
+                    className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur-md transition hover:bg-white/10"
+                  >
+                    {brand.name}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </footer>
+          </section>
+
+          <section className="px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+              <SectionTitle
+                eyebrow="Explorer"
+                title="Tout pour trouver le bon setup gaming"
+                description="Compare, explore et découvre les meilleures pages du site pour choisir ton équipement plus facilement."
+              />
+
+              <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {featuredSections.map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/10"
+                  >
+                    <h3 className="text-xl font-bold">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-white/65">
+                      {item.description}
+                    </p>
+                    <span className="mt-5 inline-block text-sm font-semibold text-fuchsia-300">
+                      {item.cta} →
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+              <SectionTitle
+                eyebrow="Accès rapide"
+                title="Pages utiles et recherches populaires"
+                description="Un menu plus riche pour naviguer plus vite dans le site."
+              />
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {quickLinks.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 font-medium text-white/85 backdrop-blur-md transition hover:bg-white/10 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+              <SectionTitle
+                eyebrow="Guides"
+                title="Guides populaires pour améliorer ton setup"
+                description="Des contenus utiles pour choisir plus facilement ton équipement gaming."
+              />
+
+              <div className="mt-8 grid gap-6 lg:grid-cols-3">
+                {guides.map((guide) => (
+                  <article
+                    key={guide.title}
+                    className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md"
+                  >
+                    <h3 className="text-xl font-bold">{guide.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-white/70">
+                      {guide.description}
+                    </p>
+                    <Link
+                      href={guide.href}
+                      className="mt-6 inline-flex rounded-2xl bg-fuchsia-600 px-5 py-3 font-semibold text-white shadow-[0_0_25px_rgba(217,70,239,0.2)] transition hover:bg-fuchsia-500"
+                    >
+                      Voir les guides
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <footer className="px-4 pt-10 pb-12 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+              <div className="grid gap-8 md:grid-cols-4">
+                <div>
+                  <h3 className="text-lg font-bold">NexusGamingFR</h3>
+                  <p className="mt-3 text-sm leading-6 text-white/65">
+                    Sélections, comparatifs, guides et setups pour améliorer ton
+                    setup gaming avec des produits populaires et des conseils simples.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">
+                    Produits
+                  </h3>
+                  <ul className="mt-3 space-y-2 text-sm text-white/65">
+                    <li><Link href="/products?category=souris" className="hover:text-white">Souris gaming</Link></li>
+                    <li><Link href="/products?category=claviers" className="hover:text-white">Claviers gaming</Link></li>
+                    <li><Link href="/products?category=casques" className="hover:text-white">Casques gaming</Link></li>
+                    <li><Link href="/products?category=ecrans" className="hover:text-white">Écrans gaming</Link></li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">
+                    Explorer
+                  </h3>
+                  <ul className="mt-3 space-y-2 text-sm text-white/65">
+                    <li><Link href="/build-my-setup" className="hover:text-white">Build ton setup</Link></li>
+                    <li><Link href="/quiz" className="hover:text-white">Quiz gamer</Link></li>
+                    <li><Link href="/deals" className="hover:text-white">Deals gaming</Link></li>
+                    <li><Link href="/pro-gamer-setups" className="hover:text-white">Setups de pro gamers</Link></li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">
+                    Informations
+                  </h3>
+                  <ul className="mt-3 space-y-2 text-sm text-white/65">
+                    <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
+                    <li><Link href="/privacy" className="hover:text-white">Politique de confidentialité</Link></li>
+                    <li><Link href="/terms" className="hover:text-white">Conditions d’utilisation</Link></li>
+                    <li><Link href="/search" className="hover:text-white">Recherche</Link></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white/60 backdrop-blur-md">
+                En tant que Partenaire Amazon, NexusGamingFR réalise un bénéfice sur
+                les achats remplissant les conditions requises.
+              </div>
+
+              <div className="mt-6 text-xs text-white/40">
+                © {year} NexusGamingFR. Tous droits réservés.
+              </div>
+            </div>
+          </footer>
+        </div>
       </main>
     </>
   );
