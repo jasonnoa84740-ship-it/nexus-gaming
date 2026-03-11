@@ -67,19 +67,22 @@ const brands = [
 const featuredSections = [
   {
     title: "Comparer 2 produits",
-    description: "Affronte deux périphériques gaming pour voir lequel te correspond le mieux.",
+    description:
+      "Affronte deux périphériques gaming pour voir lequel te correspond le mieux.",
     href: "/compare/logitech-g-pro-x-superlight-vs-razer-viper-v2-pro",
     cta: "Voir le comparatif",
   },
   {
     title: "Build ton setup",
-    description: "Choisis ton budget et découvre une sélection d’équipements gaming.",
+    description:
+      "Choisis ton budget et découvre une sélection d’équipements gaming.",
     href: "/build-my-setup",
     cta: "Construire mon setup",
   },
   {
     title: "Quiz setup gamer",
-    description: "Réponds à quelques questions et récupère une recommandation adaptée.",
+    description:
+      "Réponds à quelques questions et récupère une recommandation adaptée.",
     href: "/quiz",
     cta: "Faire le quiz",
   },
@@ -91,13 +94,15 @@ const featuredSections = [
   },
   {
     title: "Setups de pro gamers",
-    description: "Explore des setups inspirés des joueurs compétitifs et streamers.",
+    description:
+      "Explore des setups inspirés des joueurs compétitifs et streamers.",
     href: "/pro-gamer-setups",
     cta: "Voir les setups",
   },
   {
     title: "Setups par budget",
-    description: "500€, 1000€, 2000€ : trouve une base cohérente selon ton budget.",
+    description:
+      "500€, 1000€, 2000€ : trouve une base cohérente selon ton budget.",
     href: "/gaming-pc-setup",
     cta: "Voir les setups budget",
   },
@@ -117,7 +122,8 @@ const quickLinks = [
 const guides = [
   {
     title: "Trouver la meilleure souris gaming",
-    description: "Découvre les modèles les plus intéressants selon ton style de jeu.",
+    description:
+      "Découvre les modèles les plus intéressants selon ton style de jeu.",
     href: "/blog",
   },
   {
@@ -127,7 +133,8 @@ const guides = [
   },
   {
     title: "Construire un setup gaming propre",
-    description: "Bureau, chaise, écran et accessoires pour un setup plus cohérent.",
+    description:
+      "Bureau, chaise, écran et accessoires pour un setup plus cohérent.",
     href: "/blog",
   },
 ];
@@ -173,23 +180,10 @@ export default function HomePage() {
       />
 
       <main className="relative min-h-screen overflow-hidden bg-[#05060a] text-white">
-        {/* Fond global fluide fixe */}
-        <div className="pointer-events-none fixed inset-0 z-0">
-          {/* base gradient */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.18),transparent_28%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_25%),radial-gradient(circle_at_bottom_left,rgba(236,72,153,0.14),transparent_25%),linear-gradient(180deg,#05060a_0%,#070912_35%,#05060a_100%)]" />
+        <div className="nx-bg" />
+        <div className="nx-glow" />
+        <div className="nx-watermark" />
 
-          {/* grid */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:44px_44px] opacity-30" />
-
-          {/* glow blobs */}
-          <div className="absolute -left-24 top-0 h-[420px] w-[420px] rounded-full bg-fuchsia-600/20 blur-3xl" />
-          <div className="absolute right-[-60px] top-[80px] h-[380px] w-[380px] rounded-full bg-cyan-500/20 blur-3xl" />
-          <div className="absolute left-[8%] top-[45%] h-[300px] w-[300px] rounded-full bg-violet-500/10 blur-3xl" />
-          <div className="absolute right-[10%] bottom-[18%] h-[320px] w-[320px] rounded-full bg-pink-500/10 blur-3xl" />
-          <div className="absolute bottom-[-80px] left-[35%] h-[360px] w-[360px] rounded-full bg-blue-500/10 blur-3xl" />
-        </div>
-
-        {/* Logo fixe qui tourne */}
         <div className="pointer-events-none fixed inset-0 z-[1] flex items-center justify-center">
           <div className="relative h-[520px] w-[520px] opacity-[0.13] sm:h-[720px] sm:w-[720px]">
             <div className="absolute inset-0 animate-[spin_45s_linear_infinite]">
@@ -201,17 +195,13 @@ export default function HomePage() {
                 className="object-contain blur-[1px]"
               />
             </div>
-
-            {/* halo autour du logo */}
             <div className="absolute inset-0 rounded-full bg-fuchsia-500/10 blur-3xl" />
             <div className="absolute inset-[12%] rounded-full bg-cyan-500/10 blur-3xl" />
           </div>
         </div>
 
-        {/* voile pour lisibilité */}
-        <div className="pointer-events-none fixed inset-0 z-[2] bg-[linear-gradient(180deg,rgba(5,6,10,0.30)_0%,rgba(5,6,10,0.12)_25%,rgba(5,6,10,0.12)_75%,rgba(5,6,10,0.30)_100%)]" />
+        <div className="pointer-events-none fixed inset-0 z-[2] bg-[linear-gradient(180deg,rgba(5,6,10,0.32)_0%,rgba(5,6,10,0.12)_25%,rgba(5,6,10,0.12)_75%,rgba(5,6,10,0.32)_100%)]" />
 
-        {/* contenu */}
         <div className="relative z-10">
           <section className="px-4 pt-20 pb-16 sm:px-6 lg:px-8 lg:pt-28 lg:pb-24">
             <div className="mx-auto max-w-7xl">
@@ -230,9 +220,9 @@ export default function HomePage() {
                 </h1>
 
                 <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
-                  NexusGamingFR t’aide à comparer les meilleurs écrans gaming, souris,
-                  claviers, casques, micros, webcams, chaises et bureaux gamer pour
-                  améliorer ton setup plus facilement.
+                  NexusGamingFR t’aide à comparer les meilleurs écrans gaming,
+                  souris, claviers, casques, micros, webcams, chaises et bureaux
+                  gamer pour améliorer ton setup plus facilement.
                 </p>
 
                 <form
@@ -243,9 +233,9 @@ export default function HomePage() {
                     type="text"
                     name="q"
                     placeholder="Recherche une souris, un casque, une marque ou un guide..."
-                    className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/35 outline-none backdrop-blur-md"
+                    className="nx-input px-5 py-4"
                   />
-                  <button className="rounded-2xl bg-fuchsia-600 px-6 py-4 font-semibold text-white shadow-[0_0_30px_rgba(217,70,239,0.25)] transition hover:bg-fuchsia-500">
+                  <button className="nx-btn nx-btn-primary px-6 py-4 text-white">
                     Rechercher
                   </button>
                 </form>
@@ -253,33 +243,48 @@ export default function HomePage() {
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                   <Link
                     href="/build-my-setup"
-                    className="rounded-2xl bg-fuchsia-600 px-6 py-3 font-semibold text-white shadow-[0_0_30px_rgba(217,70,239,0.25)] transition hover:bg-fuchsia-500"
+                    className="nx-btn nx-btn-primary px-6 py-3 text-white"
                   >
                     Construire mon setup
                   </Link>
 
                   <Link
                     href="/products"
-                    className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur-md transition hover:bg-white/10"
+                    className="nx-btn nx-btn-ghost px-6 py-3 text-white"
                   >
                     Voir les produits
                   </Link>
                 </div>
 
                 <div className="mt-10 flex flex-wrap justify-center gap-3 text-sm text-white/70">
-                  <Link href="/top/souris" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                  <Link
+                    href="/top/souris"
+                    className="nx-btn nx-btn-ghost rounded-full px-4 py-2"
+                  >
                     Top souris
                   </Link>
-                  <Link href="/top/casques" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                  <Link
+                    href="/top/casques"
+                    className="nx-btn nx-btn-ghost rounded-full px-4 py-2"
+                  >
                     Top casques
                   </Link>
-                  <Link href="/top/ecrans" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                  <Link
+                    href="/top/ecrans"
+                    className="nx-btn nx-btn-ghost rounded-full px-4 py-2"
+                  >
                     Top écrans
                   </Link>
-                  <Link href="/brands/logitech" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                  <Link
+                    href="/brands/logitech"
+                    className="nx-btn nx-btn-ghost rounded-full px-4 py-2"
+                  >
                     Logitech
                   </Link>
-                  <Link href="/brands/razer" className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md hover:bg-white/10">
+                  <Link
+                    href="/brands/razer"
+                    className="nx-btn nx-btn-ghost rounded-full px-4 py-2"
+                  >
                     Razer
                   </Link>
                 </div>
@@ -306,7 +311,7 @@ export default function HomePage() {
                   >
                     <Link
                       href={category.href}
-                      className="block rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/10"
+                      className="nx-card nx-hover-glow block p-6"
                     >
                       <div className="text-3xl">{category.emoji}</div>
                       <h3 className="mt-4 text-xl font-bold">{category.title}</h3>
@@ -336,7 +341,7 @@ export default function HomePage() {
                   <Link
                     key={brand.name}
                     href={brand.href}
-                    className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur-md transition hover:bg-white/10"
+                    className="nx-btn nx-btn-ghost px-6 py-3 text-white"
                   >
                     {brand.name}
                   </Link>
@@ -358,7 +363,7 @@ export default function HomePage() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/10"
+                    className="nx-card nx-hover-glow block p-6"
                   >
                     <h3 className="text-xl font-bold">{item.title}</h3>
                     <p className="mt-3 text-sm leading-6 text-white/65">
@@ -386,7 +391,7 @@ export default function HomePage() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 font-medium text-white/85 backdrop-blur-md transition hover:bg-white/10 hover:text-white"
+                    className="nx-card nx-hover-glow block px-5 py-4 font-medium text-white/85"
                   >
                     {item.label}
                   </Link>
@@ -405,17 +410,14 @@ export default function HomePage() {
 
               <div className="mt-8 grid gap-6 lg:grid-cols-3">
                 {guides.map((guide) => (
-                  <article
-                    key={guide.title}
-                    className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md"
-                  >
+                  <article key={guide.title} className="nx-card p-6">
                     <h3 className="text-xl font-bold">{guide.title}</h3>
                     <p className="mt-3 text-sm leading-6 text-white/70">
                       {guide.description}
                     </p>
                     <Link
                       href={guide.href}
-                      className="mt-6 inline-flex rounded-2xl bg-fuchsia-600 px-5 py-3 font-semibold text-white shadow-[0_0_25px_rgba(217,70,239,0.2)] transition hover:bg-fuchsia-500"
+                      className="nx-btn nx-btn-primary mt-6 px-5 py-3 text-white"
                     >
                       Voir les guides
                     </Link>
@@ -432,7 +434,8 @@ export default function HomePage() {
                   <h3 className="text-lg font-bold">NexusGamingFR</h3>
                   <p className="mt-3 text-sm leading-6 text-white/65">
                     Sélections, comparatifs, guides et setups pour améliorer ton
-                    setup gaming avec des produits populaires et des conseils simples.
+                    setup gaming avec des produits populaires et des conseils
+                    simples.
                   </p>
                 </div>
 
@@ -441,10 +444,26 @@ export default function HomePage() {
                     Produits
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm text-white/65">
-                    <li><Link href="/products?category=souris" className="hover:text-white">Souris gaming</Link></li>
-                    <li><Link href="/products?category=claviers" className="hover:text-white">Claviers gaming</Link></li>
-                    <li><Link href="/products?category=casques" className="hover:text-white">Casques gaming</Link></li>
-                    <li><Link href="/products?category=ecrans" className="hover:text-white">Écrans gaming</Link></li>
+                    <li>
+                      <Link href="/products?category=souris" className="nx-link-smooth hover:text-white">
+                        Souris gaming
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/products?category=claviers" className="nx-link-smooth hover:text-white">
+                        Claviers gaming
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/products?category=casques" className="nx-link-smooth hover:text-white">
+                        Casques gaming
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/products?category=ecrans" className="nx-link-smooth hover:text-white">
+                        Écrans gaming
+                      </Link>
+                    </li>
                   </ul>
                 </div>
 
@@ -453,10 +472,26 @@ export default function HomePage() {
                     Explorer
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm text-white/65">
-                    <li><Link href="/build-my-setup" className="hover:text-white">Build ton setup</Link></li>
-                    <li><Link href="/quiz" className="hover:text-white">Quiz gamer</Link></li>
-                    <li><Link href="/deals" className="hover:text-white">Deals gaming</Link></li>
-                    <li><Link href="/pro-gamer-setups" className="hover:text-white">Setups de pro gamers</Link></li>
+                    <li>
+                      <Link href="/build-my-setup" className="nx-link-smooth hover:text-white">
+                        Build ton setup
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/quiz" className="nx-link-smooth hover:text-white">
+                        Quiz gamer
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/deals" className="nx-link-smooth hover:text-white">
+                        Deals gaming
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/pro-gamer-setups" className="nx-link-smooth hover:text-white">
+                        Setups de pro gamers
+                      </Link>
+                    </li>
                   </ul>
                 </div>
 
@@ -465,17 +500,33 @@ export default function HomePage() {
                     Informations
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm text-white/65">
-                    <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
-                    <li><Link href="/privacy" className="hover:text-white">Politique de confidentialité</Link></li>
-                    <li><Link href="/terms" className="hover:text-white">Conditions d’utilisation</Link></li>
-                    <li><Link href="/search" className="hover:text-white">Recherche</Link></li>
+                    <li>
+                      <Link href="/blog" className="nx-link-smooth hover:text-white">
+                        Blog
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/privacy" className="nx-link-smooth hover:text-white">
+                        Politique de confidentialité
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/terms" className="nx-link-smooth hover:text-white">
+                        Conditions d’utilisation
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/search" className="nx-link-smooth hover:text-white">
+                        Recherche
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
 
-              <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white/60 backdrop-blur-md">
-                En tant que Partenaire Amazon, NexusGamingFR réalise un bénéfice sur
-                les achats remplissant les conditions requises.
+              <div className="nx-card mt-8 p-4 text-sm leading-6 text-white/60">
+                En tant que Partenaire Amazon, NexusGamingFR réalise un bénéfice
+                sur les achats remplissant les conditions requises.
               </div>
 
               <div className="mt-6 text-xs text-white/40">
