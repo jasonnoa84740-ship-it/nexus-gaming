@@ -330,7 +330,7 @@ export default function HomePage() {
           <SectionTitle
             eyebrow="Sélection"
             title="Produits gaming recommandés"
-            description="Une sélection rapide de produits populaires pour ceux qui veulent aller droit au but."
+            description="Une sélection rapide de catégories populaires pour aller droit au but."
           />
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">

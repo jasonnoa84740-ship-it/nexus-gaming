@@ -73,6 +73,60 @@ function getCategoryTitle(category: Product["category"] | null) {
   }
 }
 
+function getRecommendation(product: Product) {
+  const title = product.title.toLowerCase();
+
+  switch (product.category) {
+    case "Ecran":
+      if (title.includes("180hz") || title.includes("240hz")) {
+        return "On recommande cet écran pour sa très bonne fluidité, particulièrement intéressante pour les jeux compétitifs et les sessions rapides.";
+      }
+      if (title.includes("incurvé")) {
+        return "Cet écran est intéressant pour les joueurs qui cherchent une expérience plus immersive et plus confortable au quotidien.";
+      }
+      if (title.includes("odyssey")) {
+        return "On recommande cet écran pour son orientation gaming, sa fluidité et son bon potentiel dans un setup moderne.";
+      }
+      return "On recommande cet écran pour améliorer la fluidité, le confort visuel et la qualité générale d’un setup gaming.";
+
+    case "Souris":
+      if (title.includes("logitech")) {
+        return "Cette souris est un excellent choix pour les joueurs qui veulent précision, fiabilité et très bonne prise en main.";
+      }
+      if (title.includes("razer")) {
+        return "On recommande cette souris pour sa réactivité et son intérêt dans les jeux rapides et compétitifs.";
+      }
+      return "Cette souris est intéressante pour améliorer la précision, le confort et la réactivité en jeu.";
+
+    case "Clavier":
+      if (title.includes("mecanique") || title.includes("mechanical")) {
+        return "Ce clavier est un bon choix pour ceux qui veulent une frappe plus nette, plus rapide et plus agréable en session gaming.";
+      }
+      return "On recommande ce clavier pour améliorer le confort, la réactivité et l’expérience globale sur un setup gamer.";
+
+    case "Casque":
+      if (title.includes("wireless") || title.includes("sans fil")) {
+        return "Ce casque est intéressant pour les joueurs qui veulent plus de liberté de mouvement sans négliger le confort.";
+      }
+      return "On recommande ce casque pour son immersion, son confort et son utilité dans les jeux en ligne avec communication.";
+
+    case "Micro":
+      return "Ce micro est un bon choix pour améliorer la clarté de la voix en jeu, en stream ou pendant les discussions.";
+
+    case "Webcam":
+      return "On recommande cette webcam pour les joueurs et créateurs qui veulent une image plus propre en stream ou en visio.";
+
+    case "Chaise":
+      return "Cette chaise est intéressante pour améliorer le confort et le maintien pendant les longues sessions de jeu.";
+
+    case "Bureau":
+      return "On recommande ce bureau pour construire un setup gaming plus propre, plus stable et plus pratique au quotidien.";
+
+    default:
+      return "Ce produit fait partie de notre sélection pour son intérêt dans un setup gaming.";
+  }
+}
+
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const resolvedSearchParams = await searchParams;
   const selectedCategory = mapCategoryParam(resolvedSearchParams?.category);
@@ -169,8 +223,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     Pourquoi on le recommande
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-white/65">
-                    Ce produit fait partie de notre sélection pour son intérêt
-                    dans un setup gaming et sa pertinence dans sa catégorie.
+                    {getRecommendation(product)}
                   </p>
                 </div>
 

@@ -4,62 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { amazonProducts } from "@/lib/amazonProducts";
 
+type Product = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  image: string;
+  badge?: string;
+  category: "Ecran" | "Souris" | "Clavier" | "Casque" | "Micro" | "Webcam" | "Chaise" | "Bureau";
+  amazonUrl?: string;
+  query?: string;
+};
+
 type PageProps = {
   params: Promise<{ id: string }>;
 };
 
 function getProduct(id: string) {
-  return amazonProducts.find((p) => p.id === id);
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = await params;
-  const product = getProduct(id);
-
-  if (!product) {
-    return {
-      title: "Produit introuvable | Nexus Gaming FR",
-      description: "Le produit demandé est introuvable sur Nexus Gaming FR.",
-    };
-  }
-
-  const description =
-    product.subtitle ||
-    `${product.title} : sélection gaming recommandée par Nexus Gaming FR.`;
-
-  return {
-    title: `${product.title} | Nexus Gaming FR`,
-    description,
-    alternates: {
-      canonical: `https://nexusgamingfr.com/products/${product.id}`,
-    },
-    openGraph: {
-      title: `${product.title} | Nexus Gaming FR`,
-      description,
-      url: `https://nexusgamingfr.com/products/${product.id}`,
-      siteName: "Nexus Gaming FR",
-      images: [
-        {
-          url: product.image,
-          alt: product.title,
-        },
-      ],
-      locale: "fr_FR",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${product.title} | Nexus Gaming FR`,
-      description,
-      images: [product.image],
-    },
-  };
-}
-
-export function generateStaticParams() {
-  return amazonProducts.map((product) => ({
-    id: product.id,
-  }));
+  return (amazonProducts as Product[]).find((p) => p.id === id);
 }
 
 function getCategoryHref(category?: string) {
@@ -108,6 +69,104 @@ function getCategoryLabel(category?: string) {
   }
 }
 
+function getRecommendation(product: Product) {
+  const title = product.title.toLowerCase();
+
+  switch (product.category) {
+    case "Ecran":
+      if (title.includes("180hz") || title.includes("240hz")) {
+        return "On recommande cet écran pour sa très bonne fluidité, particulièrement intéressante pour les jeux compétitifs et les sessions rapides.";
+      }
+      if (title.includes("incurvé")) {
+        return "Cet écran est intéressant pour les joueurs qui cherchent une expérience plus immersive et plus confortable au quotidien.";
+      }
+      if (title.includes("odyssey")) {
+        return "On recommande cet écran pour son orientation gaming, sa fluidité et son bon potentiel dans un setup moderne.";
+      }
+      return "On recommande cet écran pour améliorer la fluidité, le confort visuel et la qualité générale d’un setup gaming.";
+
+    case "Souris":
+      if (title.includes("logitech")) {
+        return "Cette souris est un excellent choix pour les joueurs qui veulent précision, fiabilité et très bonne prise en main.";
+      }
+      if (title.includes("razer")) {
+        return "On recommande cette souris pour sa réactivité et son intérêt dans les jeux rapides et compétitifs.";
+      }
+      return "Cette souris est intéressante pour améliorer la précision, le confort et la réactivité en jeu.";
+
+    case "Clavier":
+      if (title.includes("mecanique") || title.includes("mechanical")) {
+        return "Ce clavier est un bon choix pour ceux qui veulent une frappe plus nette, plus rapide et plus agréable en session gaming.";
+      }
+      return "On recommande ce clavier pour améliorer le confort, la réactivité et l’expérience globale sur un setup gamer.";
+
+    case "Casque":
+      if (title.includes("wireless") || title.includes("sans fil")) {
+        return "Ce casque est intéressant pour les joueurs qui veulent plus de liberté de mouvement sans négliger le confort.";
+      }
+      return "On recommande ce casque pour son immersion, son confort et son utilité dans les jeux en ligne avec communication.";
+
+    case "Micro":
+      return "Ce micro est un bon choix pour améliorer la clarté de la voix en jeu, en stream ou pendant les discussions.";
+
+    case "Webcam":
+      return "On recommande cette webcam pour les joueurs et créateurs qui veulent une image plus propre en stream ou en visio.";
+
+    case "Chaise":
+      return "Cette chaise est intéressante pour améliorer le confort et le maintien pendant les longues sessions de jeu.";
+
+    case "Bureau":
+      return "On recommande ce bureau pour construire un setup gaming plus propre, plus stable et plus pratique au quotidien.";
+
+    default:
+      return "Ce produit fait partie de notre sélection pour son intérêt dans un setup gaming.";
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const product = getProduct(id);
+
+  if (!product) {
+    return {
+      title: "Produit introuvable | Nexus Gaming FR",
+      description: "Le produit demandé est introuvable sur Nexus Gaming FR.",
+    };
+  }
+
+  const description =
+    product.subtitle || `${product.title} : sélection gaming recommandée par Nexus Gaming FR.`;
+
+  return {
+    title: `${product.title} | Nexus Gaming FR`,
+    description,
+    alternates: {
+      canonical: `https://nexusgamingfr.com/products/${product.id}`,
+    },
+    openGraph: {
+      title: `${product.title} | Nexus Gaming FR`,
+      description,
+      url: `https://nexusgamingfr.com/products/${product.id}`,
+      siteName: "Nexus Gaming FR",
+      images: product.image ? [{ url: product.image, alt: product.title }] : [],
+      locale: "fr_FR",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.title} | Nexus Gaming FR`,
+      description,
+      images: product.image ? [product.image] : [],
+    },
+  };
+}
+
+export function generateStaticParams() {
+  return (amazonProducts as Product[]).map((product) => ({
+    id: product.id,
+  }));
+}
+
 export default async function ProductPage({ params }: PageProps) {
   const { id } = await params;
   const product = getProduct(id);
@@ -124,15 +183,14 @@ export default async function ProductPage({ params }: PageProps) {
   const categoryLabel = getCategoryLabel(product.category);
 
   const description =
-    product.subtitle ||
-    `${product.title} : sélection gaming recommandée par Nexus Gaming FR.`;
+    product.subtitle || `${product.title} : sélection gaming recommandée par Nexus Gaming FR.`;
 
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.title,
     description,
-    image: [product.image],
+    image: product.image ? [product.image] : [],
     category: product.category,
     brand: {
       "@type": "Brand",
@@ -218,9 +276,7 @@ export default async function ProductPage({ params }: PageProps) {
                 Pourquoi on le recommande
               </h2>
               <p className="mt-3 text-sm leading-7 text-white/70">
-                Ce produit fait partie de notre sélection gaming pour sa pertinence
-                dans sa catégorie, sa popularité et son intérêt pour améliorer un
-                setup gamer de façon simple et efficace.
+                {getRecommendation(product)}
               </p>
             </div>
 
