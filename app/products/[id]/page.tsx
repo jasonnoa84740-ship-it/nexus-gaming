@@ -274,6 +274,10 @@ export default async function ProductPage({ params }: PageProps) {
   const recommendation = product.recommendation || getDefaultRecommendation(product);
   const facts = product.facts?.length ? product.facts : getDefaultFacts(product);
 
+  const similarProducts = (amazonProducts as Product[])
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, 4);
+
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -412,6 +416,50 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {similarProducts.length ? (
+        <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 sm:p-8">
+            <h2 className="text-2xl font-black sm:text-3xl">Produits similaires</h2>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {similarProducts.map((item) => (
+                <article
+                  key={item.id}
+                  className="rounded-2xl border border-white/10 bg-black/20 p-4"
+                >
+                  <p className="text-xs uppercase tracking-wide text-white/40">
+                    {item.category}
+                  </p>
+
+                  <h3 className="mt-2 font-bold">{item.title}</h3>
+
+                  <p className="mt-2 text-sm text-white/65">
+                    {item.recommendation ||
+                      "Une alternative intéressante dans la même catégorie."}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Link
+                      href={`/products/${item.id}`}
+                      className="rounded-xl bg-fuchsia-600 px-3 py-2 text-sm font-semibold text-white hover:bg-fuchsia-500"
+                    >
+                      Voir la fiche
+                    </Link>
+
+                    <Link
+                      href={`/compare/${product.id}-vs-${item.id}`}
+                      className="rounded-xl border border-white/10 px-3 py-2 text-sm font-semibold text-white hover:bg-white/5"
+                    >
+                      Comparer
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
         <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-fuchsia-500/10 to-blue-500/10 p-6 sm:p-8">
