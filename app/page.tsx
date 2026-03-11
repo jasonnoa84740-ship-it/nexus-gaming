@@ -204,22 +204,22 @@ export default function HomePage() {
 
         <div className="relative z-10">
           <section className="px-4 pt-20 pb-16 sm:px-6 lg:px-8 lg:pt-28 lg:pb-24">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-7xl text-center">
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="mx-auto max-w-4xl text-center"
+                className="mx-auto max-w-4xl"
               >
                 <span className="inline-flex items-center rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-1 text-sm text-fuchsia-200 shadow-[0_0_30px_rgba(217,70,239,0.15)] backdrop-blur-md">
                   🎮 Comparatifs, guides, tops et équipements gaming
                 </span>
 
-                <h1 className="mt-6 bg-gradient-to-r from-white via-fuchsia-100 to-cyan-100 bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+                <h1 className="mt-6 text-center text-4xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
                   Les meilleurs équipements gaming pour ton setup
                 </h1>
 
-                <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
+                <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/75 sm:text-lg">
                   NexusGamingFR t’aide à comparer les meilleurs écrans gaming,
                   souris, claviers, casques, micros, webcams, chaises et bureaux
                   gamer pour améliorer ton setup plus facilement.
