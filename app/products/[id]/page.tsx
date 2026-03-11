@@ -98,6 +98,9 @@ function getRecommendation(product: Product) {
       if (title.includes("mecanique") || title.includes("mechanical")) {
         return "Ce clavier est un bon choix pour ceux qui veulent une frappe plus nette, plus rapide et plus agréable en session gaming.";
       }
+      if (title.includes("sans fil") || title.includes("wireless")) {
+        return "On recommande ce clavier pour les joueurs qui veulent plus de liberté sur le bureau sans sacrifier le confort.";
+      }
       return "On recommande ce clavier pour améliorer le confort, la réactivité et l’expérience globale sur un setup gamer.";
 
     case "Casque":
@@ -120,6 +123,87 @@ function getRecommendation(product: Product) {
 
     default:
       return "Ce produit fait partie de notre sélection pour son intérêt dans un setup gaming.";
+  }
+}
+
+function getProductFacts(product: Product) {
+  const title = product.title.toLowerCase();
+
+  switch (product.category) {
+    case "Ecran":
+      return [
+        "Catégorie : Écran gaming",
+        title.includes("incurvé")
+          ? "Format orienté immersion"
+          : "Pensé pour améliorer la fluidité visuelle",
+        title.includes("180hz") || title.includes("240hz")
+          ? "Très intéressant pour le jeu compétitif"
+          : "Peut convenir à un setup gaming polyvalent",
+      ];
+
+    case "Souris":
+      return [
+        "Catégorie : Souris gaming",
+        "Intéressante pour gagner en précision et en réactivité",
+        title.includes("logitech") || title.includes("razer")
+          ? "Modèle populaire chez beaucoup de joueurs"
+          : "Peut convenir à plusieurs styles de jeu",
+      ];
+
+    case "Clavier":
+      return [
+        "Catégorie : Clavier gaming",
+        title.includes("mecanique") || title.includes("mechanical")
+          ? "Frappe plus nette et plus réactive"
+          : "Peut améliorer le confort de jeu au quotidien",
+        title.includes("sans fil") || title.includes("wireless")
+          ? "Plus de liberté sur le bureau"
+          : "Bon ajout pour un setup gamer stable",
+      ];
+
+    case "Casque":
+      return [
+        "Catégorie : Casque gaming",
+        "Utile pour l’immersion et les communications en jeu",
+        title.includes("wireless") || title.includes("sans fil")
+          ? "Version pensée pour plus de liberté"
+          : "Peut convenir aux longues sessions gaming",
+      ];
+
+    case "Micro":
+      return [
+        "Catégorie : Micro gaming",
+        "Permet d’améliorer la clarté de la voix",
+        "Utile pour le jeu en ligne, le stream ou les appels",
+      ];
+
+    case "Webcam":
+      return [
+        "Catégorie : Webcam gaming",
+        "Intéressante pour le stream et la visio",
+        "Peut améliorer le rendu vidéo d’un setup",
+      ];
+
+    case "Chaise":
+      return [
+        "Catégorie : Chaise gaming",
+        "Pensée pour améliorer le confort d’assise",
+        "Utile pour les longues sessions de jeu ou de travail",
+      ];
+
+    case "Bureau":
+      return [
+        "Catégorie : Bureau gamer",
+        "Aide à construire un setup plus propre et mieux organisé",
+        "Intéressant pour le confort et la stabilité du poste",
+      ];
+
+    default:
+      return [
+        `Catégorie : ${product.category}`,
+        "Produit sélectionné pour setup gaming",
+        "Consultation du prix via Amazon",
+      ];
   }
 }
 
@@ -285,9 +369,9 @@ export default async function ProductPage({ params }: PageProps) {
                 À savoir
               </h2>
               <ul className="mt-3 space-y-2 text-sm leading-7 text-white/70">
-                <li>• Catégorie : {product.category}</li>
-                <li>• Produit sélectionné pour setup gaming</li>
-                <li>• Consultation du prix via Amazon</li>
+                {getProductFacts(product).map((fact) => (
+                  <li key={fact}>• {fact}</li>
+                ))}
               </ul>
             </div>
 

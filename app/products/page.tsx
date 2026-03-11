@@ -102,6 +102,9 @@ function getRecommendation(product: Product) {
       if (title.includes("mecanique") || title.includes("mechanical")) {
         return "Ce clavier est un bon choix pour ceux qui veulent une frappe plus nette, plus rapide et plus agréable en session gaming.";
       }
+      if (title.includes("sans fil") || title.includes("wireless")) {
+        return "On recommande ce clavier pour les joueurs qui veulent plus de liberté sur le bureau sans sacrifier le confort.";
+      }
       return "On recommande ce clavier pour améliorer le confort, la réactivité et l’expérience globale sur un setup gamer.";
 
     case "Casque":
